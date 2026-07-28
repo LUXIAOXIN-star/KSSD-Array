@@ -1,0 +1,48 @@
+name: lightweight-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install lightweight dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential cmake libxxhash-dev zlib1g-dev libomp-dev r-base r-cran-ggplot2
+      - name: Public repository checks
+        run: make check-public-tree check-public-history check-secrets check-large-files check-docs
+      - name: Core build and tests
+        run: make clean && make && make test && make table2-validation
+      - name: Lightweight reproduction checks
+        run: make figure2-smoke figure3-smoke figure4-preflight
+      - name: Default CMake library-only build
+        run: |
+          cmake -S . -B build-ci
+          cmake --build build-ci --parallel 2
+          test ! -e build-ci/reproducibility/figure2/figure2_single_thread_k21_w20
+      - name: Opt-in CMake tests and examples
+        run: |
+          cmake -S . -B build-test -DKSSD_ARRAY_BUILD_TESTS=ON -DKSSD_ARRAY_BUILD_EXAMPLES=ON
+          cmake --build build-test --parallel 2
+          ctest --test-dir build-test --output-on-failure
+
+  table4-optional:
+    runs-on: ubuntu-24.04
+    continue-on-error: true
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install pinned-dependency build tools
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y build-essential meson ninja-build zlib1g-dev
+      - name: Prepare pinned ntHash and run smoke test
+        run: |
+          reproducibility/table4/prepare_nthash.sh
+          make table4-smoke
