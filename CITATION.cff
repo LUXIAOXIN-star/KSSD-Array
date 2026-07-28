@@ -1,0 +1,12 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite the associated manuscript. Phase 8 will add final publication metadata."
+type: software
+title: "KSSD-Array: Segmented Permutation-Array Mapping for Efficient K-mer Minimizer Construction"
+authors:
+  - family-names: Lu
+    given-names: Xiaoxin
+  - family-names: Yi
+    given-names: Huiguang
+version: 0.0.0-dev
+license: MIT
+abstract: "Development metadata only; DOI, repository URL, and release date are intentionally unset until Phase 8."
