@@ -8,7 +8,7 @@ context.
 ## Five-minute workflow
 
 ```sh
-git clone https://github.com/<OWNER>/KSSD-Array.git
+git clone https://github.com/LUXIAOXIN-star/KSSD-Array.git
 cd KSSD-Array
 
 make
@@ -124,7 +124,7 @@ All optional CMake components are disabled by default:
 | `KSSD_ARRAY_BUILD_EXAMPLES` | `OFF` | Build runnable examples |
 | `KSSD_ARRAY_BUILD_REPRODUCIBILITY` | `OFF` | Build manuscript workflow targets |
 
-The package version remains the development placeholder `0.0.0-dev` until the
+The package version remains the development placeholder `1.0.0` until the
 release metadata is finalized.
 
 ## Limitations
