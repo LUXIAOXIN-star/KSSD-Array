@@ -1,0 +1,24 @@
+{
+  "description": "Table 4 KSSD-Array versus ntHash workflow configuration",
+  "seed": 42,
+  "kssd_rng": "KSSD_ARRAY_RNG_GLIBC_COMPAT",
+  "formal": {
+    "methods": ["KSSD-Array", "ntHash"],
+    "k_start": 4,
+    "k_end": 32,
+    "w_rule": "w = k",
+    "repeats": 3,
+    "datasets": ["Synthetic_300M", "Human_GRCh38"]
+  },
+  "smoke": {
+    "dataset": "reproducibility/table4/fixtures/table4_smoke.fa",
+    "k": 21,
+    "w": 21,
+    "repeats": 1,
+    "methods": ["KSSD-Array", "ntHash"]
+  },
+  "nthash": {
+    "version": "2.4.0",
+    "commit": "c26bd4572a19de81e30d55042dbd33c1fd21d4b6"
+  }
+}

@@ -1,0 +1,55 @@
+{
+  "resolution_order": [
+    "explicit command-line path",
+    "KSSD_DATA_DIR",
+    "reproducibility/data/external"
+  ],
+  "datasets": {
+    "Synthetic_300M": {
+      "filename": "AEEE.fasta",
+      "description": "Historical single-record 300,000,000-base synthetic FASTA",
+      "historical_sha256": "a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962",
+      "generation_provenance": "unresolved; no deterministic generator was located"
+    },
+    "Human_GRCh38": {
+      "assembly_accession": "GCF_000001405.40",
+      "filename": "GCF_000001405.40_GRCh38.p14_genomic.fna",
+      "download_source": "NCBI Datasets or the NCBI RefSeq assembly FTP directory",
+      "preparation": "download the genomic FASTA archive and decompress it before use",
+      "expected_sha256": "df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0",
+      "expected_size_bytes": 3339739109,
+      "sequence_count": 705,
+      "total_bases": 3298430636
+    },
+    "Arabidopsis_TAIR10_1": {
+      "assembly_accession": "GCF_000001735.4",
+      "assembly_version": "TAIR10.1",
+      "filename": "GCF_000001735.4_TAIR10.1_genomic.fna.gz",
+      "preparation": "use the gzip-compressed genomic FASTA directly",
+      "expected_sha256": "a182f3c71662973dc636cacd7722588c9bbe3c8ea6ce62b1bae7dac940545d47",
+      "expected_size_bytes": 37482399,
+      "sequence_count": 7,
+      "total_bases": 119668634
+    },
+    "Zea_mays_B73_RefGen_v5": {
+      "assembly_accession": "Zm-B73-REFERENCE-NAM-5.0",
+      "assembly_version": "B73 RefGen_v5",
+      "filename": "Zm-B73-REFERENCE-NAM-5.0.fa",
+      "preparation": "use the uncompressed FASTA",
+      "expected_sha256": "52f0663221e46f562eb0923c6dfa1bb43537abb7f13e0f637b5def2571de2c11",
+      "expected_size_bytes": 2209359010,
+      "sequence_count": 685,
+      "total_bases": 2182075994
+    },
+    "Table4_smoke": {
+      "filename": "table4_smoke.fa",
+      "repository_path": "reproducibility/table4/fixtures/table4_smoke.fa",
+      "sha256": "912298feebce09f926f9424567b4312f980e2989c60465719c8458e8ad920a6c"
+    },
+    "Figure3_smoke": {
+      "filename": "figure3_smoke.fa",
+      "repository_path": "reproducibility/figure3/fixtures/figure3_smoke.fa",
+      "sha256": "b91c3f75695966fc2ea88fbba80a0876a34a805aa0d091554da4fb0b73c106d3"
+    }
+  }
+}

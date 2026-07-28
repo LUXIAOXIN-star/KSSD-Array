@@ -1,0 +1,22 @@
+{
+  "description": "Figure 3 multithread minimizer benchmark configuration",
+  "seed": 42,
+  "formal": {
+    "k": 21,
+    "w_values": [10, 20, 50],
+    "threads": [1, 2, 4, 8, 16],
+    "repeats": 3,
+    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"],
+    "datasets": ["Synthetic_300M", "Human_GRCh38"]
+  },
+  "smoke": {
+    "dataset": "reproducibility/figure3/fixtures/figure3_smoke.fa",
+    "k": 21,
+    "w": 20,
+    "threads": [1, 2],
+    "repeats": 1,
+    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"]
+  },
+  "partition": "contiguous, non-overlapping window ranges with W-1 shared input k-mers at adjacent boundaries",
+  "openmp_schedule": "manual static contiguous partition"
+}

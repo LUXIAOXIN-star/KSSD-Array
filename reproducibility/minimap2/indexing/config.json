@@ -1,0 +1,63 @@
+{
+  "protocol": "Minimap2 Supplementary Figure S1 and Table S1 indexing",
+  "upstream_version": "2.30-r1287",
+  "upstream_commit": "79c9cc186b95f50bd899f69b48eba995ced810c6",
+  "patch": "reproducibility/minimap2/patch/minimap2-v2.30-kssd-array.patch",
+  "patch_sha256": "89610194db47197c3eeb4ddee4c38c9233f00251246dd9210b597616791ba572",
+  "threads": 1,
+  "repeats": 3,
+  "k": 15,
+  "w": 10,
+  "hpc": false,
+  "time_program": "/usr/bin/time",
+  "time_arguments": ["-v"],
+  "cooldown_seconds": 10,
+  "run_order": [
+    ["Original Minimap2", "KSSD-Array"],
+    ["KSSD-Array", "Original Minimap2"],
+    ["Original Minimap2", "KSSD-Array"]
+  ],
+  "minimum_available_memory_bytes": 17179869184,
+  "minimum_output_free_bytes": 34359738368,
+  "datasets": [
+    {
+      "key": "Arabidopsis",
+      "manuscript_label": "Arabidopsis thaliana",
+      "accession": "GCF_000001735.4",
+      "version": "TAIR10.1",
+      "filename": "GCF_000001735.4_TAIR10.1_genomic.fna.gz",
+      "relative_path": "seq/Arabidopsis/GCF_000001735.4_TAIR10.1_genomic.fna.gz",
+      "size_bytes": 37482399,
+      "sha256": "a182f3c71662973dc636cacd7722588c9bbe3c8ea6ce62b1bae7dac940545d47",
+      "sequence_count": 7,
+      "total_bases": 119668634,
+      "compression": "gzip"
+    },
+    {
+      "key": "Human_GRCh38",
+      "manuscript_label": "Human GRCh38",
+      "accession": "GCF_000001405.40",
+      "version": "GRCh38.p14",
+      "filename": "GCF_000001405.40_GRCh38.p14_genomic.fna",
+      "relative_path": "seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+      "size_bytes": 3339739109,
+      "sha256": "df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0",
+      "sequence_count": 705,
+      "total_bases": 3298430636,
+      "compression": "none"
+    },
+    {
+      "key": "Zea_mays",
+      "manuscript_label": "Zea mays",
+      "accession": "Zm-B73-REFERENCE-NAM-5.0",
+      "version": "B73 RefGen_v5",
+      "filename": "Zm-B73-REFERENCE-NAM-5.0.fa",
+      "relative_path": "seq/Zea_mays/Zm-B73-REFERENCE-NAM-5.0.fa",
+      "size_bytes": 2209359010,
+      "sha256": "52f0663221e46f562eb0923c6dfa1bb43537abb7f13e0f637b5def2571de2c11",
+      "sequence_count": 685,
+      "total_bases": 2182075994,
+      "compression": "none"
+    }
+  ]
+}
