@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.16)
-project(KSSDArray VERSION 0.0.0 LANGUAGES C)
+project(KSSDArray VERSION 1.0.0 LANGUAGES C)
 
 include(GNUInstallDirs)
 include(CTest)
 include(CMakePackageConfigHelpers)
 
-set(KSSD_ARRAY_PACKAGE_VERSION "0.0.0-dev")
+set(KSSD_ARRAY_PACKAGE_VERSION "1.0.0")
 
 option(KSSD_ARRAY_BUILD_SHARED "Build the shared KSSD-Array library" OFF)
 option(KSSD_ARRAY_BUILD_TESTS "Build KSSD-Array core tests" OFF)

@@ -4,7 +4,7 @@ AR ?= ar
 RANLIB ?= ranlib
 PREFIX ?= /usr/local
 DESTDIR ?=
-PACKAGE_VERSION := 0.0.0-dev
+PACKAGE_VERSION := 1.0.0
 
 CPPFLAGS := -Iinclude
 CFLAGS ?= -O2

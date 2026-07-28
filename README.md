@@ -1,5 +1,7 @@
 # KSSD-Array
 
+[![lightweight-ci](https://github.com/LUXIAOXIN-star/KSSD-Array/actions/workflows/ci.yml/badge.svg)](https://github.com/LUXIAOXIN-star/KSSD-Array/actions/workflows/ci.yml)
+
 KSSD-Array is a C11 library for deterministic segmented permutation-array
 mapping of 2-bit encoded DNA k-mers. It supports `1 <= k <= 32` and maps the
 complete `2k`-bit input domain bijectively to itself for a fixed initialized
@@ -124,8 +126,7 @@ All optional CMake components are disabled by default:
 | `KSSD_ARRAY_BUILD_EXAMPLES` | `OFF` | Build runnable examples |
 | `KSSD_ARRAY_BUILD_REPRODUCIBILITY` | `OFF` | Build manuscript workflow targets |
 
-The package version remains the development placeholder `1.0.0` until the
-release metadata is finalized.
+The current release version is `1.0.0`.
 
 ## Limitations
 

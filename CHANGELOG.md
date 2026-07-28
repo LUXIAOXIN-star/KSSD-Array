@@ -1,6 +1,8 @@
 # Changelog
 
-## Unreleased (0.0.0-dev)
+## 1.0.0-paper — 2026-07-28
+
+Repository: https://github.com/LUXIAOXIN-star/KSSD-Array
 
 - Added the canonical C11 rank-derived permutation-array library, checked
   context API, and compile-time fixed-k fast path.
@@ -14,6 +16,3 @@
 - Formally reproduced Supplementary Table S2 displayed deltas.
 - Added installation metadata, public provenance, repository checks, and
   lightweight CI preparation.
-
-Phase 8 must assign the final version, release date, repository URL, and any
-publication DOI.

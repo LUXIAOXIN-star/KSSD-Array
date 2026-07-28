@@ -1,5 +1,5 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite the associated manuscript. Phase 8 will add final publication metadata."
+message: "If you use this software, please cite this software release and the associated manuscript."
 type: software
 title: "KSSD-Array: Segmented Permutation-Array Mapping for Efficient K-mer Minimizer Construction"
 authors:
@@ -7,6 +7,9 @@ authors:
     given-names: Xiaoxin
   - family-names: Yi
     given-names: Huiguang
-version: 0.0.0-dev
+version: 1.0.0
+date-released: 2026-07-28
+repository-code: "https://github.com/LUXIAOXIN-star/KSSD-Array"
+url: "https://github.com/LUXIAOXIN-star/KSSD-Array"
 license: MIT
-abstract: "Development metadata only; DOI, repository URL, and release date are intentionally unset until Phase 8."
+abstract: "A C11 library for deterministic segmented permutation-array mapping of 2-bit encoded DNA k-mers."
