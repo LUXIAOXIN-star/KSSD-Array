@@ -13,10 +13,18 @@ import pandas as pd
 from PIL import Image
 
 
-METHODS = ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"]
+METHODS = ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"]
 RESAMPLE_LANCZOS = getattr(Image, "Resampling", Image).LANCZOS
 RAW_KEYS = ["method", "k", "sequence_length", "bins", "repeat"]
 SUMMARY_KEYS = ["method", "k", "sequence_length", "bins"]
+
+
+def normalize_method_labels(data: pd.DataFrame) -> pd.DataFrame:
+    """Normalize legacy capitalization without changing comparison values."""
+    result = data.copy()
+    mask = result["method"].astype(str).str.lower() == "wyhash"
+    result.loc[mask, "method"] = "wyhash"
+    return result
 
 
 def sha256(path: Path) -> str:
@@ -33,6 +41,7 @@ def normalize_historical(data: pd.DataFrame, exclude_method: str,
     result = data[data["method"] != exclude_method].copy()
     result["method"] = result["method"].replace(
         {legacy_kssd_label: new_kssd_label})
+    result = normalize_method_labels(result)
     if "seq_len" in result.columns:
         result = result.rename(columns={"seq_len": "sequence_length"})
     if set(result["method"]) != set(METHODS):
@@ -226,8 +235,8 @@ def main() -> int:
     if bool(args.new_figure) != bool(args.historical_figure):
         parser.error("new and historical figure paths must be supplied together")
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    new_raw = pd.read_csv(args.new_raw)
-    new_summary = pd.read_csv(args.new_summary)
+    new_raw = normalize_method_labels(pd.read_csv(args.new_raw))
+    new_summary = normalize_method_labels(pd.read_csv(args.new_summary))
     historical_raw = normalize_historical(
         pd.read_csv(args.historical_raw), args.exclude_method,
         args.legacy_kssd_label, args.new_kssd_label)

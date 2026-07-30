@@ -58,6 +58,14 @@ itself.
 This rank construction is the defining relationship of the implementation.
 Only `src/permutation.c` generates the master table and derives shorter tables.
 
+## Permutation storage layout
+
+The master permutation and length-specific derived permutations are
+precomputed during initialization. Each permutation occupies a contiguous
+`uint16_t` allocation. The master permutation is shared with `P_L`, while
+shorter derived permutations are stored separately and selected through a
+pointer table. The mapping loop performs no dynamic allocation.
+
 ## Mapping
 
 The input k-mer is split from most significant segment to least significant

@@ -17,7 +17,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-METHODS = ("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash")
+METHODS = ("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash")
 RAW_NAME = "figure3_multithread_raw.csv"
 SUMMARY_NAME = "figure3_multithread_summary.csv"
 SOURCE_RELATIVE = Path(

@@ -13,7 +13,7 @@ Exactly five methods are active:
 - XXH3;
 - XXH64;
 - MurmurHash3;
-- Wyhash.
+- wyhash.
 
 The obsolete sixth comparator from the historical workflow has been removed in
 full. There is no compatibility switch or hidden output row for it.
@@ -40,9 +40,10 @@ reading, k-mer encoding, context creation, and parity validation are outside
 the timed interval. Throughput is valid minimizer windows divided by timed
 seconds and is reported in windows/s and million windows/s.
 
-The historical Wyhash secret depended on wall-clock time. The portable runner
-instead derives it from the recorded run seed, defaulting to 42. XXH3, XXH64,
-and MurmurHash3 retain seed zero as in the historical hot paths.
+The wyhash final4-style fixed-width adaptation generates its secret with
+`wy_make_secret` from the recorded run seed, defaulting to 42. Its eight-byte
+hash path uses zero input-seed semantics. XXH3, XXH64, and MurmurHash3 also use
+seed zero in these throughput benchmark hot paths.
 
 ## Functional smoke test
 

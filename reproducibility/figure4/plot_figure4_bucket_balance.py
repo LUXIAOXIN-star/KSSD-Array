@@ -17,7 +17,7 @@ import numpy as np
 import pandas as pd
 
 
-METHODS = ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"]
+METHODS = ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"]
 K_VALUES = list(range(6, 15))
 SEQUENCE_LENGTHS = [4_000_000, 8_000_000]
 BINS = [101, 199, 499]
@@ -31,9 +31,17 @@ STYLES = {
                    marker="^", markersize=2.7, zorder=2),
     "MurmurHash3": dict(color="#D62728", linestyle="--", linewidth=1.25,
                         marker="D", markersize=2.6, zorder=2),
-    "Wyhash": dict(color="#9467BD", linestyle=":", linewidth=1.35,
+    "wyhash": dict(color="#9467BD", linestyle=":", linewidth=1.35,
                    marker="v", markersize=2.7, zorder=2),
 }
+
+
+def normalize_method_labels(data: pd.DataFrame) -> pd.DataFrame:
+    """Normalize legacy capitalization without changing numeric columns."""
+    result = data.copy()
+    mask = result["method"].astype(str).str.lower() == "wyhash"
+    result.loc[mask, "method"] = "wyhash"
+    return result
 
 
 def validate(data: pd.DataFrame) -> None:
@@ -67,7 +75,7 @@ def main() -> int:
     parser.add_argument("--output-dir", type=Path, required=True)
     args = parser.parse_args()
 
-    data = pd.read_csv(args.summary)
+    data = normalize_method_labels(pd.read_csv(args.summary))
     validate(data)
     args.output_dir.mkdir(parents=True, exist_ok=True)
 

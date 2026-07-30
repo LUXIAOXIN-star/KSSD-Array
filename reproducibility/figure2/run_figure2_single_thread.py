@@ -15,7 +15,7 @@ import sys
 import tempfile
 
 
-METHODS = ("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash")
+METHODS = ("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash")
 RAW_NAME = "figure2_single_thread_raw.csv"
 SUMMARY_NAME = "figure2_single_thread_summary.csv"
 SOURCE_RELATIVE = Path(

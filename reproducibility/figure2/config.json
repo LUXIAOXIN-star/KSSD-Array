@@ -6,13 +6,13 @@
     "k_values": [16, 19, 21, 24, 31],
     "w_values": [10, 20, 50],
     "repeats": 3,
-    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"]
+    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"]
   },
   "smoke": {
     "generated_datasets": 1,
     "k_values": [21],
     "w_values": [20],
     "repeats": 1,
-    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"]
+    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"]
   }
 }

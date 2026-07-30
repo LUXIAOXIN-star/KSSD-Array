@@ -27,7 +27,7 @@ static uint64_t rotate_left64(uint64_t value, unsigned int count)
     return (value << count) | (value >> (64U - count));
 }
 
-/* Benchmark-only MurmurHash3/Wyhash adaptations; see THIRD_PARTY_NOTICES.md. */
+/* Benchmark-only MurmurHash3/wyhash adaptations; see THIRD_PARTY_NOTICES.md. */
 static uint64_t murmur_fmix64(uint64_t value)
 {
     value ^= value >> 33U;
@@ -168,7 +168,7 @@ static void print_histogram(const char *method,
 int main(int argc, char **argv)
 {
     static const char *method_names[METHOD_COUNT] = {
-        "KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"};
+        "KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"};
     uint64_t raw_k;
     uint64_t raw_bins;
     uint64_t sequence_length;

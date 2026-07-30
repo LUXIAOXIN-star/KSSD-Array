@@ -15,27 +15,27 @@ summary_path <- value_after("--summary")
 output_dir <- value_after("--output-dir")
 dir.create(output_dir, recursive=TRUE, showWarnings=FALSE)
 
-expected_methods <- c("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash")
+expected_methods <- c("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash")
 method_colors <- c(
   "KSSD-Array"="#1F77B4",
   "XXH3"="#FF7F0E",
   "XXH64"="#2CA02C",
   "MurmurHash3"="#D62728",
-  "Wyhash"="#9467BD"
+  "wyhash"="#9467BD"
 )
 method_linetypes <- c(
   "KSSD-Array"="solid",
   "XXH3"="dashed",
   "XXH64"="dotdash",
   "MurmurHash3"="longdash",
-  "Wyhash"="dotted"
+  "wyhash"="dotted"
 )
 method_shapes <- c(
   "KSSD-Array"=16,
   "XXH3"=15,
   "XXH64"=17,
   "MurmurHash3"=18,
-  "Wyhash"=25
+  "wyhash"=25
 )
 
 summary <- read.csv(summary_path, stringsAsFactors=FALSE, check.names=FALSE)
@@ -46,6 +46,7 @@ required_columns <- c(
 if (!all(required_columns %in% names(summary))) {
   stop("summary CSV does not have the required Figure 3 columns")
 }
+summary$method[tolower(summary$method) == "wyhash"] <- "wyhash"
 if (!setequal(unique(summary$method), expected_methods)) {
   stop("summary CSV must contain exactly the five Figure 3 methods")
 }

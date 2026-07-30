@@ -7,6 +7,17 @@ mapping of 2-bit encoded DNA k-mers. It supports `1 <= k <= 32` and maps the
 complete `2k`-bit input domain bijectively to itself for a fixed initialized
 context.
 
+## Manuscript version
+
+KSSD-Array manuscript version: `KSSD-Array_Wiley_Manuscript_V5`
+
+Repository commit: `0e0a64b3f97595c6ae2395f740f18d177324c41d`
+
+Release: `v1.0.0-paper`
+
+This repository corresponds to the implementation and reproducibility
+workflows used for the manuscript.
+
 ## Five-minute workflow
 
 ```sh
@@ -141,10 +152,21 @@ policy in [`docs/datasets.md`](docs/datasets.md).
 
 ## Paper reproducibility
 
-Complete workflows for the manuscript tables, figures, ntHash comparison, and
-Minimap2 supplement are documented in
-[`reproducibility/README.md`](reproducibility/README.md). They are opt-in and
-are never built by an ordinary Make or CMake library build.
+The repository includes the following manuscript workflows:
+
+- Figure 2 single-threaded minimizer benchmark;
+- Figure 3 multithreaded benchmark;
+- Table 4 ntHash comparison;
+- Figure 4 bucket-balance analysis;
+- Supplementary Figure S1 Minimap2 integration.
+
+Commands, scope, status, and environment metadata are documented in
+[`reproducibility/README.md`](reproducibility/README.md) and
+[`reproducibility/ENVIRONMENT.md`](reproducibility/ENVIRONMENT.md). These
+workflows are opt-in and are never built by an ordinary Make or CMake library
+build. Formal raw benchmark CSV files and generated manuscript figures are not
+included in the repository; the workflows write generated artifacts to an
+explicit external output directory.
 
 ## Citation and license
 

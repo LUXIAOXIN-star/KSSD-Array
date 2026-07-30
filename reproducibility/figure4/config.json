@@ -5,14 +5,14 @@
   "seed_formula": "base_seed + k * 1000000 + sequence_length // 100 + bins * 100 + repeat",
   "sequence_rng": "SplitMix64, low two bits per DNA base",
   "kssd_rng": "SplitMix64 through KSSD_ARRAY_RNG_SPLITMIX64",
-  "hash_seed_policy": "condition seed for XXH3 and XXH64; low 32 bits for MurmurHash3; condition-seeded secret and zero input seed for Wyhash",
+  "hash_seed_policy": "condition seed for XXH3 and XXH64; low 32 bits for MurmurHash3; condition-seeded secret and zero input seed for wyhash",
   "alpha": 0.05,
   "formal": {
     "k_values": [6, 7, 8, 9, 10, 11, 12, 13, 14],
     "sequence_lengths": [4000000, 8000000],
     "bins": [101, 199, 499],
     "repeats": 100,
-    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"],
+    "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"],
     "expected_raw_rows": 27000,
     "expected_summary_rows": 270
   },

@@ -26,7 +26,7 @@ from scipy.stats import chisquare
 ROOT = Path(__file__).resolve().parents[2]
 SOURCE = ROOT / "reproducibility/figure4/benchmark_bucket_balance.c"
 LIBRARY = ROOT / "build/libkssd_array.a"
-METHODS = ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"]
+METHODS = ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"]
 RAW_COLUMNS = [
     "method", "k", "sequence_length", "bins", "repeat", "seed",
     "sequence_seed", "mapping_seed", "num_buckets", "mapped_value_count",

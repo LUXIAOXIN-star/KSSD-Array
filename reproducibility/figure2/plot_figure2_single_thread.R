@@ -22,20 +22,20 @@ parse_arguments <- function(arguments) {
 }
 
 options <- parse_arguments(commandArgs(trailingOnly=TRUE))
-methods <- c("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash")
+methods <- c("KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash")
 colors <- c(
   "KSSD-Array"="#1F77B4",
   "XXH3"="#FF7F0E",
   "XXH64"="#2CA02C",
   "MurmurHash3"="#D62728",
-  "Wyhash"="#9467BD"
+  "wyhash"="#9467BD"
 )
 shapes <- c(
   "KSSD-Array"=16,
   "XXH3"=15,
   "XXH64"=17,
   "MurmurHash3"=18,
-  "Wyhash"=25
+  "wyhash"=25
 )
 
 summary <- read.csv(options$summary, stringsAsFactors=FALSE)
@@ -45,6 +45,7 @@ required <- c(
 if (!all(required %in% names(summary))) {
   stop("summary CSV lacks required columns")
 }
+summary$method[tolower(summary$method) == "wyhash"] <- "wyhash"
 if (!setequal(unique(summary$method), methods)) {
   stop("summary CSV method set differs from the required five")
 }

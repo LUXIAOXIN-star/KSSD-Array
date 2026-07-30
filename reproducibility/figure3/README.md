@@ -8,7 +8,7 @@ is not a formal performance reproduction, and no speedup or ranking is required.
 ## Methods and public KSSD API
 
 Exactly five methods are active: KSSD-Array, XXH3, XXH64, MurmurHash3, and
-Wyhash. The obsolete sixth comparator from the historical program was removed
+wyhash. The obsolete sixth comparator from the historical program was removed
 with its implementation, branch, output row, and plot entry.
 
 One `kssd_array_t` context is initialized with `kssd_array_init` before any

@@ -14,7 +14,7 @@ The active workflow contains exactly five methods, in this public order:
 2. XXH3
 3. XXH64
 4. MurmurHash3
-5. Wyhash
+5. wyhash
 
 KSSD-Array is initialized with `kssd_array_init_with_rng`, using the public
 SplitMix64 mode and the condition seed. Mapping uses
@@ -26,7 +26,7 @@ embedded in the benchmark. The executable links the repository's
 The other methods hash the packed 2-bit k-mer as an eight-byte `uint64_t` and
 retain their full 64-bit outputs. XXH3 and XXH64 use the condition seed.
 MurmurHash3 uses the low 32 bits of that seed, matching its historical API.
-Wyhash builds its secret from the condition seed and uses zero as the hash
+wyhash builds its secret from the condition seed and uses zero as the hash
 input seed. Every method assigns a mapped value to `mapped_value % bins`.
 
 ## Deterministic input and seeds

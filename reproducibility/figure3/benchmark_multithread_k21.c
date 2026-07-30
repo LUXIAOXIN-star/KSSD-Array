@@ -205,7 +205,7 @@ static uint64_t rotate_left64(uint64_t value, unsigned int count)
     return (value << count) | (value >> (64U - count));
 }
 
-/* Benchmark-only MurmurHash3/Wyhash adaptations; see THIRD_PARTY_NOTICES.md. */
+/* Benchmark-only MurmurHash3/wyhash adaptations; see THIRD_PARTY_NOTICES.md. */
 static uint64_t murmur_fmix64(uint64_t value)
 {
     value ^= value >> 33U;
@@ -244,7 +244,7 @@ static void wy_multiply(uint64_t *left, uint64_t *right)
     *left = (uint64_t)product;
     *right = (uint64_t)(product >> 64U);
 #else
-#error "This migrated Wyhash path requires compiler support for uint128"
+#error "This migrated wyhash path requires compiler support for uint128"
 #endif
 }
 
@@ -506,7 +506,7 @@ static int observe_thread_count(int requested_threads)
 int main(int argc, char **argv)
 {
     static const char *method_names[] = {
-        "KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "Wyhash"};
+        "KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"};
     static const benchmark_function_t benchmark_functions[] = {
         benchmark_kssd_array,
         benchmark_xxh3,

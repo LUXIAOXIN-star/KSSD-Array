@@ -4,6 +4,17 @@ This directory contains the exact public-library workflows used to validate
 the KSSD-Array manuscript results. It is intentionally separate from the core
 library interface while remaining in the same repository and version.
 
+## Included workflows
+
+- Figure 2 single-threaded minimizer benchmark;
+- Figure 3 multithreaded benchmark;
+- Table 4 ntHash comparison;
+- Figure 4 bucket-balance analysis;
+- Supplementary Figure S1 Minimap2 integration.
+
+The recorded manuscript environment, compiler policy, workflow flags, and
+pinned commits are summarized in [`ENVIRONMENT.md`](ENVIRONMENT.md).
+
 ## Status matrix
 
 | Manuscript result | Public status | Formal rerun in the validated release candidate |
@@ -20,6 +31,17 @@ The matrix does not claim that every performance result was formally rerun.
 Figure 2, Table 4, and Figure 3 validation is functional smoke validation.
 Indexing time is host-sensitive, so the accepted low-load Supplementary Figure
 S1 and Table S1 values remain the manuscript values.
+
+## Benchmark scope limitation
+
+The throughput benchmark workflows implement minimizer selection independently
+for each window and do not deduplicate equal minimizers selected by adjacent
+windows. Their counts and throughput therefore describe per-window minimizer
+selection, not a deduplicated minimizer stream. The workflow parity checks
+validate the public and fast KSSD-Array mapping paths and the documented
+per-window benchmark semantics; they do not claim full minimizer-output
+equivalence with tools that apply adjacent-window deduplication or other
+post-processing.
 
 ## Dependencies
 
