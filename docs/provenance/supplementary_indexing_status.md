@@ -1,30 +1,33 @@
 # Supplementary Figure S1 and Table S1 public status
 
-## Accepted manuscript result
+## Public-inline final result
 
-The manuscript reports indexing measurements obtained under the authors'
-previously accepted controlled low-load protocol. These remain the manuscript
-values. Phase 7 neither replaces them nor presents a different host-state run
-as the authoritative result.
+The public runtime-inline integration completed a controlled three-dataset run
+with five accepted pairs per dataset. Generated raw data, figures, indexes,
+and binaries remain outside Git; the repository contains the exact runner,
+configuration, patch, and validation reports. The manuscript itself was not
+modified in this change.
 
 ## Available workflow and validated fields
 
 The repository provides the complete workflow under
 `reproducibility/minimap2/indexing`. It builds original and integrated
 Minimap2 2.30-r1287 executables from the same pinned upstream commit, validates
-the three configured references, uses one indexing thread, alternates method
-order, and retains three overwriteable dataset-specific indexes rather than
-one index per repeat.
+the three configured references, uses one indexing thread, performs one
+discarded warm-up per method/dataset, and alternates method order across five
+pairs. Every run uses a unique temporary index path; size, hash, magic, and
+deterministic fields are captured before that completed index is deleted.
 
 Deterministic fields verified against the historical protocol include sequence
 and minimizer counts, total and average occurrences, average spacing, and the
-configured algorithm parameters. Phase 7 validates the small fixture
-preflight, not formal performance.
+configured algorithm parameters. Swap-polluted attempts are preserved and
+excluded under a predeclared environmental rule, never based on observed
+performance.
 
-The formal workflow keeps only one overwriteable generated index per dataset
-and method state. Repeats therefore do not accumulate eighteen simultaneous
-large index files. Raw timing records, summaries, and figure generation remain
-available, but generated artifacts must stay outside the repository.
+The formal workflow keeps at most one large temporary index at a time. Raw
+timing records, paired ratios, summaries, final table/figure files, commands,
+environment metadata, and recursive output hashes remain available, but
+generated artifacts must stay outside the repository.
 
 ## Running a formal experiment
 

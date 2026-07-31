@@ -7,8 +7,9 @@ redistribute the upstream source tree.
 
 ## Integration design
 
-The patch replaces minimap2's post-canonicalization integer mixer with a call
-through the public KSSD-Array context API. It includes `kssd_array.h`, compiles
+The patch replaces minimap2's post-canonicalization integer mixer with the
+public KSSD-Array runtime-inline API. It includes `kssd_array.h` and
+`kssd_array_inline.h`, compiles
 only a small ownership adapter, and links the existing public archive with:
 
 ```text
@@ -16,13 +17,15 @@ only a small ownership adapter, and links the existing public archive with:
 -L${KSSD_ARRAY_ROOT}/build -Wl,-Bstatic -lkssd_array -Wl,-Bdynamic
 ```
 
-It never compiles KSSD-Array core source files into minimap2. The public calls
-are `kssd_array_init_with_rng`, `kssd_array_map_unchecked`,
-`kssd_array_destroy`, and `kssd_array_status_string`. Initialization uses seed
+It never compiles KSSD-Array core source files into minimap2. The cold public
+calls are `kssd_array_init_with_rng`, `kssd_array_inline_plan_init`,
+`kssd_array_destroy`, and `kssd_array_status_string`; the canonical-k-mer hot
+loop uses the public always-inline `kssd_array_inline_map_unchecked`. The final
+executable has no hot-loop call to the generic mapper. Initialization uses seed
 42 and the explicitly versioned GLIBC-compatible stream used by the historical
 server integration.
 
-Every `mm_idx_t` owns one context. `mm_idx_init()` creates it before indexing
+Every `mm_idx_t` owns one context and one borrowed inline plan. `mm_idx_init()` creates them before indexing
 workers start, `mm_sketch()` receives a const adapter pointer, and parallel
 workers perform read-only mapping only. `mm_idx_destroy()` releases the
 context after indexing or mapping workers have joined. Split-index merge owns
@@ -118,7 +121,7 @@ configure, build, or test invocation.
 The patch modifies upstream `Makefile`, `index.c`, `map.c`, `minimap.h`,
 `mmpriv.h`, `sketch.c`, and `splitidx.c`, and adds
 `kssd_array_minimap2.c/.h`. Its SHA-256 is
-`89610194db47197c3eeb4ddee4c38c9233f00251246dd9210b597616791ba572`.
+`84ef84315357c7754180ff2c2b4a006877146dfa22986131aebcb842529e49e2`.
 
 The integration smoke test makes no performance claim. The single-thread
 indexing workflow is documented in

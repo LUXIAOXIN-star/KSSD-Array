@@ -3,9 +3,10 @@
   "upstream_version": "2.30-r1287",
   "upstream_commit": "79c9cc186b95f50bd899f69b48eba995ced810c6",
   "patch": "reproducibility/minimap2/patch/minimap2-v2.30-kssd-array.patch",
-  "patch_sha256": "89610194db47197c3eeb4ddee4c38c9233f00251246dd9210b597616791ba572",
+  "patch_sha256": "84ef84315357c7754180ff2c2b4a006877146dfa22986131aebcb842529e49e2",
   "threads": 1,
-  "repeats": 3,
+  "warmups": 1,
+  "repeats": 5,
   "k": 15,
   "w": 10,
   "hpc": false,
@@ -15,8 +16,14 @@
   "run_order": [
     ["Original Minimap2", "KSSD-Array"],
     ["KSSD-Array", "Original Minimap2"],
+    ["Original Minimap2", "KSSD-Array"],
+    ["KSSD-Array", "Original Minimap2"],
     ["Original Minimap2", "KSSD-Array"]
   ],
+  "selected_cpu": 15,
+  "maximum_load_average_1m": 2.0,
+  "environment_retry_seconds": 60,
+  "maximum_environment_retries": 10,
   "minimum_available_memory_bytes": 17179869184,
   "minimum_output_free_bytes": 34359738368,
   "datasets": [

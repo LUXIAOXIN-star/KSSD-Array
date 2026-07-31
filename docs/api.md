@@ -3,7 +3,8 @@
 ## Headers
 
 Include `kssd_array.h` for all context, initialization, inspection, and runtime
-mapping functions. Include `kssd_array_fast.h` only after defining
+mapping functions. Include `kssd_array_inline.h` for a runtime-selected `k`
+with an inlined hot path. Include `kssd_array_fast.h` only after defining
 `KSSD_ARRAY_FIXED_K` to an integer in the range 1 through 32.
 
 ## Context ownership
@@ -66,6 +67,29 @@ Skips all checks. Use it only when the context and input were already
 validated.
 
 ```c
+kssd_array_status_t kssd_array_inline_plan_init(
+    kssd_array_inline_plan_t *plan,
+    const kssd_array_t *context);
+
+uint64_t kssd_array_inline_map_unchecked(
+    const kssd_array_inline_plan_t *plan,
+    uint64_t encoded_kmer);
+```
+
+The initialization call is a cold operation for runtime-selected `k=1..32`.
+It precomputes the segment count, extraction masks/shifts, output shifts, and
+direct `uint16_t` permutation-table pointers. The mapper is `static inline`
+and `always_inline` under GCC/Clang, and uses an unrolled switch over the one
+to four current segments. It performs no generic segment loop and does not
+call `kssd_array_map_unchecked()`.
+
+The plan borrows its table pointers. Its source context must remain initialized
+and alive, and initialization/destruction must not overlap mapping. The input
+must be valid in the source context's `2*k`-bit domain. A successfully
+initialized plan is read-only and may be shared between threads under the same
+safe-publication rules as its context.
+
+```c
 uint64_t kssd_array_fast_with_tables(uint64_t encoded_kmer,
                                      const kssd_array_t *context);
 ```
@@ -115,5 +139,6 @@ independent because the implementation has no mutable global state.
 The mapper is deterministic rather than cryptographic. Mapping order changes
 with `k`, seed, or RNG mode. The API does not parse DNA text, select canonical
 strand orientation, roll between adjacent k-mers, or implement the minimizer
-window rule; those responsibilities remain with the caller. The fixed-k fast
-path is unchecked and misuse is undefined at the API-contract level.
+window rule; those responsibilities remain with the caller. The runtime-inline
+and fixed-k fast paths are unchecked and misuse is undefined at the
+API-contract level.

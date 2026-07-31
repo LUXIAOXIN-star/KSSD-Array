@@ -12,9 +12,11 @@ import statistics
 METHODS = ("Original Minimap2", "KSSD-Array")
 DATASETS = ("Arabidopsis thaliana", "Human GRCh38", "Zea mays")
 MEASURES = (
-    "wall_time_s", "cpu_time_s", "peak_rss_gib", "index_size_bytes",
+    "wall_time_s", "time_v_wall_time_s", "cpu_time_s", "peak_rss_gib",
+    "index_size_bytes",
     "distinct_minimizers", "singleton_percent", "average_occurrences",
-    "average_spacing",
+    "average_spacing", "distinct_minimizer_density_per_base",
+    "minimizer_occurrence_density_per_base",
 )
 
 
@@ -35,10 +37,12 @@ def sample_sd(values: list[float]) -> float:
 
 
 def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
-    with path.open("w", encoding="utf-8", newline="") as handle:
+    temporary = path.with_name(path.name + ".tmp")
+    with temporary.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=list(rows[0]))
         writer.writeheader()
         writer.writerows(rows)
+    temporary.replace(path)
 
 
 def main() -> int:
@@ -48,7 +52,7 @@ def main() -> int:
     if not raw:
         raise RuntimeError("raw table is empty")
     datasets = ("Phase 5A fixture",) if args.preflight else DATASETS
-    expected_repeats = 1 if args.preflight else 3
+    expected_repeats = 1 if args.preflight else 5
     expected = len(datasets) * len(METHODS) * expected_repeats
     if len(raw) != expected:
         raise RuntimeError("unexpected raw row count: {} != {}".format(len(raw), expected))
@@ -82,6 +86,7 @@ def main() -> int:
             deterministic = (
                 "distinct_minimizers", "singleton_percent",
                 "average_occurrences", "average_spacing", "index_size_bytes",
+                "index_sha256", "index_magic_hex",
             )
             for field in deterministic:
                 values = {item[field] for item in group}
@@ -91,6 +96,56 @@ def main() -> int:
         raise RuntimeError("formal summary must have exactly six rows")
     output = args.output_dir
     write_csv(output / "supplementary_indexing_summary.csv", summary)
+    pairwise_rows: list[dict[str, object]] = []
+    if not args.preflight:
+        raw_index = {
+            (row["dataset"], int(row["repeat"]), row["method"]): row
+            for row in raw
+        }
+        for dataset in DATASETS:
+            ratios = []
+            staged = []
+            for repeat in range(1, expected_repeats + 1):
+                original = raw_index[(dataset, repeat, METHODS[0])]
+                kssd = raw_index[(dataset, repeat, METHODS[1])]
+                ratio = (float(kssd["wall_time_s"]) /
+                         float(original["wall_time_s"]))
+                ratios.append(ratio)
+                staged.append((repeat, original, kssd, ratio))
+            median_ratio = statistics.median(ratios)
+            faster = sum(value < 1.0 for value in ratios)
+            slower = sum(value > 1.0 for value in ratios)
+            if median_ratio < 0.95 and faster >= 4:
+                classification = "KSSD faster"
+            elif median_ratio > 1.05 and slower >= 4:
+                classification = "KSSD slower"
+            else:
+                classification = "Inconclusive/comparable"
+            for repeat, original, kssd, ratio in staged:
+                pairwise_rows.append({
+                    "dataset": dataset,
+                    "dataset_key": original["dataset_key"],
+                    "repeat": repeat,
+                    "first_method": (METHODS[0] if
+                        int(original["order_position"]) == 1 else METHODS[1]),
+                    "original_order_position": original["order_position"],
+                    "kssd_order_position": kssd["order_position"],
+                    "original_wall_time_s": original["wall_time_s"],
+                    "kssd_wall_time_s": kssd["wall_time_s"],
+                    "kssd_over_original_wall_ratio":
+                        "{:.12f}".format(ratio),
+                    "median_paired_ratio": "{:.12f}".format(median_ratio),
+                    "paired_direction_count_kssd_faster": faster,
+                    "paired_direction_count_kssd_slower": slower,
+                    "classification": classification,
+                    "original_peak_rss_gib": original["peak_rss_gib"],
+                    "kssd_peak_rss_gib": kssd["peak_rss_gib"],
+                    "kssd_over_original_memory_ratio": "{:.12f}".format(
+                        float(kssd["peak_rss_gib"]) /
+                        float(original["peak_rss_gib"])),
+                })
+        write_csv(output / "supplementary_indexing_pairwise_ratios.csv",
+                  pairwise_rows)
     table_rows = []
     for row in summary:
         table_rows.append({
@@ -106,7 +161,9 @@ def main() -> int:
             "Average occurrences": row["average_occurrences_mean"],
             "Average spacing": row["average_spacing_mean"],
         })
-    write_csv(output / "supplementary_table_s1.csv", table_rows)
+    table_name = ("supplementary_table_s1.csv" if args.preflight else
+                  "supplementary_table_s1_final.csv")
+    write_csv(output / table_name, table_rows)
     headers = list(table_rows[0])
     lines = ["| " + " | ".join(headers) + " |",
              "| " + " | ".join("---" for _ in headers) + " |"]

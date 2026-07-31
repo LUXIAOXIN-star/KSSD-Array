@@ -37,6 +37,7 @@ case "$mode" in
         [[ $# -eq 4 ]] || { usage >&2; exit 2; }
         kssd_array_root="$(cd -- "$4" && pwd)"
         test -f "$kssd_array_root/include/kssd_array.h"
+        test -f "$kssd_array_root/include/kssd_array_inline.h"
         make -C "$kssd_array_root" -j"$jobs" build/libkssd_array.a
         ;;
     *) usage >&2; exit 2 ;;

@@ -84,14 +84,30 @@ integrated_version="$($patched/minimap2 --version)"
 
 nm -g "$patched/minimap2" >"$output_directory/results/integrated-nm.txt"
 ldd "$patched/minimap2" >"$output_directory/results/integrated-ldd.txt"
+readelf -Ws "$patched/minimap2" \
+    >"$output_directory/results/integrated-readelf-symbols.txt"
+objdump -d --disassemble=mm_sketch "$patched/minimap2" \
+    >"$output_directory/results/integrated-mm-sketch-objdump.txt"
 grep -Eq ' [Tt] kssd_array_init_with_rng$' \
     "$output_directory/results/integrated-nm.txt"
 grep -Eq ' [Tt] kssd_array_map_unchecked$' \
+    "$output_directory/results/integrated-nm.txt"
+grep -Eq ' [Tt] kssd_array_inline_plan_init$' \
     "$output_directory/results/integrated-nm.txt"
 grep -Eq ' [Tt] kssd_array_destroy$' \
     "$output_directory/results/integrated-nm.txt"
 if grep -Fq 'libkssd_array.so' "$output_directory/results/integrated-ldd.txt"; then
     printf 'integrated executable has a dynamic KSSD-Array dependency\n' >&2
+    exit 1
+fi
+if grep -Eq ' [Tt] mm_kssd_array_map_unchecked$' \
+        "$output_directory/results/integrated-nm.txt"; then
+    printf 'obsolete Minimap2 KSSD mapping adapter remains in executable\n' >&2
+    exit 1
+fi
+if grep -Eq 'call[^<]*<(mm_kssd_array_map_unchecked|kssd_array_map_unchecked)>' \
+        "$output_directory/results/integrated-mm-sketch-objdump.txt"; then
+    printf 'mm_sketch still calls an out-of-line KSSD mapper\n' >&2
     exit 1
 fi
 if rg -n 'src/kssd_array\.c|src/permutation\.c' "$patched/Makefile"; then
@@ -120,6 +136,7 @@ printf 'ORIGINAL_BUILD=PASS\n'
 printf 'INTEGRATED_BUILD=PASS\n'
 printf 'INTEGRATED_VERSION=%s\n' "$integrated_version"
 printf 'PUBLIC_LIBRARY_LINK=PASS\n'
+printf 'INLINE_HOT_PATH=PASS\n'
 if [[ "$mode" == "--build-only" ]]; then
     printf 'BUILD_VERIFICATION=PASS\n'
     printf 'OUTPUT_DIRECTORY=%s\n' "$output_directory"

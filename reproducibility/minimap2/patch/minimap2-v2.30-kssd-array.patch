@@ -55,7 +55,7 @@ diff --git a/Makefile b/Makefile
 -splitidx.o: mmpriv.h minimap.h bseq.h kseq.h
 +sketch.o: kvec.h kalloc.h mmpriv.h minimap.h bseq.h kseq.h kssd_array_minimap2.h
 +splitidx.o: mmpriv.h minimap.h bseq.h kseq.h kssd_array_minimap2.h
-+kssd_array_minimap2.o: kssd_array_minimap2.h $(KSSD_ARRAY_ROOT)/include/kssd_array.h
++kssd_array_minimap2.o: kssd_array_minimap2.h $(KSSD_ARRAY_ROOT)/include/kssd_array.h $(KSSD_ARRAY_ROOT)/include/kssd_array_inline.h
 diff --git a/index.c b/index.c
 --- a/index.c
 +++ b/index.c
@@ -169,12 +169,6 @@ new file mode 100644
 +#include <stdio.h>
 +#include <stdlib.h>
 +
-+#include "kssd_array.h"
-+
-+struct mm_kssd_array_s {
-+	kssd_array_t context;
-+};
-+
 +mm_kssd_array_t *mm_kssd_array_create(size_t k)
 +{
 +	mm_kssd_array_t *owner;
@@ -199,6 +193,18 @@ new file mode 100644
 +		return 0;
 +	}
 +
++	status = kssd_array_inline_plan_init(&owner->inline_plan,
++	                                     &owner->context);
++	if (status != KSSD_ARRAY_OK) {
++		fprintf(stderr,
++		        "[ERROR] KSSD-Array inline plan initialization failed for k=%zu: %s\n",
++		        k,
++		        kssd_array_status_string(status));
++		kssd_array_destroy(&owner->context);
++		free(owner);
++		return 0;
++	}
++
 +	return owner;
 +}
 +
@@ -208,29 +214,26 @@ new file mode 100644
 +	kssd_array_destroy(&owner->context);
 +	free(owner);
 +}
-+
-+uint64_t mm_kssd_array_map_unchecked(const mm_kssd_array_t *owner,
-+                                     uint64_t encoded_kmer)
-+{
-+	return kssd_array_map_unchecked(&owner->context, encoded_kmer);
-+}
 diff --git a/kssd_array_minimap2.h b/kssd_array_minimap2.h
 new file mode 100644
 --- /dev/null
 +++ b/kssd_array_minimap2.h
-@@ -0,0 +1,14 @@
+@@ -0,0 +1,17 @@
 +#ifndef KSSD_ARRAY_MINIMAP2_H
 +#define KSSD_ARRAY_MINIMAP2_H
 +
 +#include <stddef.h>
-+#include <stdint.h>
 +
-+typedef struct mm_kssd_array_s mm_kssd_array_t;
++#include "kssd_array.h"
++#include "kssd_array_inline.h"
++
++typedef struct mm_kssd_array_s {
++	kssd_array_t context;
++	kssd_array_inline_plan_t inline_plan;
++} mm_kssd_array_t;
 +
 +mm_kssd_array_t *mm_kssd_array_create(size_t k);
 +void mm_kssd_array_destroy(mm_kssd_array_t *owner);
-+uint64_t mm_kssd_array_map_unchecked(const mm_kssd_array_t *owner,
-+                                     uint64_t encoded_kmer);
 +
 +#endif
 diff --git a/map.c b/map.c
@@ -347,7 +350,7 @@ diff --git a/sketch.c b/sketch.c
  			++l;
  			if (l >= k && kmer_span < 256) {
 -				info.x = hash64(kmer[z], mask) << 8 | kmer_span;
-+				info.x = mm_kssd_array_map_unchecked(kssd_array, kmer[z]) << 8 | kmer_span;
++				info.x = kssd_array_inline_map_unchecked(&kssd_array->inline_plan, kmer[z]) << 8 | kmer_span;
  				info.y = (uint64_t)rid<<32 | (uint32_t)i<<1 | z;
  			}
  		} else l = 0, tq.count = tq.front = 0, kmer_span = 0;

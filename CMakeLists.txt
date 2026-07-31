@@ -1,11 +1,11 @@
 cmake_minimum_required(VERSION 3.16)
-project(KSSDArray VERSION 1.0.0 LANGUAGES C)
+project(KSSDArray VERSION 1.1.0 LANGUAGES C)
 
 include(GNUInstallDirs)
 include(CTest)
 include(CMakePackageConfigHelpers)
 
-set(KSSD_ARRAY_PACKAGE_VERSION "1.0.0")
+set(KSSD_ARRAY_PACKAGE_VERSION "1.1.0")
 
 option(KSSD_ARRAY_BUILD_SHARED "Build the shared KSSD-Array library" OFF)
 option(KSSD_ARRAY_BUILD_TESTS "Build KSSD-Array core tests" OFF)
@@ -47,6 +47,12 @@ if(BUILD_TESTING AND KSSD_ARRAY_BUILD_TESTS)
         KSSDArray::kssd_array Threads::Threads)
     target_compile_options(test_kssd_array PRIVATE -Wall -Wextra -Wpedantic)
     add_test(NAME core_api COMMAND test_kssd_array)
+
+    add_executable(test_inline_parity tests/test_inline_parity.c)
+    target_link_libraries(test_inline_parity PRIVATE KSSDArray::kssd_array)
+    target_compile_options(test_inline_parity PRIVATE
+        -Wall -Wextra -Wpedantic)
+    add_test(NAME runtime_inline_parity COMMAND test_inline_parity)
 
     foreach(fixed_k IN ITEMS 4 8 9 16 19 21 24 31 32)
         add_executable(test_fast_parity_${fixed_k} tests/test_fast_parity.c)
@@ -109,6 +115,7 @@ if(KSSD_ARRAY_BUILD_SHARED)
         RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
 endif()
 install(FILES include/kssd_array.h include/kssd_array_fast.h
+              include/kssd_array_inline.h
     DESTINATION ${CMAKE_INSTALL_INCLUDEDIR})
 install(EXPORT KSSDArrayTargets
     FILE KSSDArrayTargets.cmake

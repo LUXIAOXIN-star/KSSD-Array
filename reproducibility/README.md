@@ -24,13 +24,13 @@ pinned commits are summarized in [`ENVIRONMENT.md`](ENVIRONMENT.md).
 | Table 4 | Workflow migrated and smoke-tested | no |
 | Figure 3 | Workflow migrated and smoke-tested | no |
 | Figure 4 | Formally reproduced; trends agree, with exact summary and plotted data in the accepted validation | yes |
-| Supplementary Figure S1 and Table S1 | Manuscript low-load values retained; workflow available; deterministic statistics verified | no formal performance rerun |
+| Supplementary Figure S1 and Table S1 | Public-inline integration validated; controlled three-dataset/five-pair workflow available | yes, public-inline final run |
 | Supplementary Table S2 | Formally reproduced; all twelve displayed deltas match after rounding | yes |
 
 The matrix does not claim that every performance result was formally rerun.
 Figure 2, Table 4, and Figure 3 validation is functional smoke validation.
-Indexing time is host-sensitive, so the accepted low-load Supplementary Figure
-S1 and Table S1 values remain the manuscript values.
+Indexing time is host-sensitive; the public-inline S1 run is reported only for
+its recorded host and controlled protocol.
 
 ## Benchmark scope limitation
 
@@ -60,9 +60,9 @@ figures are not distributed. Dataset identities and resolution rules are in
 [`data/datasets.json`](data/datasets.json).
 
 Formal commands require explicit input and output locations. Generated output
-must be outside the source tree. The indexing workflow keeps only three
-dataset-specific generated indexes and overwrites each dataset's earlier
-repeat, avoiding eighteen simultaneous large indexes.
+must be outside the source tree. The indexing workflow uses one unique
+temporary index at a time, captures its identity, and removes it before the
+next run.
 
 ## Unified command interface
 

@@ -1,4 +1,5 @@
 #include "kssd_array.h"
+#include "kssd_array_inline.h"
 #include "permutation.h"
 
 #include <stdlib.h>
@@ -137,6 +138,55 @@ void kssd_array_destroy(kssd_array_t *context)
     }
     free(context->master_permutation);
     memset(context, 0, sizeof(*context));
+}
+
+kssd_array_status_t kssd_array_inline_plan_init(
+    kssd_array_inline_plan_t *plan,
+    const kssd_array_t *context)
+{
+    size_t consumed = 0U;
+    size_t segment_index;
+
+    if (plan == NULL || context == NULL) {
+        return KSSD_ARRAY_INVALID_ARGUMENT;
+    }
+    memset(plan, 0, sizeof(*plan));
+    if (context->initialized == 0) {
+        return KSSD_ARRAY_NOT_INITIALIZED;
+    }
+    if (context->layout.segment_count == 0U ||
+        context->layout.segment_count > KSSD_ARRAY_MAX_SEGMENTS) {
+        return KSSD_ARRAY_INVALID_ARGUMENT;
+    }
+
+    plan->segment_count = context->layout.segment_count;
+    for (segment_index = 0U;
+         segment_index < context->layout.segment_count;
+         ++segment_index) {
+        const size_t segment_length =
+            context->layout.segment_lengths[segment_index];
+        size_t remaining;
+
+        if (segment_length == 0U ||
+            segment_length > KSSD_ARRAY_SEGMENT_CAP ||
+            consumed + segment_length > context->layout.k ||
+            context->permutations[segment_length] == NULL) {
+            memset(plan, 0, sizeof(*plan));
+            return KSSD_ARRAY_INVALID_ARGUMENT;
+        }
+        consumed += segment_length;
+        remaining = context->layout.k - consumed;
+        plan->input_shifts[segment_index] = (uint8_t)(2U * remaining);
+        plan->input_masks[segment_index] = segment_mask(segment_length);
+        plan->output_shifts[segment_index] = (uint8_t)(2U * remaining);
+        plan->permutation_tables[segment_index] =
+            context->permutations[segment_length];
+    }
+    if (consumed != context->layout.k) {
+        memset(plan, 0, sizeof(*plan));
+        return KSSD_ARRAY_INVALID_ARGUMENT;
+    }
+    return KSSD_ARRAY_OK;
 }
 
 uint64_t kssd_array_map_unchecked(const kssd_array_t *context,

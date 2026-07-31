@@ -106,8 +106,9 @@ def main() -> int:
                 handlelength=1.6, borderpad=0.5, labelspacing=0.4)
     figure.tight_layout()
     args.output_dir.mkdir(parents=True, exist_ok=True)
-    png = args.output_dir / "supplementary_figure_s1.png"
-    pdf = args.output_dir / "supplementary_figure_s1.pdf"
+    suffix = "" if args.preflight else "_final"
+    png = args.output_dir / ("supplementary_figure_s1" + suffix + ".png")
+    pdf = args.output_dir / ("supplementary_figure_s1" + suffix + ".pdf")
     figure.savefig(pdf, bbox_inches="tight", pad_inches=0.08,
                    transparent=True)
     figure.savefig(png, bbox_inches="tight", pad_inches=0.08,

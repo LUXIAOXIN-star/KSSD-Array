@@ -7,8 +7,8 @@ authors:
     given-names: Xiaoxin
   - family-names: Yi
     given-names: Huiguang
-version: 1.0.0
-date-released: 2026-07-28
+version: 1.1.0
+date-released: 2026-07-31
 repository-code: "https://github.com/LUXIAOXIN-star/KSSD-Array"
 url: "https://github.com/LUXIAOXIN-star/KSSD-Array"
 license: MIT

@@ -13,14 +13,16 @@ is `1 <= k <= 32`, and mapping returns a value in `[0, 4^k)`.
   short tables.
 - `src/kssd_array.c` owns segmentation, extraction, reconstruction, and
   context lifetime.
+- `include/kssd_array_inline.h` is the public runtime-selected, plan-based
+  always-inline hot path over context-owned tables.
 - `include/kssd_array_fast.h` is a thin inline hot path over those tables.
 - Benchmarks call public APIs and do not contain another KSSD table generator.
 - The two Table 2 ablations are deliberately lossy local comparison methods.
 - The Minimap2 patch is an adapter to public APIs, not an implementation copy.
 
 Core tests cover ownership, error handling, concurrent read-only mapping,
-injectivity on small domains, and parity between the runtime and fast APIs.
-The compile-time fast header performs only the mapping hot path against the
+injectivity on small domains, and parity between generic, runtime-inline, and
+fixed-k APIs. Both inline headers perform only the mapping hot path against the
 same context-owned tables.
 
 `tools/check_public_tree.py` scans C and C++ files for known duplicate

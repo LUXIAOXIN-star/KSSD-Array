@@ -17,6 +17,7 @@ import shutil
 import subprocess
 import sys
 import time
+from datetime import datetime
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -31,15 +32,24 @@ METHODS = ("Original Minimap2", "KSSD-Array")
 RAW_FIELDS = (
     "dataset_key", "dataset", "accession", "version", "reference_path",
     "reference_size_bytes", "reference_sha256", "sequence_count",
-    "total_bases", "method", "repeat", "threads", "k", "w", "hpc",
-    "command", "exit_status", "wall_time_s", "user_time_s",
+    "total_bases", "method", "phase", "repeat", "order_position",
+    "threads", "k", "w", "hpc", "command", "exit_status",
+    "wall_time_s", "time_v_wall_time_s", "user_time_s",
     "system_time_s", "cpu_time_s", "peak_rss_kb", "peak_rss_gib",
     "distinct_minimizers", "singleton_percent", "average_occurrences",
-    "average_spacing", "index_path", "index_size_bytes", "index_sha256",
-    "index_magic_hex", "stdout_path", "stderr_path", "system_snapshot_path",
+    "average_spacing", "distinct_minimizer_density_per_base",
+    "minimizer_occurrence_density_per_base", "index_path",
+    "index_size_bytes", "index_sha256", "index_magic_hex",
+    "index_removed_after_capture", "stdout_path", "stderr_path",
+    "system_snapshot_path",
     "executable_path", "executable_sha256", "load_average_1m",
-    "memory_available_bytes", "output_free_bytes",
+    "memory_available_bytes", "output_free_bytes", "swap_in_delta",
+    "swap_out_delta", "selected_cpu",
 )
+
+
+def now() -> str:
+    return datetime.now().astimezone().isoformat(timespec="seconds")
 
 
 def parse_args() -> argparse.Namespace:
@@ -52,6 +62,8 @@ def parse_args() -> argparse.Namespace:
                         metavar="KEY=PATH")
     parser.add_argument("--jobs", type=int, default=2)
     parser.add_argument("--preflight", action="store_true")
+    parser.add_argument("--resume", action="store_true",
+                        help="resume an interrupted controlled run in-place")
     return parser.parse_args()
 
 
@@ -186,6 +198,24 @@ def build_executables(output: Path, upstream_source: str, kssd_root: Path,
     return executables, build_logs
 
 
+def load_executables(output: Path) -> tuple[dict[str, Path], dict[str, str]]:
+    executables = {
+        "Original Minimap2": output / "builds/original/source/minimap2",
+        "KSSD-Array": output / "builds/integrated/source/minimap2",
+    }
+    with (output / "executable_sha256.tsv").open(
+            encoding="utf-8", newline="") as handle:
+        rows = list(csv.DictReader(handle, delimiter="\t"))
+    recorded = {row["method"]: row["sha256"] for row in rows}
+    if set(recorded) != set(METHODS):
+        raise RuntimeError("resume executable manifest is incomplete")
+    for method, executable in executables.items():
+        if (not executable.is_file() or
+                sha256_file(executable) != recorded[method]):
+            raise RuntimeError("resume executable identity mismatch: " + method)
+    return executables, recorded
+
+
 def command_output(command: list[str]) -> str:
     return run(command).stdout.strip()
 
@@ -196,6 +226,9 @@ def write_build_manifest(path: Path, config: dict[str, object],
     library = kssd_root / "build/libkssd_array.a"
     patch = kssd_root / str(config["patch"])
     repo_commit = command_output(["git", "-C", str(kssd_root), "rev-parse", "HEAD"])
+    repo_status = run([
+        "git", "-C", str(kssd_root), "status", "--short",
+    ]).stdout.rstrip()
     versions = {method: command_output([str(exe), "--version"])
                 for method, exe in executables.items()}
     hashes = {method: sha256_file(exe) for method, exe in executables.items()}
@@ -205,10 +238,16 @@ def write_build_manifest(path: Path, config: dict[str, object],
         "UPSTREAM_VERSION=" + str(config["upstream_version"]),
         "UPSTREAM_COMMIT=" + str(config["upstream_commit"]),
         "KSSD_REPOSITORY_COMMIT=" + repo_commit,
+        "KSSD_REPOSITORY_STATUS_BEGIN",
+        repo_status,
+        "KSSD_REPOSITORY_STATUS_END",
         "PATCH_PATH=" + str(patch),
         "PATCH_SHA256=" + sha256_file(patch),
         "LIBKSSD_ARRAY_PATH=" + str(library),
         "LIBKSSD_ARRAY_SHA256=" + sha256_file(library),
+        "INLINE_HEADER_SHA256=" + sha256_file(
+            kssd_root / "include/kssd_array_inline.h"),
+        "KSSD_CORE_SHA256=" + sha256_file(kssd_root / "src/kssd_array.c"),
         "COMPILER_VERSION=" + command_output(["cc", "--version"]).splitlines()[0],
         "BUILD_FLAGS=-g -Wall -O2 -Wc++-compat",
     ]
@@ -272,7 +311,9 @@ def system_preflight(path: Path, output: Path, inputs: list[Path],
         if process_id in (os.getpid(), os.getppid()):
             continue
         lowered = parts[4].lower()
-        if process_cpu >= 50.0 and ("minimap2" in lowered or "benchmark" in lowered):
+        if process_cpu >= 20.0 and (
+                "minimap2" in lowered or "benchmark" in lowered or
+                "nthash" in lowered):
             high_cpu_benchmark = True
     governor_lines = []
     for governor in sorted(Path("/sys/devices/system/cpu").glob("cpu*/cpufreq/scaling_governor")):
@@ -288,6 +329,9 @@ def system_preflight(path: Path, output: Path, inputs: list[Path],
                 cpu_model = line.split(":", 1)[1].strip()
                 break
     reasons = []
+    load_1m = float(Path("/proc/loadavg").read_text().split()[0])
+    if formal and load_1m > float(config["maximum_load_average_1m"]):
+        reasons.append("one-minute load exceeds configured threshold")
     if swap_delta != (0, 0):
         reasons.append("active swap traffic")
     if formal and memory < int(config["minimum_available_memory_bytes"]):
@@ -307,6 +351,7 @@ def system_preflight(path: Path, output: Path, inputs: list[Path],
     sections = [
         "DECISION=" + decision,
         "CPU_MODEL=" + cpu_model,
+        "SELECTED_CPU=" + str(config["selected_cpu"]),
         "LOADAVG=" + Path("/proc/loadavg").read_text().strip(),
         "MEMORY_AVAILABLE_BYTES=" + str(memory),
         "OUTPUT_FREE_BYTES=" + str(disk),
@@ -318,6 +363,10 @@ def system_preflight(path: Path, output: Path, inputs: list[Path],
         "INPUT_FILESYSTEMS\n" + "\n\n".join(input_filesystems),
         "CPU_GOVERNORS\n" + ("\n".join(governor_lines) or "unavailable"),
         "ACTIVE_PROCESSES\n" + "\n".join(process_text.splitlines()[:20]),
+        "VMSTAT_10S\n" + run_optional(["vmstat", "1", "10"]),
+        "CPU_TOPOLOGY\n" + run_optional([
+            "lscpu", "-e=CPU,CORE,SOCKET,NODE,ONLINE",
+        ]),
     ]
     path.write_text("\n\n".join(sections) + "\n", encoding="utf-8")
     if reasons:
@@ -333,7 +382,7 @@ def parse_elapsed(value: str) -> float:
     return float(value)
 
 
-def parse_stderr(text: str) -> dict[str, float | int]:
+def parse_stderr(text: str, require_timing: bool = True) -> dict[str, float | int]:
     fields: dict[str, float | int] = {}
     for line in text.splitlines():
         if "User time (seconds):" in line:
@@ -371,11 +420,14 @@ def parse_stderr(text: str) -> dict[str, float | int]:
                 "reported_sequence_count": int(match.group(4)),
             })
     required = {
-        "wall_time_s", "user_time_s", "system_time_s", "peak_rss_kb",
         "distinct_minimizers", "singleton_percent", "average_occurrences",
         "average_spacing", "reported_total_bases", "reported_k",
         "reported_w", "reported_hpc", "reported_sequence_count",
     }
+    if require_timing:
+        required.update({
+            "wall_time_s", "user_time_s", "system_time_s", "peak_rss_kb",
+        })
     missing = required - set(fields)
     if missing:
         raise RuntimeError("missing parsed log fields: " + ", ".join(sorted(missing)))
@@ -398,39 +450,89 @@ def snapshot(path: Path, output: Path) -> tuple[float, int, int]:
 
 
 def write_csv(path: Path, rows: list[dict[str, object]]) -> None:
-    with path.open("w", encoding="utf-8", newline="") as handle:
+    temporary = path.with_name(path.name + ".tmp")
+    with temporary.open("w", encoding="utf-8", newline="") as handle:
         writer = csv.DictWriter(handle, fieldnames=RAW_FIELDS)
         writer.writeheader()
         writer.writerows(rows)
+    temporary.replace(path)
+
+
+def atomic_text(path: Path, value: str) -> None:
+    temporary = path.with_name(path.name + ".tmp")
+    temporary.write_text(value, encoding="utf-8")
+    temporary.replace(path)
 
 
 def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
-            executable: Path, executable_hash: str, config: dict[str, object]) -> dict[str, object]:
+            order_position: int, executable: Path, executable_hash: str,
+            config: dict[str, object], measured: bool,
+            attempt: int = 1) -> dict[str, object]:
     method_token = "original" if method == "Original Minimap2" else "kssd-array"
-    stem = "{}-{}-rep{}".format(dataset["key"], method_token, repeat)
-    index = output / "indexes" / (str(dataset["key"]) + ".mmi")
+    phase = "rep{}".format(repeat) if measured else "warmup"
+    stem_base = "{}-{}-{}".format(dataset["key"], method_token, phase)
+    stem = stem_base if attempt == 1 else stem_base + "-retry{}".format(attempt)
+    index = output / "indexes" / (stem + ".mmi")
     stdout_path = output / "logs" / (stem + ".stdout")
     stderr_path = output / "logs" / (stem + ".stderr")
     snapshot_path = output / "logs" / (stem + ".system.txt")
-    for target in (stdout_path, stderr_path, snapshot_path):
-        if target.exists():
-            raise FileExistsError("refusing to reuse output: " + str(target))
+    if any(target.exists() for target in
+           (index, stdout_path, stderr_path, snapshot_path)):
+        return measure(output, dataset, method, repeat, order_position,
+                       executable, executable_hash, config, measured,
+                       attempt + 1)
+    swap_gate_before = swap_counters()
+    time.sleep(1)
+    swap_gate_after = swap_counters()
     load, memory, disk = snapshot(snapshot_path, output)
-    command = [
-        str(config["time_program"]), *[str(item) for item in config["time_arguments"]],
-        str(executable), "-t", "1", "-d", str(index), str(dataset["resolved_path"]),
+    gate_swap = tuple(after - before for before, after in
+                      zip(swap_gate_before, swap_gate_after))
+    gate_reasons = []
+    if load > float(config["maximum_load_average_1m"]):
+        gate_reasons.append("one-minute load exceeds configured threshold")
+    if gate_swap != (0, 0):
+        gate_reasons.append("active swap traffic before run")
+    if memory < int(config["minimum_available_memory_bytes"]):
+        gate_reasons.append("available memory below configured threshold")
+    if disk < int(config["minimum_output_free_bytes"]):
+        gate_reasons.append("free output space below configured threshold")
+    if gate_reasons:
+        atomic_text(snapshot_path, snapshot_path.read_text(encoding="utf-8") +
+                    "\nDECISION=STOP: " + "; ".join(gate_reasons) + "\n")
+        if attempt >= int(config["maximum_environment_retries"]):
+            raise RuntimeError("per-run low-load gate failed: " +
+                               "; ".join(gate_reasons))
+        print("RETRY {} gate rejected: {}".format(
+            stem, "; ".join(gate_reasons)), flush=True)
+        time.sleep(int(config["environment_retry_seconds"]))
+        return measure(output, dataset, method, repeat, order_position,
+                       executable, executable_hash, config, measured,
+                       attempt + 1)
+    core = [
+        "taskset", "-c", str(config["selected_cpu"]), str(executable),
+        "-t", str(config["threads"]), "-k", str(config["k"]),
+        "-w", str(config["w"]), "-d", str(index),
+        str(dataset["resolved_path"]),
     ]
-    print("RUN " + stem + ": " + shlex.join(command), flush=True)
+    command = ([str(config["time_program"]),
+                *[str(item) for item in config["time_arguments"]], *core]
+               if measured else core)
+    print(("MEASURE " if measured else "WARMUP ") + stem + ": " +
+          shlex.join(command), flush=True)
+    swap_before = swap_counters()
+    started_ns = time.monotonic_ns()
     completed = subprocess.run(command, cwd=str(output), text=True,
                                stdout=subprocess.PIPE, stderr=subprocess.PIPE,
                                check=False)
-    stdout_path.write_text(completed.stdout, encoding="utf-8")
-    stderr_path.write_text(completed.stderr, encoding="utf-8")
+    ended_ns = time.monotonic_ns()
+    swap_after = swap_counters()
+    atomic_text(stdout_path, completed.stdout)
+    atomic_text(stderr_path, completed.stderr)
     if completed.returncode != 0:
         raise RuntimeError("indexing failed; see " + str(stderr_path))
     if not index.is_file() or index.stat().st_size == 0:
         raise RuntimeError("empty index: " + str(index))
-    fields = parse_stderr(completed.stderr)
+    fields = parse_stderr(completed.stderr, require_timing=measured)
     expected_stats = (
         int(config["k"]), int(config["w"]), int(bool(config["hpc"])),
         int(dataset["sequence_count"]), int(dataset["total_bases"]),
@@ -445,12 +547,20 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
                 expected_stats, observed_stats
             )
         )
-    user_time = float(fields["user_time_s"])
-    system_time = float(fields["system_time_s"])
-    peak_kb = int(fields["peak_rss_kb"])
+    user_time = float(fields["user_time_s"]) if measured else ""
+    system_time = float(fields["system_time_s"]) if measured else ""
+    peak_kb = int(fields["peak_rss_kb"]) if measured else ""
     with index.open("rb") as handle:
         magic = handle.read(4).hex()
-    return {
+    index_size = index.stat().st_size
+    index_hash = sha256_file(index)
+    index.unlink()
+    if index.exists():
+        raise RuntimeError("temporary index removal failed: " + str(index))
+    swap_delta = tuple(after - before for before, after in
+                       zip(swap_before, swap_after))
+    wall_monotonic = (ended_ns - started_ns) / 1_000_000_000
+    row = {
         "dataset_key": dataset["key"],
         "dataset": dataset["manuscript_label"],
         "accession": dataset["accession"],
@@ -461,27 +571,36 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
         "sequence_count": dataset["sequence_count"],
         "total_bases": dataset["total_bases"],
         "method": method,
-        "repeat": repeat,
+        "phase": "measured" if measured else "warmup",
+        "repeat": repeat if measured else 0,
+        "order_position": order_position,
         "threads": config["threads"],
         "k": config["k"],
         "w": config["w"],
         "hpc": int(bool(config["hpc"])),
         "command": shlex.join(command),
         "exit_status": completed.returncode,
-        "wall_time_s": fields["wall_time_s"],
+        "wall_time_s": "{:.9f}".format(wall_monotonic) if measured else "",
+        "time_v_wall_time_s": fields["wall_time_s"] if measured else "",
         "user_time_s": user_time,
         "system_time_s": system_time,
-        "cpu_time_s": user_time + system_time,
+        "cpu_time_s": (float(user_time) + float(system_time)
+                       if measured else ""),
         "peak_rss_kb": peak_kb,
-        "peak_rss_gib": peak_kb / 1024 / 1024,
+        "peak_rss_gib": (int(peak_kb) / 1024 / 1024 if measured else ""),
         "distinct_minimizers": fields["distinct_minimizers"],
         "singleton_percent": fields["singleton_percent"],
         "average_occurrences": fields["average_occurrences"],
         "average_spacing": fields["average_spacing"],
+        "distinct_minimizer_density_per_base":
+            int(fields["distinct_minimizers"]) / int(dataset["total_bases"]),
+        "minimizer_occurrence_density_per_base":
+            1.0 / float(fields["average_spacing"]),
         "index_path": str(index),
-        "index_size_bytes": index.stat().st_size,
-        "index_sha256": sha256_file(index),
+        "index_size_bytes": index_size,
+        "index_sha256": index_hash,
         "index_magic_hex": magic,
+        "index_removed_after_capture": "YES",
         "stdout_path": str(stdout_path),
         "stderr_path": str(stderr_path),
         "system_snapshot_path": str(snapshot_path),
@@ -490,7 +609,46 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
         "load_average_1m": load,
         "memory_available_bytes": memory,
         "output_free_bytes": disk,
+        "swap_in_delta": swap_delta[0],
+        "swap_out_delta": swap_delta[1],
+        "selected_cpu": config["selected_cpu"],
     }
+    if measured and swap_delta != (0, 0):
+        invalid_path = output / "INVALID_MEASURED_ATTEMPTS.tsv"
+        invalid_rows = []
+        if invalid_path.is_file():
+            with invalid_path.open(encoding="utf-8", newline="") as handle:
+                invalid_rows = list(csv.DictReader(handle, delimiter="\t"))
+        invalid_rows.append({
+            "dataset_key": dataset["key"],
+            "method": method,
+            "repeat": repeat,
+            "order_position": order_position,
+            "stem": stem,
+            "command": shlex.join(command),
+            "exit_status": completed.returncode,
+            "wall_time_s": "{:.9f}".format(wall_monotonic),
+            "index_size_bytes": index_size,
+            "index_sha256": index_hash,
+            "index_magic_hex": magic,
+            "swap_in_delta": swap_delta[0],
+            "swap_out_delta": swap_delta[1],
+            "stderr_path": str(stderr_path),
+            "disposition": "REJECTED_INVALID_SYSTEM_STATE; output captured and temporary index removed",
+        })
+        write_table(invalid_path, invalid_rows, delimiter="\t")
+        if attempt >= int(config["maximum_environment_retries"]):
+            raise RuntimeError("active swapping persisted through retries for " +
+                               stem_base)
+        print("RETRY {} rejected for swap delta {}".format(
+            stem, swap_delta), flush=True)
+        time.sleep(int(config["environment_retry_seconds"]))
+        return measure(output, dataset, method, repeat, order_position,
+                       executable, executable_hash, config, measured,
+                       attempt + 1)
+    print("DONE {} index={} sha256={} removed=YES".format(
+        stem, index_size, index_hash), flush=True)
+    return row
 
 
 def preflight_dataset() -> dict[str, object]:
@@ -522,7 +680,13 @@ def write_run_manifest(path: Path, config: dict[str, object],
         "HPC=" + str(int(bool(config["hpc"]))),
         "COOLDOWN_SECONDS=" + ("0" if mode == "preflight" else str(config["cooldown_seconds"])),
         "CACHE_HANDLING=no_explicit_flush",
-        "WARMUP=none",
+        "WARMUP_PER_METHOD_DATASET=" +
+            ("0" if mode == "preflight" else str(config["warmups"])),
+        "RUN_ORDER=odd_repeats_original_first;even_repeats_kssd_first",
+        "EXECUTION=sequential",
+        "SELECTED_CPU=" + str(config["selected_cpu"]),
+        "KSSD_IMPLEMENTATION=public runtime inline plan; no generic external call in mm_sketch",
+        "TEMPORARY_INDEX_POLICY=unique path; capture size/hash/magic; delete only after successful capture",
     ]
     for dataset in datasets:
         token = str(dataset["key"]).upper()
@@ -532,61 +696,329 @@ def write_run_manifest(path: Path, config: dict[str, object],
     path.write_text("\n".join(lines) + "\n", encoding="utf-8")
 
 
+def write_table(path: Path, rows: list[dict[str, object]],
+                delimiter: str = ",") -> None:
+    if not rows:
+        raise RuntimeError("refusing to write empty table: " + str(path))
+    temporary = path.with_name(path.name + ".tmp")
+    with temporary.open("w", encoding="utf-8", newline="") as handle:
+        writer = csv.DictWriter(handle, fieldnames=list(rows[0]),
+                                delimiter=delimiter)
+        writer.writeheader()
+        writer.writerows(rows)
+    temporary.replace(path)
+
+
+def write_identity_tables(output: Path, datasets: list[dict[str, object]],
+                          executables: dict[str, Path],
+                          executable_hashes: dict[str, str]) -> None:
+    input_rows = [{
+        "dataset_key": item["key"],
+        "dataset": item["manuscript_label"],
+        "absolute_path": item["resolved_path"],
+        "size_bytes": item["size_bytes"],
+        "sha256": item["sha256"],
+        "sequence_count": item["sequence_count"],
+        "total_bases": item["total_bases"],
+    } for item in datasets]
+    executable_rows = [{
+        "method": method,
+        "absolute_path": str(executables[method]),
+        "size_bytes": executables[method].stat().st_size,
+        "sha256": executable_hashes[method],
+        "version": command_output([str(executables[method]), "--version"]),
+    } for method in METHODS]
+    write_table(output / "input_sha256.tsv", input_rows, delimiter="\t")
+    write_table(output / "executable_sha256.tsv", executable_rows,
+                delimiter="\t")
+
+
+def write_environment(output: Path, config: dict[str, object]) -> None:
+    sections = [
+        "captured=" + now(),
+        "repository=" + str(REPO_ROOT),
+        "head=" + command_output(["git", "-C", str(REPO_ROOT),
+                                   "rev-parse", "HEAD"]),
+        "selected_cpu=" + str(config["selected_cpu"]),
+        "protocol=warm-cache; one warmup per method/dataset; five paired repeats",
+    ]
+    for name, command in (
+            ("uname", ["uname", "-a"]),
+            ("lscpu", ["lscpu"]),
+            ("free", ["free", "-h"]),
+            ("disk", ["df", "-h", str(output)]),
+            ("cc", ["cc", "--version"]),
+            ("time", ["/usr/bin/time", "--version"])):
+        sections.append("\n[{}]\n{}".format(name, run_optional(command)))
+    atomic_text(output / "environment.txt", "\n".join(sections) + "\n")
+
+
+def write_commands(output: Path, warmups: list[dict[str, object]],
+                   measured: list[dict[str, object]]) -> None:
+    lines = [
+        "#!/bin/sh",
+        "# Exact command ledger; warm-up timing is discarded.",
+        "# Indexes were deleted only after successful metadata capture.",
+        "",
+    ]
+    lines.extend(str(row["command"]) for row in [*warmups, *measured])
+    atomic_text(output / "commands.sh", "\n".join(lines) + "\n")
+
+
+def write_final_report(output: Path) -> None:
+    with (output / "supplementary_indexing_summary.csv").open(
+            encoding="utf-8", newline="") as handle:
+        summary = list(csv.DictReader(handle))
+    with (output / "supplementary_indexing_pairwise_ratios.csv").open(
+            encoding="utf-8", newline="") as handle:
+        pairs = list(csv.DictReader(handle))
+    with (output / "supplementary_indexing_raw.csv").open(
+            encoding="utf-8", newline="") as handle:
+        raw = list(csv.DictReader(handle))
+    by_summary = {(row["dataset"], row["method"]): row for row in summary}
+    lines = [
+        "# Supplementary Figure S1 public-inline final report",
+        "",
+        "Generated: `{}`".format(now()),
+        "",
+        "This is the completed three-dataset comparison of Original Minimap2 "
+        "and the optimized public runtime-inline KSSD-Array path. The former "
+        "generic external-call results are not included.",
+        "",
+        "Protocol: one discarded warm-up per method/dataset; five sequential "
+        "paired repeats; Original first on odd repeats and KSSD first on even "
+        "repeats; one thread pinned to the configured CPU; warm cache; no "
+        "performance-based early stopping.",
+        "",
+    ]
+    invalid_path = output / "INVALID_MEASURED_ATTEMPTS.tsv"
+    invalid_count = 0
+    if invalid_path.is_file():
+        with invalid_path.open(encoding="utf-8", newline="") as handle:
+            invalid_count = len(list(csv.DictReader(handle, delimiter="\t")))
+    lines.extend([
+        "Environment-filtered attempts preserved outside the accepted raw "
+        "table: `{}`.".format(invalid_count),
+        "",
+    ])
+    for dataset in ("Arabidopsis thaliana", "Human GRCh38", "Zea mays"):
+        original = by_summary[(dataset, "Original Minimap2")]
+        kssd = by_summary[(dataset, "KSSD-Array")]
+        dataset_pairs = [row for row in pairs if row["dataset"] == dataset]
+        ratios = [float(row["kssd_over_original_wall_ratio"])
+                  for row in dataset_pairs]
+        faster = sum(value < 1.0 for value in ratios)
+        slower = sum(value > 1.0 for value in ratios)
+        classification = dataset_pairs[0]["classification"]
+        dataset_raw = [row for row in raw if row["dataset"] == dataset]
+        maximum_rss = max(float(row["peak_rss_gib"]) for row in dataset_raw)
+        original_maximum_rss = max(
+            float(row["peak_rss_gib"]) for row in dataset_raw
+            if row["method"] == "Original Minimap2")
+        kssd_maximum_rss = max(
+            float(row["peak_rss_gib"]) for row in dataset_raw
+            if row["method"] == "KSSD-Array")
+        original_first_mean = sum(ratios[0::2]) / len(ratios[0::2])
+        kssd_first_mean = sum(ratios[1::2]) / len(ratios[1::2])
+        deterministic = all(
+            row[field + "_repeat_consistent"] == "1"
+            for row in (original, kssd)
+            for field in ("index_size_bytes", "distinct_minimizers",
+                          "average_spacing", "index_sha256"))
+        lines.extend([
+            "## " + dataset,
+            "",
+            "- Original wall time: `{:.6f} +/- {:.6f} s` (mean +/- sample SD).".
+                format(float(original["wall_time_s_mean"]),
+                       float(original["wall_time_s_sd"])),
+            "- Public-inline KSSD wall time: `{:.6f} +/- {:.6f} s` "
+            "(mean +/- sample SD).".format(
+                float(kssd["wall_time_s_mean"]),
+                float(kssd["wall_time_s_sd"])),
+            "- Paired KSSD/Original ratios: `" + ", ".join(
+                "{:.6f}".format(value) for value in ratios) + "`.",
+            "- Median paired ratio: `{}`; direction: KSSD faster `{}/5`, "
+            "slower `{}/5`; classification: **{}**.".format(
+                dataset_pairs[0]["median_paired_ratio"], faster, slower,
+                classification),
+            "- Maximum RSS (Original/KSSD/all): `{:.6f}` / `{:.6f}` / "
+            "`{:.6f} GiB`.".format(original_maximum_rss,
+                                    kssd_maximum_rss, maximum_rss),
+            "- Order-position check: Original-first mean ratio `{:.6f}`; "
+            "KSSD-first mean ratio `{:.6f}`.".format(
+                original_first_mean, kssd_first_mean),
+            "- Original/KSSD index sizes: `{:.0f}` / `{:.0f}` bytes; "
+            "distinct minimizers: `{:.0f}` / `{:.0f}`; mean spacing: "
+            "`{:.3f}` / `{:.3f}`.".format(
+                float(original["index_size_bytes_mean"]),
+                float(kssd["index_size_bytes_mean"]),
+                float(original["distinct_minimizers_mean"]),
+                float(kssd["distinct_minimizers_mean"]),
+                float(original["average_spacing_mean"]),
+                float(kssd["average_spacing_mean"])),
+            "- Distinct-minimizer density per base (Original/KSSD): "
+            "`{:.9f}` / `{:.9f}`.".format(
+                float(original["distinct_minimizer_density_per_base_mean"]),
+                float(kssd["distinct_minimizer_density_per_base_mean"])),
+            "- Output equivalence across repeats within each method: **{}**.".
+                format("PASS" if deterministic else "FAIL"),
+            "",
+        ])
+    atomic_text(output / "S1_INLINE_FINAL_REPORT.md", "\n".join(lines))
+
+
+def write_output_hashes(output: Path) -> None:
+    rows = []
+    for path in sorted(output.rglob("*")):
+        if (path.is_file() and path.name != "output_sha256.tsv" and
+                not path.name.endswith(".tmp")):
+            rows.append({
+                "relative_path": str(path.relative_to(output)),
+                "size_bytes": path.stat().st_size,
+                "sha256": sha256_file(path),
+            })
+    write_table(output / "output_sha256.tsv", rows, delimiter="\t")
+
+
+def finalize_run_manifest(output: Path, rows: list[dict[str, object]]) -> None:
+    path = output / "run_manifest.txt"
+    existing = path.read_text(encoding="utf-8")
+    completion = "\n".join((
+        "RESULT_STATUS=COMPLETE",
+        "COMPLETED_AT=" + now(),
+        "ACCEPTED_MEASURED_ROWS=" + str(len(rows)),
+        "ACCEPTED_PAIRED_COMPARISONS=" + str(len(rows) // 2),
+        "ALL_THREE_DATASETS_COMPLETE=" +
+            ("YES" if len(rows) == 30 else "NO"),
+        "INDEX_DIRECTORY_EMPTY=" +
+            ("YES" if not any((output / "indexes").iterdir()) else "NO"),
+    )) + "\n"
+    if "RESULT_STATUS=COMPLETE" not in existing:
+        atomic_text(path, existing + completion)
+
+
 def main() -> int:
     args = parse_args()
     if args.jobs < 1:
         raise ValueError("--jobs must be positive")
     output = args.output_dir.expanduser().resolve()
-    if output.exists():
+    if output.exists() and not args.resume:
         raise FileExistsError("output directory already exists: " + str(output))
-    output.mkdir(parents=True)
-    (output / "logs").mkdir()
-    (output / "indexes").mkdir()
+    if args.resume:
+        if not output.is_dir():
+            raise FileNotFoundError("resume output directory is missing")
+        if not (output / "logs").is_dir() or not (output / "indexes").is_dir():
+            raise RuntimeError("resume output directory is incomplete")
+    else:
+        output.mkdir(parents=True)
+        (output / "logs").mkdir()
+        (output / "indexes").mkdir()
     config = json.loads(args.config.read_text(encoding="utf-8"))
-    if int(config["threads"]) != 1 or int(config["repeats"]) != 3:
-        raise RuntimeError("the pinned protocol requires one thread and three repeats")
+    if (int(config["threads"]), int(config["repeats"]),
+            int(config["warmups"])) != (1, 5, 1):
+        raise RuntimeError(
+            "the pinned inline-final protocol requires one thread, one "
+            "warm-up, and five repeats")
     kssd_root = args.kssd_root.expanduser().resolve()
-    executables, build_logs = build_executables(
-        output, args.upstream_source, kssd_root, args.jobs,
-    )
-    executable_hashes = write_build_manifest(
-        output / "build_manifest.txt", config, kssd_root, executables, build_logs,
-    )
+    patch_path = kssd_root / str(config["patch"])
+    if sha256_file(patch_path) != str(config["patch_sha256"]):
+        raise RuntimeError("integration patch SHA-256 does not match config")
+    if args.resume:
+        executables, executable_hashes = load_executables(output)
+    else:
+        executables, build_logs = build_executables(
+            output, args.upstream_source, kssd_root, args.jobs,
+        )
+        executable_hashes = write_build_manifest(
+            output / "build_manifest.txt", config, kssd_root,
+            executables, build_logs,
+        )
     if args.preflight:
         datasets = [preflight_dataset()]
         mode = "preflight"
     else:
         datasets = resolve_datasets(config, parse_overrides(args.dataset))
         mode = "formal"
-    write_run_manifest(output / "run_manifest.txt", config, datasets, mode, output)
+    if not args.resume:
+        write_identity_tables(output, datasets, executables, executable_hashes)
+        write_run_manifest(output / "run_manifest.txt", config, datasets,
+                           mode, output)
+        write_environment(output, config)
     input_paths = [Path(str(dataset["resolved_path"])) for dataset in datasets]
+    initial_preflight = (output / "system_preflight.txt" if not args.resume
+                         else output / "system_preflight-resume.txt")
     system_preflight(
-        output / "system_preflight.txt", output, input_paths,
+        initial_preflight, output, input_paths,
         config, not args.preflight,
     )
     raw_path = output / "supplementary_indexing_raw.csv"
-    rows: list[dict[str, object]] = []
+    if args.resume and raw_path.is_file():
+        with raw_path.open(encoding="utf-8", newline="") as handle:
+            rows: list[dict[str, object]] = list(csv.DictReader(handle))
+    else:
+        rows = []
+    completed_keys = {
+        (str(row["dataset_key"]), int(row["repeat"]), str(row["method"]))
+        for row in rows
+    }
+    warmups: list[dict[str, object]] = []
     if args.preflight:
         dataset = datasets[0]
-        for method in METHODS:
-            rows.append(measure(output, dataset, method, 1, executables[method],
-                                executable_hashes[method], config))
+        for position, method in enumerate(METHODS, start=1):
+            rows.append(measure(
+                output, dataset, method, 1, position, executables[method],
+                executable_hashes[method], config, True))
             write_csv(raw_path, rows)
     else:
         repeats = int(config["repeats"])
         run_order = list(config["run_order"])
         for dataset in datasets:
+            dataset_key = str(dataset["key"])
+            system_preflight(
+                output / "logs" /
+                ("preflight-" + dataset_key +
+                 ("-resume.txt" if args.resume else ".txt")),
+                output, [Path(str(dataset["resolved_path"]))], config, True)
+            for position, method in enumerate(METHODS, start=1):
+                method_token = ("original" if method == METHODS[0]
+                                else "kssd-array")
+                existing_warmup = (output / "logs" /
+                    (dataset_key + "-" + method_token +
+                     "-warmup.stderr"))
+                if args.resume and existing_warmup.is_file():
+                    warmup_index = output / "indexes" / (
+                        dataset_key + "-" + method_token + "-warmup.mmi")
+                    warmups.append({"command": shlex.join([
+                        "taskset", "-c", str(config["selected_cpu"]),
+                        str(executables[method]), "-t", str(config["threads"]),
+                        "-k", str(config["k"]), "-w", str(config["w"]),
+                        "-d", str(warmup_index),
+                        str(dataset["resolved_path"]),
+                    ])})
+                else:
+                    warmups.append(measure(
+                        output, dataset, method, 0, position,
+                        executables[method], executable_hashes[method], config,
+                        False))
             for repeat in range(1, repeats + 1):
                 order = list(run_order[repeat - 1])
                 if set(order) != set(METHODS):
                     raise RuntimeError("invalid configured method order")
-                for method in order:
+                for position, method in enumerate(order, start=1):
+                    key = (dataset_key, repeat, method)
+                    if key in completed_keys:
+                        continue
                     rows.append(measure(
-                        output, dataset, method, repeat, executables[method],
-                        executable_hashes[method], config,
+                        output, dataset, method, repeat, position,
+                        executables[method], executable_hashes[method],
+                        config, True,
                     ))
+                    completed_keys.add(key)
                     write_csv(raw_path, rows)
                     time.sleep(int(config["cooldown_seconds"]))
+        if len(warmups) != 6 or len(rows) != 30:
+            raise RuntimeError("inline-final run grid is incomplete")
+        write_commands(output, warmups, rows)
     summarize_command = [
         sys.executable, str(SUMMARIZER), "--raw", str(raw_path),
         "--output-dir", str(output),
@@ -602,6 +1034,13 @@ def main() -> int:
     if args.preflight:
         plot_command.append("--preflight")
     run(plot_command, cwd=REPO_ROOT)
+    if not args.preflight:
+        write_final_report(output)
+    if any((output / "indexes").iterdir()):
+        raise RuntimeError("temporary index directory is not empty")
+    if not args.preflight:
+        finalize_run_manifest(output, rows)
+    write_output_hashes(output)
     print("RAW=" + str(raw_path))
     print("ROWS=" + str(len(rows)))
     print("OUTPUT_DIRECTORY=" + str(output))

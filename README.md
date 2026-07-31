@@ -13,7 +13,7 @@ KSSD-Array manuscript version: `KSSD-Array_Wiley_Manuscript_V5`
 
 Repository commit: `0e0a64b3f97595c6ae2395f740f18d177324c41d`
 
-Release: `v1.0.0-paper`
+Release candidate: `v1.1.0` (public runtime-inline API)
 
 This repository corresponds to the implementation and reproducibility
 workflows used for the manuscript.
@@ -108,11 +108,19 @@ cc -std=c11 your_program.c $(pkg-config --cflags --libs kssd-array) \
   -o your_program
 ```
 
-## Context API and fast API
+## Context, runtime-inline, and fixed-k APIs
 
 The context API in [`include/kssd_array.h`](include/kssd_array.h) validates
 initialization, `k`, and encoded input range. `kssd_array_map_unchecked()`
 removes per-call checks after the caller has established those preconditions.
+
+The runtime-inline header
+[`include/kssd_array_inline.h`](include/kssd_array_inline.h) supports callers
+whose `k` is selected at runtime. Initialize one
+`kssd_array_inline_plan_t` from an initialized context, then call the public
+always-inline `kssd_array_inline_map_unchecked()` in the hot loop. The plan
+borrows direct table pointers from the context, so the context must outlive the
+plan and must not be destroyed while mapping is active.
 
 The fixed-k header [`include/kssd_array_fast.h`](include/kssd_array_fast.h)
 requires `KSSD_ARRAY_FIXED_K` at compile time. It uses the same tables owned by
@@ -137,7 +145,7 @@ All optional CMake components are disabled by default:
 | `KSSD_ARRAY_BUILD_EXAMPLES` | `OFF` | Build runnable examples |
 | `KSSD_ARRAY_BUILD_REPRODUCIBILITY` | `OFF` | Build manuscript workflow targets |
 
-The current release version is `1.0.0`.
+The release-candidate version is `1.1.0`.
 
 ## Limitations
 

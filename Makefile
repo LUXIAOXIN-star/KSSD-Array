@@ -4,7 +4,7 @@ AR ?= ar
 RANLIB ?= ranlib
 PREFIX ?= /usr/local
 DESTDIR ?=
-PACKAGE_VERSION := 1.0.0
+PACKAGE_VERSION := 1.1.0
 
 CPPFLAGS := -Iinclude
 CFLAGS ?= -O2
@@ -16,7 +16,7 @@ STATIC_LIB := build/libkssd_array.a
 SHARED_LIB := build/libkssd_array.so
 FAST_K_VALUES := 4 8 9 16 19 21 24 31 32
 FAST_TESTS := $(addprefix build/tests/test_fast_parity_,$(FAST_K_VALUES))
-TESTS := build/tests/test_kssd_array $(FAST_TESTS)
+TESTS := build/tests/test_kssd_array build/tests/test_inline_parity $(FAST_TESTS)
 EXAMPLES := build/examples/minimal_api build/examples/build_minimizers
 TABLE2_DIR := reproducibility/table2
 TABLE2_BINARY := build/reproducibility/table2/test_exhaustive_9mer
@@ -40,7 +40,8 @@ SAN_OBJECTS := build/sanitize/obj/kssd_array.o build/sanitize/obj/permutation.o
 SAN_LIB := build/sanitize/libkssd_array.a
 SAN_FAST_TESTS := $(addprefix build/sanitize/tests/test_fast_parity_,$(FAST_K_VALUES))
 SAN_TABLE2_BINARY := build/sanitize/reproducibility/table2/test_exhaustive_9mer
-SAN_TESTS := build/sanitize/tests/test_kssd_array $(SAN_FAST_TESTS) \
+SAN_TESTS := build/sanitize/tests/test_kssd_array \
+	build/sanitize/tests/test_inline_parity $(SAN_FAST_TESTS) \
 	$(SAN_TABLE2_BINARY)
 
 .PHONY: all shared test sanitize examples table2-validation \
@@ -203,6 +204,7 @@ install: $(STATIC_LIB)
 	install -d "$(DESTDIR)$(PREFIX)/include" "$(DESTDIR)$(PREFIX)/lib" \
 		"$(DESTDIR)$(PREFIX)/lib/pkgconfig"
 	install -m 0644 include/kssd_array.h include/kssd_array_fast.h \
+		include/kssd_array_inline.h \
 		"$(DESTDIR)$(PREFIX)/include/"
 	install -m 0644 $(STATIC_LIB) "$(DESTDIR)$(PREFIX)/lib/"
 	sed -e 's|@PREFIX@|$(PREFIX)|g' \
@@ -214,7 +216,7 @@ install: $(STATIC_LIB)
 clean:
 	rm -rf build
 
-build/obj/%.o: src/%.c include/kssd_array.h src/permutation.h
+build/obj/%.o: src/%.c include/kssd_array.h include/kssd_array_inline.h src/permutation.h
 	@mkdir -p $(@D)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(WARNFLAGS) -fPIC -MMD -MP -c $< -o $@
 
@@ -228,6 +230,11 @@ $(SHARED_LIB): $(LIB_OBJECTS)
 build/tests/test_kssd_array: tests/test_kssd_array.c $(STATIC_LIB)
 	@mkdir -p $(@D)
 	$(CC) $(CPPFLAGS) $(CFLAGS) $(WARNFLAGS) $(THREAD_FLAGS) $< \
+		-Lbuild -Wl,-rpath,'$$ORIGIN/..' -lkssd_array -o $@
+
+build/tests/test_inline_parity: tests/test_inline_parity.c $(STATIC_LIB) include/kssd_array_inline.h
+	@mkdir -p $(@D)
+	$(CC) $(CPPFLAGS) $(CFLAGS) $(WARNFLAGS) $< \
 		-Lbuild -Wl,-rpath,'$$ORIGIN/..' -lkssd_array -o $@
 
 build/tests/test_fast_parity_%: tests/test_fast_parity.c $(STATIC_LIB) include/kssd_array_fast.h
@@ -281,7 +288,7 @@ $(FIGURE4_BINARY): $(FIGURE4_DIR)/benchmark_bucket_balance.c $(STATIC_LIB)
 		-Lbuild -Wl,-Bstatic -lkssd_array -Wl,-Bdynamic \
 		-lxxhash -lm -o $@
 
-build/sanitize/obj/%.o: src/%.c include/kssd_array.h src/permutation.h
+build/sanitize/obj/%.o: src/%.c include/kssd_array.h include/kssd_array_inline.h src/permutation.h
 	@mkdir -p $(@D)
 	$(CC) $(CPPFLAGS) $(WARNFLAGS) $(SAN_FLAGS) -MMD -MP -c $< -o $@
 
@@ -292,6 +299,11 @@ $(SAN_LIB): $(SAN_OBJECTS)
 build/sanitize/tests/test_kssd_array: tests/test_kssd_array.c $(SAN_LIB)
 	@mkdir -p $(@D)
 	$(CC) $(CPPFLAGS) $(WARNFLAGS) $(SAN_FLAGS) $(THREAD_FLAGS) $< \
+		-Lbuild/sanitize -lkssd_array -o $@
+
+build/sanitize/tests/test_inline_parity: tests/test_inline_parity.c $(SAN_LIB) include/kssd_array_inline.h
+	@mkdir -p $(@D)
+	$(CC) $(CPPFLAGS) $(WARNFLAGS) $(SAN_FLAGS) $< \
 		-Lbuild/sanitize -lkssd_array -o $@
 
 build/sanitize/tests/test_fast_parity_%: tests/test_fast_parity.c $(SAN_LIB) include/kssd_array_fast.h
