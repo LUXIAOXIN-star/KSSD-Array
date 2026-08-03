@@ -1,0 +1,11 @@
+{
+  "binary_sha256": "2e956dc574826f1c34cbc4e93c2073bc7db7c86d8b529a7eb1f212d9d1bc18ed",
+  "compile_command": "cc -Iinclude -O3 -march=native -std=c11 -Wall -Wextra -Wpedantic benchmarks/figure4_bucket_balance/benchmark_bucket_balance.c -Lbuild -Wl,-Bstatic -lkssd_array -Wl,-Bdynamic -lxxhash -lm -o $KSSD_RELEASE_HOST/KSSD-Array-formal-results/figure4-20260727-phase4d/bin/benchmark_bucket_balance",
+  "compiler": "cc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0",
+  "created_utc": "2026-07-27T13:25:03.997199+00:00",
+  "library": "build/libkssd_array.a",
+  "library_sha256": "5ff542ca0d83775d61fafbc149908374230cc0060a8f346dc8698c3b83448513",
+  "repository_commit": "b544491419dd005fde29179146e9e058e15a238e",
+  "source": "benchmarks/figure4_bucket_balance/benchmark_bucket_balance.c",
+  "source_sha256": "253b2876d153c4fad3f9c42d198400b4ad2e929c6490c0e1f59261998ebf3828"
+}

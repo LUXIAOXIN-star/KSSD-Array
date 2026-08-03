@@ -1,5 +1,9 @@
 # Table 4 matched-workload results
 
+Manuscript placement: these detailed matched-workload ntHash results are
+intended for Supplementary material, with only a concise summary in the main
+text.
+
 Exact accepted source: `$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full`.
 
 The 580-row [`benchmark_raw_results.csv`](benchmark_raw_results.csv) covers
