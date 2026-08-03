@@ -4,9 +4,8 @@ This workflow compares Original Minimap2 and the public runtime-inline
 KSSD-Array integration during single-thread index construction only. Alignment consistency is a
 separate workflow and is not invoked here.
 
-The public-inline implementation has a complete controlled rerun workflow and
-does not reuse the former generic external-call measurements. Deterministic
-minimizer fields are validated for every run. Because timing depends on host
+The public-inline implementation has a complete controlled rerun workflow.
+Deterministic minimizer fields are validated for every run. Because timing depends on host
 load, storage, memory pressure, cache state, and hardware, no universal or
 hardware-independent acceleration is claimed.
 

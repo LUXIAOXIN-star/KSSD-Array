@@ -27,6 +27,10 @@ GENERATED_SUFFIXES = {
     ".fastq", ".fq", ".o", ".a", ".so", ".dylib", ".dll",
 }
 GENERATED_PARTS = {"build", "build-cmake", "Testing", "results", "output"}
+COMMITTED_SPECIFICATION_FILES = {
+    "reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/assignments.sam",
+    "reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/duplicate_primary.sam",
+}
 
 
 def tracked_paths() -> list[Path]:
@@ -57,9 +61,11 @@ def main() -> int:
             except ValueError:
                 failures.append(f"external symbolic link: {relative}")
             continue
-        if path.suffix.lower() in GENERATED_SUFFIXES or any(
-            part in GENERATED_PARTS for part in Path(relative).parts
-        ):
+        committed_specification = relative in COMMITTED_SPECIFICATION_FILES
+        if (
+            path.suffix.lower() in GENERATED_SUFFIXES
+            and not committed_specification
+        ) or any(part in GENERATED_PARTS for part in Path(relative).parts):
             failures.append(f"forbidden generated file: {relative}")
         data = path.read_bytes()
         if not is_text(data):

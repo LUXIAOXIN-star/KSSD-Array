@@ -1,16 +1,24 @@
 # Manuscript reproducibility
 
-This directory contains the exact public-library workflows used to validate
-the KSSD-Array manuscript results. It is intentionally separate from the core
-library interface while remaining in the same repository and version.
+This directory contains the paper experiment workflows used to validate the
+KSSD-Array manuscript results. Ordinary library users do not need to run these
+workflows; accepted compact outputs are under
+[`benchmark_results/`](../benchmark_results/). Each workflow documents its
+required external inputs, and large references, reads, alignments, and indexes
+are deliberately not stored in Git.
 
-## Included workflows
+## Workflow index
 
-- Figure 2 single-threaded minimizer benchmark;
-- Figure 3 multithreaded benchmark;
-- Table 4 ntHash comparison;
-- Figure 4 bucket-balance analysis;
-- Supplementary Figure S1 Minimap2 integration.
+| Paper item | Workflow |
+| --- | --- |
+| Table 2 exhaustive validation | [`table2/`](table2/) |
+| Figure 2 single-threaded minimizer benchmark | [`figure2/`](figure2/) |
+| Figure 3 multithreaded benchmark | [`figure3/`](figure3/) |
+| Main-text Figure 4 bucket-balance analysis | [`figure4/`](figure4/) |
+| Matched-workload ntHash comparison | [`table4_matched_workload/`](table4_matched_workload/) |
+| Method-native ntHash comparison workflow | [`table4/`](table4/) |
+| Supplementary Figure S1 and Table S1 | [`minimap2/indexing/`](minimap2/indexing/) |
+| Corrected Supplementary Table S2 | [`minimap2/alignment_consistency_truth_origin/`](minimap2/alignment_consistency_truth_origin/) |
 
 The recorded manuscript environment, compiler policy, workflow flags, and
 pinned commits are summarized in [`ENVIRONMENT.md`](ENVIRONMENT.md).
@@ -20,15 +28,16 @@ pinned commits are summarized in [`ENVIRONMENT.md`](ENVIRONMENT.md).
 | Manuscript result | Public status | Formal rerun in the validated release candidate |
 |---|---|---:|
 | Table 2 | Fully reproduced exactly | yes |
-| Figure 2 | Workflow migrated and smoke-tested | no |
-| Table 4 | Workflow migrated and smoke-tested | no |
-| Figure 3 | Workflow migrated and smoke-tested | no |
+| Figure 2 | Accepted compact result; KSSD fastest in 30/30 groups; workflow smoke-tested | accepted external run |
+| Matched-workload ntHash | Detailed Supplementary result; workflow smoke-tested | accepted external run |
+| Figure 3 | Accepted compact result; KSSD fastest in 30/30 groups; workflow smoke-tested | accepted external run |
 | Figure 4 | Formally reproduced; trends agree, with exact summary and plotted data in the accepted validation | yes |
 | Supplementary Figure S1 and Table S1 | Public-inline integration validated; controlled three-dataset/five-pair workflow available | yes, public-inline final run |
-| Supplementary Table S2 | Formally reproduced; all twelve displayed deltas match after rounding | yes |
+| Corrected Supplementary Table S2 | All truth reads; ART strand-aware intervals; fixed truth-origin repeat subsets | accepted BAMs reused; 7/7 fixtures, 12/12 compatibility deltas, 62/62 corrected checks |
 
 The matrix does not claim that every performance result was formally rerun.
-Figure 2, Table 4, and Figure 3 validation is functional smoke validation.
+Figure 2, matched ntHash, and Figure 3 public workflows have functional smoke
+validation; their accepted formal results are copied with source manifests.
 Indexing time is host-sensitive; the public-inline S1 run is reported only for
 its recorded host and controlled protocol.
 
@@ -53,9 +62,11 @@ clean checkout of the pinned Minimap2 2.30-r1287 commit.
 
 ## Dataset and output policy
 
-Only small deterministic fixtures are committed. Full references, FASTQ
-files, generated indexes, SAM/BAM/PAF files, raw formal tables, and manuscript
-figures are not distributed. Dataset identities and resolution rules are in
+Only small deterministic fixtures are committed with workflow source. Compact
+accepted CSVs, figures, reports, and manifests are published under
+`benchmark_results/`. Full references, FASTQ files, generated indexes,
+SAM/BAM/PAF files, per-read diagnostics, and large logs are not distributed.
+Dataset identities and resolution rules are in
 [`../docs/datasets.md`](../docs/datasets.md) and
 [`data/datasets.json`](data/datasets.json).
 
@@ -82,11 +93,11 @@ reproducibility/reproduce_manuscript.sh figure3-smoke
 reproducibility/reproduce_manuscript.sh figure4-preflight
 reproducibility/reproduce_manuscript.sh minimap2-smoke
 reproducibility/reproduce_manuscript.sh minimap2-indexing-preflight
-reproducibility/reproduce_manuscript.sh minimap2-alignment-preflight
+reproducibility/reproduce_manuscript.sh s2-corrected-tests
 ```
 
-`all-smoke` runs all of them and therefore requires `MINIMAP2_SOURCE_DIR` and
-`PHASE5B_OUTPUT` as described below. The Make alias is
+`all-smoke` runs all of them and therefore requires `MINIMAP2_SOURCE_DIR`.
+The Make alias is
 `make reproducibility-smoke`.
 
 ## Table 2
@@ -156,7 +167,8 @@ Details: [`figure4/README.md`](figure4/README.md).
 ## Supplementary Figure S1 and Table S1
 
 Set `MINIMAP2_SOURCE_DIR` to a clean checkout of the pinned upstream commit.
-The preflight uses committed fixtures. Formal mode requires the three pinned
+The preflight uses hash-verified fixtures generated from public C source in a
+temporary directory. Formal mode requires the three pinned
 reference genomes and an explicit external output directory.
 
 ```sh
@@ -173,23 +185,17 @@ MINIMAP2_SOURCE_DIR=/path/to/minimap2 KSSD_DATA_DIR=/path/to/data-root \
 
 Details: [`minimap2/indexing/README.md`](minimap2/indexing/README.md).
 
-## Supplementary Table S2
+## Corrected Supplementary Table S2
 
-Set `PHASE5B_OUTPUT` to the accepted indexing output containing the matching
-original and integrated executables and indexes.
+The corrected workflow reuses hash-verified accepted BAMs; it does not run
+Minimap2. First run its deterministic fixture tests:
 
 ```sh
-PHASE5B_OUTPUT=/path/to/indexing-output \
-  reproducibility/reproduce_manuscript.sh minimap2-alignment-preflight
-
-PHASE5B_OUTPUT=/path/to/indexing-output \
-  reproducibility/reproduce_manuscript.sh minimap2-alignment-formal \
-  --output-dir /external/results/alignment \
-  --reference Dataset=/path/to/reference.fa \
-  --reads Dataset:100=/path/to/reads.fq \
-  --truth Dataset:100=/path/to/truth.tsv \
-  --bed Dataset=/path/to/repeats.bed
+PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+  -s reproducibility/minimap2/alignment_consistency_truth_origin/tests -v
 ```
 
-Details:
-[`minimap2/alignment_consistency/README.md`](minimap2/alignment_consistency/README.md).
+The complete external-data commands and stop conditions are documented in
+[`minimap2/alignment_consistency_truth_origin/README.md`](minimap2/alignment_consistency_truth_origin/README.md).
+The historical evaluator remains available only for compatibility/provenance;
+its table is superseded.

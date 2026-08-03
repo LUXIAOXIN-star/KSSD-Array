@@ -47,7 +47,8 @@ make table4-build
 make table4-smoke
 ```
 
-The smoke uses only `reproducibility/table4/fixtures/table4_smoke.fa`, `k=w=21`, one repeat,
+The smoke source-generates `reproducibility/table4/fixtures/table4_smoke.fa`
+beneath a temporary output root, then uses `k=w=21`, one repeat,
 and exactly two methods. It expects two raw rows and two summary rows. Output
 defaults to a new system temporary directory outside the repository.
 

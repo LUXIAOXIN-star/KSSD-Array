@@ -1,5 +1,6 @@
 /build/
 /build-cmake/
+/build-*/
 CMakeCache.txt
 CMakeFiles/
 CTestTestfile.cmake
@@ -7,6 +8,7 @@ cmake_install.cmake
 Makefile.cmake
 Testing/
 *.o
+*.d
 *.a
 *.so
 *.dylib
@@ -14,6 +16,11 @@ Testing/
 compile_commands.json
 __pycache__/
 *.py[cod]
+*.pyc
+.Rhistory
+*.tmp
+/core
+/core.*
 *.bam
 *.bai
 *.cram
@@ -34,6 +41,12 @@ supplementary_*.csv
 exhaustive_9mer.csv
 /results/
 /output/
+/manuscript/
+/manuscript_drafts/
+/review_packets/
+/release_archives/
+*_review_packet.tar.gz
+*_release_archive.tar.gz
 reproducibility/data/external/*
 !reproducibility/data/external/.gitkeep
 /third_party/ntHash/
@@ -42,3 +55,4 @@ reproducibility/data/external/*
 # their file extensions match generated-output patterns above.
 !/benchmark_results/
 !/benchmark_results/**
+!/reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/*.sam

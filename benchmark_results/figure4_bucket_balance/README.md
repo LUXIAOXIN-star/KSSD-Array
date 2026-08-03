@@ -14,14 +14,16 @@ No benchmark or experiment was rerun while assembling this directory.
 - `figure4_bucket_balance_raw.csv`: 27,000 rows, comprising 5,400 complete
   condition/repeat groups with five methods per group.
 - `figure4_bucket_balance_summary.csv`: 270 complete summary rows.
-- `figure4_bucket_balance.png` and `figure4_bucket_balance.pdf`: byte-identical
-  copies of the accepted raster and vector plots.
+- `figure4_bucket_balance.png` and `figure4_bucket_balance.pdf`: the accepted
+  plot regenerated from the unchanged accepted summary solely to display the
+  method label as lowercase `wyhash`.
 - `build_manifest.txt` and `run_manifest.txt`: accepted manifests with only
   developer-local path prefixes mechanically replaced by
   `$KSSD_RELEASE_HOST` for the public package.
-- `plot_figure4_bucket_balance.py`: the tracked public plotting script. It
-  accepts the accepted legacy `Wyhash` rows and normalizes only their display
-  label to `wyhash`; it does not change numeric columns.
+- [`plot_figure4_bucket_balance.py`](plot_figure4_bucket_balance.py): the
+  tracked public plotting script. It accepts the case-sensitive accepted raw
+  identifier `Wyhash` and normalizes only its display label to `wyhash`; it
+  does not change numeric columns.
 - `output_sha256.tsv`: package-time SHA-256 inventory of the public files.
   The accepted source directory did not contain an output hash inventory, so
   this file is release metadata rather than a historical experiment output.
@@ -36,6 +38,18 @@ values match the files:
 | `figure4_bucket_balance_summary.csv` | `bd657e4c3bcae1d8d67bd85b5bb47fac932f41f0da31acab1eb1ecc1732967f1` |
 | `figure4_bucket_balance.png` | `625359beac7c6ffcbf506ecad0c7b92d1ad490a2af1c58e651adcfc7cbf13897` |
 | `figure4_bucket_balance.pdf` | `68b8ccf8e9ae19f51b63db39e66433d8230e2fc91b451711f95ebd031f4a07f1` |
+
+The original accepted PNG/PDF above remain the authoritative pre-label-change
+provenance. The current public label-corrected hashes are:
+
+| File | Public SHA-256 |
+|---|---|
+| `figure4_bucket_balance.png` | `de7bcf8ef7acbf68896a8b4529ea2d8ba1130c0f8209c0a921ff09db03f5f2ed` |
+| `figure4_bucket_balance.pdf` | `ccf22a418d35f21dce624c3905a23e3d80c09bb8c80c8ddbd55fc63b5baa0015` |
+
+Pixel comparison against the accepted PNG found exactly 3,560 changed pixels,
+all confined to the final legend text bounding box. Every data panel, axis,
+curve, marker, color, and layout pixel is unchanged.
 
 Independent read-only checks confirmed the full k, sequence-length, bin, and
 repeat grid; mapped-count and bucket-count identities; degrees of freedom;

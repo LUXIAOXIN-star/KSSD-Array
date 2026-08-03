@@ -1,6 +1,6 @@
 # Datasets and data policy
 
-Only small functional fixtures are committed. Full references, simulated
+Only source and specifications for small functional fixtures are committed. Full references, simulated
 reads, indexes, alignments, raw performance tables, and figures belong outside
 the repository. `reproducibility/data/external/` is ignored except for its policy marker.
 
@@ -14,21 +14,37 @@ Supplementary indexing runner refuses reference size, checksum,
 sequence-count, or total-base mismatches and never downloads or decompresses
 data implicitly.
 
-## Committed fixtures
+## Source-generated fixtures
 
-| Path | SHA-256 |
+The wrapper `tests/fixture_generators/generate_test_fixtures.sh` compiles the
+public C source in a temporary directory, writes these paths below a requested
+output root, and verifies their SHA-256 values. The generated files themselves
+are not committed.
+
+| Generated path | SHA-256 |
 |---|---|
 | `reproducibility/table4/fixtures/table4_smoke.fa` | `912298feebce09f926f9424567b4312f980e2989c60465719c8458e8ad920a6c` |
 | `reproducibility/figure3/fixtures/figure3_smoke.fa` | `b91c3f75695966fc2ea88fbba80a0876a34a805aa0d091554da4fb0b73c106d3` |
 | `reproducibility/minimap2/fixtures/reference.fa` | `7e778a63b2c946644d5b61fa82606f9cf78ed8025e613f32d05b50e7967d7946` |
 | `reproducibility/minimap2/fixtures/query.fa` | `4b53c67adb9fc9af64228675aba6592f8eb3a46977ffcacda95911167ac98706` |
+| `reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/reads.fq` | `bb003e9774486cfe5aa984e76fdb7bb572396c15f37f0a96a9f1f0d4f71d4d1c` |
+| `reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/repeats.bed` | `ef97de5a281634ab890e02a09f673598fb4ac13212b9cb2b5e8d87f3e6f99eb4` |
 
-The Table 4 fixture contains two records and intentionally reads only the
+The corrected-S2 truth/SAM fixtures below remain committed because they are
+human-readable evaluator specifications rather than generated sequence or BED
+inputs.
+
+| Committed specification | SHA-256 |
+|---|---|
+| `reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/truth.aln` | `2a0c9050bb762b96096c13e3fa503ee23e8762521c76e8642aae2a25f0d2c35e` |
+| `reproducibility/minimap2/alignment_consistency_truth_origin/fixtures/truth.tsv` | `58ccfb62d04b80635596f8a976f8a57212ce25e8352c7db765c3178c255a42f9` |
+
+The generated Table 4 fixture contains two records and intentionally reads only the
 first, preserving the historical protocol. It includes a short ambiguous
 region that the Table 4 workflow removes without reset. It is a functional
 fixture, not a performance dataset.
 
-The Figure 3 fixture contains 400 valid bases, 12 skipped ambiguous symbols,
+The generated Figure 3 fixture contains 400 valid bases, 12 skipped ambiguous symbols,
 and an ignored second record. At `k=21`, `w=20`, both workers receive non-empty
 window ranges in the two-thread smoke condition.
 
@@ -55,12 +71,15 @@ relative paths, or beneath `reproducibility/data/external/`.
 ## Supplementary Table S2 reads
 
 The four accepted single-end read hashes are listed in
-`reproducibility/minimap2/alignment_consistency/config.json`: Human 100/150 bp and Zea mays
-100/150 bp. ART_Illumina 2.5.8 used its HS25 empirical profile and seed 42.
+`reproducibility/minimap2/alignment_consistency_truth_origin/config.json`:
+Human 100/150 bp and Zea mays 100/150 bp. ART_Illumina 2.5.8 used its HS25
+empirical profile and seed 42.
 Coverage factors were 0.0167, 0.025, 0.0235, and 0.0353, respectively. The
 configuration also records read counts, truth tables, repeat BED hashes, and
 the complete simulation commands.
 
-The repository does not store those reads, indexes, SAM/BAM/PAF outputs, or
-final tables. Validate every input against its configured SHA-256 before a
-formal run.
+The repository does not store those reads, indexes, SAM/BAM/PAF outputs,
+repeat BEDs, or full per-read diagnostics. It does publish the compact
+corrected tables and reports under
+`benchmark_results/supplementary_s2_mapping/`. Validate every external input
+against its configured SHA-256 before a corrected analysis.

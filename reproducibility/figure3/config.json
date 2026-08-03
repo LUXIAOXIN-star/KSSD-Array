@@ -10,7 +10,8 @@
     "datasets": ["Synthetic_300M", "Human_GRCh38"]
   },
   "smoke": {
-    "dataset": "reproducibility/figure3/fixtures/figure3_smoke.fa",
+    "dataset": "source-generated:reproducibility/figure3/fixtures/figure3_smoke.fa",
+    "generator": "tests/fixture_generators/generate_test_fixtures.sh",
     "k": 21,
     "w": 20,
     "threads": [1, 2],

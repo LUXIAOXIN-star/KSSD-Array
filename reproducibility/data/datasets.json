@@ -43,12 +43,14 @@
     },
     "Table4_smoke": {
       "filename": "table4_smoke.fa",
-      "repository_path": "reproducibility/table4/fixtures/table4_smoke.fa",
+      "generated_path": "reproducibility/table4/fixtures/table4_smoke.fa",
+      "generator": "tests/fixture_generators/generate_test_fixtures.sh",
       "sha256": "912298feebce09f926f9424567b4312f980e2989c60465719c8458e8ad920a6c"
     },
     "Figure3_smoke": {
       "filename": "figure3_smoke.fa",
-      "repository_path": "reproducibility/figure3/fixtures/figure3_smoke.fa",
+      "generated_path": "reproducibility/figure3/fixtures/figure3_smoke.fa",
+      "generator": "tests/fixture_generators/generate_test_fixtures.sh",
       "sha256": "b91c3f75695966fc2ea88fbba80a0876a34a805aa0d091554da4fb0b73c106d3"
     }
   }

@@ -22,6 +22,8 @@ RAW_NAME = "figure3_multithread_raw.csv"
 SUMMARY_NAME = "figure3_multithread_summary.csv"
 SOURCE_RELATIVE = Path(
     "reproducibility/figure3/benchmark_multithread_k21.c")
+FIXTURE_GENERATOR = Path("tests/fixture_generators/generate_test_fixtures.sh")
+FIGURE3_FIXTURE = Path("reproducibility/figure3/fixtures/figure3_smoke.fa")
 
 
 def parse_arguments():
@@ -90,11 +92,13 @@ def fasta_record_count(path):
     return count
 
 
-def resolve_datasets(arguments, repo_root):
+def resolve_datasets(arguments, repo_root, generated_root=None):
     if arguments.smoke:
         if arguments.datasets or arguments.dataset_names:
-            raise ValueError("--smoke uses exactly the committed fixture")
-        return [repo_root / "reproducibility/figure3/fixtures/figure3_smoke.fa"], ["Figure3Smoke"]
+            raise ValueError("--smoke uses exactly the source-generated fixture")
+        if generated_root is None:
+            raise ValueError("generated fixture root is required for --smoke")
+        return [generated_root / FIGURE3_FIXTURE], ["Figure3Smoke"]
     if arguments.datasets:
         paths = [Path(value).expanduser().resolve()
                  for value in arguments.datasets]
@@ -114,7 +118,7 @@ def resolve_datasets(arguments, repo_root):
     return [path.resolve() for path in paths], names
 
 
-def validate_request(arguments, repo_root, output_dir):
+def validate_request(arguments, repo_root, output_dir, generated_root=None):
     if arguments.smoke:
         if any(value is not None for value in (
                 arguments.k, arguments.w_values, arguments.threads,
@@ -140,7 +144,7 @@ def validate_request(arguments, repo_root, output_dir):
         raise ValueError("thread values must be positive and unique")
     if repeats < 1:
         raise ValueError("repeats must be positive")
-    datasets, names = resolve_datasets(arguments, repo_root)
+    datasets, names = resolve_datasets(arguments, repo_root, generated_root)
     missing = [str(path) for path in datasets if not path.is_file()]
     if missing:
         raise ValueError(
@@ -402,8 +406,19 @@ def main():
     bins = output_dir / "bin"
     logs.mkdir(parents=True, exist_ok=True)
     bins.mkdir(parents=True, exist_ok=True)
+    fixture_workspace = None
+    generated_root = None
+    if arguments.smoke:
+        fixture_workspace = tempfile.TemporaryDirectory(
+            prefix="kssd-figure3-generated-fixtures-")
+        generated_root = Path(fixture_workspace.name)
+        run_command([
+            str(repo_root / FIXTURE_GENERATOR),
+            "--output-dir", str(generated_root), "--seed", "42",
+        ], repo_root, logs / "generate_fixtures.log")
     (datasets, names, k, w_values, thread_values, repeats,
-     result_status) = validate_request(arguments, repo_root, output_dir)
+     result_status) = validate_request(
+         arguments, repo_root, output_dir, generated_root)
 
     dataset_records = []
     for path, name in zip(datasets, names):

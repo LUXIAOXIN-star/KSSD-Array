@@ -16,6 +16,7 @@ import shlex
 import shutil
 import subprocess
 import sys
+import tempfile
 import time
 from datetime import datetime
 
@@ -24,7 +25,8 @@ SCRIPT_DIR = Path(__file__).resolve().parent
 REPO_ROOT = SCRIPT_DIR.parents[2]
 INTEGRATION_DIR = SCRIPT_DIR.parent
 DEFAULT_CONFIG = REPO_ROOT / "reproducibility/minimap2/indexing/config.json"
-FIXTURE = INTEGRATION_DIR / "fixtures/reference.fa"
+FIXTURE_GENERATOR = REPO_ROOT / "tests/fixture_generators/generate_test_fixtures.sh"
+FIXTURE_RELATIVE = Path("reproducibility/minimap2/fixtures/reference.fa")
 BUILD_HELPER = INTEGRATION_DIR / "build_minimap2.sh"
 SUMMARIZER = SCRIPT_DIR / "summarize_supplementary_indexing.py"
 PLOTTER = REPO_ROOT / "reproducibility/minimap2/indexing/plot_supplementary_figure_s1.py"
@@ -658,16 +660,16 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
     return row
 
 
-def preflight_dataset() -> dict[str, object]:
-    checksum = sha256_file(FIXTURE)
-    count, bases = fasta_statistics(FIXTURE, False)
+def preflight_dataset(fixture: Path) -> dict[str, object]:
+    checksum = sha256_file(fixture)
+    count, bases = fasta_statistics(fixture, False)
     return {
         "key": "Fixture",
         "manuscript_label": "Phase 5A fixture",
         "accession": "synthetic-fixture",
         "version": "phase5a",
-        "resolved_path": str(FIXTURE),
-        "size_bytes": FIXTURE.stat().st_size,
+        "resolved_path": str(fixture),
+        "size_bytes": fixture.stat().st_size,
         "sha256": checksum,
         "sequence_count": count,
         "total_bases": bases,
@@ -789,8 +791,7 @@ def write_final_report(output: Path) -> None:
         "Generated: `{}`".format(now()),
         "",
         "This is the completed three-dataset comparison of Original Minimap2 "
-        "and the optimized public runtime-inline KSSD-Array path. The former "
-        "generic external-call results are not included.",
+        "and the optimized public runtime-inline KSSD-Array path.",
         "",
         "Protocol: one discarded warm-up per method/dataset; five sequential "
         "paired repeats; Original first on odd repeats and KSSD first on even "
@@ -920,6 +921,19 @@ def main() -> int:
         output.mkdir(parents=True)
         (output / "logs").mkdir()
         (output / "indexes").mkdir()
+    fixture_workspace = None
+    fixture = None
+    if args.preflight:
+        fixture_workspace = tempfile.TemporaryDirectory(
+            prefix="kssd-indexing-generated-fixtures-")
+        generated_root = Path(fixture_workspace.name)
+        generated = run([
+            str(FIXTURE_GENERATOR), "--output-dir", str(generated_root),
+            "--seed", "42",
+        ])
+        (output / "logs" / "generate-fixtures.log").write_text(
+            generated.stdout + generated.stderr, encoding="utf-8")
+        fixture = generated_root / FIXTURE_RELATIVE
     config = json.loads(args.config.read_text(encoding="utf-8"))
     if (int(config["threads"]), int(config["repeats"]),
             int(config["warmups"])) != (1, 5, 1):
@@ -941,7 +955,8 @@ def main() -> int:
             executables, build_logs,
         )
     if args.preflight:
-        datasets = [preflight_dataset()]
+        assert fixture is not None
+        datasets = [preflight_dataset(fixture)]
         mode = "preflight"
     else:
         datasets = resolve_datasets(config, parse_overrides(args.dataset))

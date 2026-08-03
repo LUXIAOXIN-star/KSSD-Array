@@ -46,5 +46,5 @@ reproducibility/reproduce_manuscript.sh minimap2-indexing-formal \
 Set `MINIMAP2_SOURCE_DIR` to a clean checkout of the pinned upstream commit.
 Timing comparisons must record and control host load, storage, memory pressure,
 cache state, and hardware. No universal or hardware-independent acceleration
-is claimed. Supplementary Table S2 has a separate workflow and was formally
-reproduced.
+is claimed. Corrected Supplementary Table S2 has a separate all-read,
+truth-origin workflow that reuses accepted BAMs without rerunning Minimap2.

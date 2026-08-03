@@ -88,7 +88,9 @@ network. Ordinary repository builds, tests, and CTest never fetch minimap2.
 
 ## Deterministic fixtures and smoke validation
 
-`fixtures/reference.fa` and `fixtures/query.fa` are small synthetic inputs.
+The paths `fixtures/reference.fa` and `fixtures/query.fa` identify small
+synthetic inputs generated under a temporary output root by
+`tests/fixture_generators/generate_test_fixtures.sh`. They are not committed.
 They contain ambiguous-base regions and homopolymer-rich regions. The C probe
 checks that two eight-base runs separated by an ambiguous base produce no
 9-mer minimizers, while the same bases joined without the boundary do produce
@@ -128,8 +130,12 @@ indexing workflow is documented in
 [`indexing`](indexing). The manuscript's accepted
 low-load Supplementary Figure S1 and Table S1 values remain authoritative;
 Phase 7 validates only the lightweight preflight. Timing is environment-
-sensitive, and the repository makes no universal or hardware-independent
-indexing-acceleration claim. Alignment consistency is documented in
-[`alignment_consistency`](alignment_consistency) and
-reproduces Supplementary Table S2 from exact historical reads. It is never
-run by the indexing targets or ordinary builds/tests.
+Sensitive timing is reported only for the recorded host and protocol.
+The superseded historical alignment evaluator is retained in
+[`alignment_consistency`](alignment_consistency) for compatibility checks and
+provenance; it is never run by indexing targets or ordinary builds/tests. The
+active corrected all-read, ART strand-aware, fixed truth-origin repeat
+evaluation is documented in
+[`alignment_consistency_truth_origin`](alignment_consistency_truth_origin).
+It reuses the accepted BAM files, reproduces the historical metrics first,
+and does not rerun Minimap2.

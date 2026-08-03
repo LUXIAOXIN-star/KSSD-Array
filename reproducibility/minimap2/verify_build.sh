@@ -5,6 +5,7 @@ SCRIPT_DIR="$(cd -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd)"
 FETCH_SCRIPT="$SCRIPT_DIR/fetch_minimap2.sh"
 APPLY_SCRIPT="$SCRIPT_DIR/patch/apply_patch.sh"
 PATCH_FILE="$SCRIPT_DIR/patch/minimap2-v2.30-kssd-array.patch"
+FIXTURE_GENERATOR="$SCRIPT_DIR/../../tests/fixture_generators/generate_test_fixtures.sh"
 EXPECTED_COMMIT=79c9cc186b95f50bd899f69b48eba995ced810c6
 
 usage() {
@@ -143,8 +144,15 @@ if [[ "$mode" == "--build-only" ]]; then
     exit 0
 fi
 
-reference="$SCRIPT_DIR/fixtures/reference.fa"
-query="$SCRIPT_DIR/fixtures/query.fa"
+fixture_directory="$(mktemp -d "${TMPDIR:-/tmp}/kssd-minimap2-fixtures.XXXXXX")"
+cleanup_fixtures() {
+    rm -rf -- "$fixture_directory"
+}
+trap cleanup_fixtures EXIT HUP INT TERM
+"$FIXTURE_GENERATOR" --output-dir "$fixture_directory" --seed 42 \
+    >"$output_directory/logs/generate-fixtures.log" 2>&1
+reference="$fixture_directory/reproducibility/minimap2/fixtures/reference.fa"
+query="$fixture_directory/reproducibility/minimap2/fixtures/query.fa"
 probe_source="$SCRIPT_DIR/fixtures/ambiguous_reset_probe.c"
 grep -Eq '[Nn]' "$reference"
 grep -Eq '[Nn]' "$query"

@@ -24,6 +24,8 @@ SOURCE_NAMES = (
     "nthash_wrapper.cpp",
     "nthash_wrapper.h",
 )
+FIXTURE_GENERATOR = Path("tests/fixture_generators/generate_test_fixtures.sh")
+TABLE4_FIXTURE = Path("reproducibility/table4/fixtures/table4_smoke.fa")
 
 
 def parse_arguments():
@@ -91,11 +93,13 @@ def resolve_nthash_prefix(arguments, repo_root):
     return prefix, header, library, source
 
 
-def resolve_datasets(arguments, repo_root):
+def resolve_datasets(arguments, repo_root, generated_root=None):
     if arguments.smoke:
         if arguments.datasets or arguments.dataset_names:
-            raise RuntimeError("--smoke uses exactly the committed smoke fixture")
-        return [repo_root / "reproducibility/table4/fixtures/table4_smoke.fa"], ["Table4_smoke"]
+            raise RuntimeError("--smoke uses exactly the source-generated smoke fixture")
+        if generated_root is None:
+            raise RuntimeError("generated fixture root is required for --smoke")
+        return [generated_root / TABLE4_FIXTURE], ["Table4_smoke"]
     if arguments.datasets:
         datasets = [Path(value).expanduser().resolve()
                     for value in arguments.datasets]
@@ -125,7 +129,7 @@ def fasta_record_count(path):
     return count
 
 
-def validate_request(arguments, repo_root, output_dir):
+def validate_request(arguments, repo_root, output_dir, generated_root=None):
     if arguments.smoke:
         k_start = k_end = 21
         repeats = 1
@@ -138,7 +142,7 @@ def validate_request(arguments, repo_root, output_dir):
         raise RuntimeError("k range must be within 1..32")
     if repeats < 1:
         raise RuntimeError("repeats must be positive")
-    datasets, names = resolve_datasets(arguments, repo_root)
+    datasets, names = resolve_datasets(arguments, repo_root, generated_root)
     missing = [str(path) for path in datasets if not path.is_file()]
     if missing:
         raise RuntimeError(
@@ -273,8 +277,19 @@ def main():
     logs.mkdir(parents=True, exist_ok=True)
     bins.mkdir(parents=True, exist_ok=True)
 
+    fixture_workspace = None
+    generated_root = None
+    if arguments.smoke:
+        fixture_workspace = tempfile.TemporaryDirectory(
+            prefix="kssd-table4-generated-fixtures-")
+        generated_root = Path(fixture_workspace.name)
+        run_command([
+            str(repo_root / FIXTURE_GENERATOR),
+            "--output-dir", str(generated_root), "--seed", "42",
+        ], repo_root, logs / "generate_fixtures.log")
+
     datasets, names, k_start, k_end, repeats, result_status = validate_request(
-        arguments, repo_root, output_dir)
+        arguments, repo_root, output_dir, generated_root)
     prefix, nthash_header, nthash_library, nthash_resolution = (
         resolve_nthash_prefix(arguments, repo_root))
     dataset_records = []

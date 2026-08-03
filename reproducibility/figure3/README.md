@@ -70,7 +70,10 @@ make figure3-build
 make figure3-smoke
 ```
 
-The smoke uses only `reproducibility/figure3/fixtures/figure3_smoke.fa`, `k=21`, `w=20`, thread
+The smoke generates
+`reproducibility/figure3/fixtures/figure3_smoke.fa` beneath a temporary output
+root using `tests/fixture_generators/generate_test_fixtures.sh`; it then uses
+`k=21`, `w=20`, thread
 counts 1 and 2, one repeat, and five methods. It expects ten raw rows and ten
 summary rows. For every method it requires identical parsed counts, minimizer
 counts, final checksum, coverage checksum, tie mode, and deduplication mode at

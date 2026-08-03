@@ -7,16 +7,35 @@ mapping of 2-bit encoded DNA k-mers. It supports `1 <= k <= 32` and maps the
 complete `2k`-bit input domain bijectively to itself for a fixed initialized
 context.
 
+## What do you want to do?
+
+| Goal | Start here |
+| --- | --- |
+| Use the KSSD-Array library | [`examples/minimal_api.c`](examples/minimal_api.c) |
+| View the public API | [`docs/api.md`](docs/api.md) |
+| Understand the algorithm | [`docs/algorithm.md`](docs/algorithm.md) |
+| View final paper results | [`benchmark_results/README.md`](benchmark_results/README.md) |
+| Reproduce paper experiments | [`reproducibility/README.md`](reproducibility/README.md) |
+| Understand datasets and inputs | [`docs/datasets.md`](docs/datasets.md) |
+| Understand the repository layout | [`docs/repository_map.md`](docs/repository_map.md) |
+| Review release validation | [`docs/validation/README.md`](docs/validation/README.md) |
+
+Ordinary library users normally need only this README, `include/`, `examples/`,
+and the API documentation. Paper readers should start with the accepted result
+index; experiment reproducibility users should use the workflow index. Release
+auditors can inspect `docs/validation/` and `docs/provenance/` for the detailed
+evidence behind the public package.
+
 ## Manuscript version
 
 KSSD-Array manuscript version: `KSSD-Array_Wiley_Manuscript_V5`
 
-Repository commit: `0e0a64b3f97595c6ae2395f740f18d177324c41d`
-
 Release candidate: `v1.1.0` (public runtime-inline API)
 
 This repository corresponds to the implementation and reproducibility
-workflows used for the manuscript.
+workflows used for the manuscript. Exact workflow/result bindings are recorded
+in `benchmark_results/source_binding.tsv`; the immutable release commit will
+be identified by the release tag after user review.
 
 ## Five-minute workflow
 
@@ -166,15 +185,32 @@ The repository includes the following manuscript workflows:
 - Figure 3 multithreaded benchmark;
 - Table 4 ntHash comparison;
 - Figure 4 bucket-balance analysis;
-- Supplementary Figure S1 Minimap2 integration.
+- Supplementary Figure S1 Minimap2 runtime-inline integration;
+- corrected Supplementary Table S2 all-read truth-origin evaluation.
+
+All six small FASTA/FASTQ/BED smoke inputs are generated from the public C
+source under `tests/fixture_generators/` into temporary directories and checked
+against fixed SHA-256 values; generated sequence/BED files are not committed.
+Run `make fixture-generator-test` to validate clean and repeated generation plus
+the documented failure cases.
+
+In the accepted results, KSSD-Array is fastest in all 30/30 Figure 2 groups
+and all 30/30 Figure 3 groups. The matched-workload ntHash detail is intended
+for Supplementary material, with only a concise summary in the main text.
+Bucket balance remains main-text Figure 4. Supplementary S1 uses the public
+runtime-inline Minimap2 path, and corrected S2 includes all truth reads and
+uses one method-independent truth-origin repeat subset; the historical S2
+evaluation is superseded. Corrected-S2 packaging automatically materializes a
+validated, path-sanitized public provenance record from an empty result
+directory and requires no developer-local file copy.
 
 Commands, scope, status, and environment metadata are documented in
 [`reproducibility/README.md`](reproducibility/README.md) and
 [`reproducibility/ENVIRONMENT.md`](reproducibility/ENVIRONMENT.md). These
 workflows are opt-in and are never built by an ordinary Make or CMake library
-build. Formal raw benchmark CSV files and generated manuscript figures are not
-included in the repository; the workflows write generated artifacts to an
-explicit external output directory.
+build. Compact accepted CSVs, figures, reports, and manifests are published
+under `benchmark_results/`; full datasets, alignments, per-read diagnostics,
+indexes, and condition-level logs remain external and hash-bound.
 
 ## Citation and license
 

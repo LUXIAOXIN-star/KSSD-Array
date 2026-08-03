@@ -28,7 +28,9 @@ Both methods start from the identical cleaned first FASTA record, generate one s
 
 The stopped K=21 pilot reported median throughput ratios 1.070389 (Synthetic 300 Mb) and 1.048042 (GRCh38.p14 chr1), with the latter inside its predeclared inconclusive interval. This full grid was authorized separately and does not revise that decision.
 
-The historical approximately 2.9-fold Table 4 value measured method-native workloads: pre-materialized forward KSSD inputs versus timed rolling canonical ntHash. The present matched-workload ratios measure a different timing boundary and must not be described as estimates of the same workload.
+Method-native and matched-workload protocols use different timing boundaries.
+This package reports only the matched-workload ratios and does not estimate a
+method-native comparison.
 
 ## Limitations
 

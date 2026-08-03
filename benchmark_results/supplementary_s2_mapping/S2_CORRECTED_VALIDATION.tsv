@@ -1,0 +1,63 @@
+dataset	read_length	check	observed	expected	status
+Human_GRCh38	100	Original Minimap2 mapped + unmapped = total	523688	523688	PASS
+Human_GRCh38	100	Original Minimap2 correct + incorrect + unmapped = total	523688	523688	PASS
+Human_GRCh38	100	Original Minimap2 repeat correct <= repeat total	275632	<= 302232	PASS
+Human_GRCh38	100	KSSD-Array mapped + unmapped = total	523688	523688	PASS
+Human_GRCh38	100	KSSD-Array correct + incorrect + unmapped = total	523688	523688	PASS
+Human_GRCh38	100	KSSD-Array repeat correct <= repeat total	275321	<= 302232	PASS
+Human_GRCh38	100	all_read_correctness paired cells sum to denominator	523688	523688	PASS
+Human_GRCh38	100	primary_mapped_status paired cells sum to denominator	523688	523688	PASS
+Human_GRCh38	100	repeat_origin_correctness paired cells sum to denominator	302232	302232	PASS
+Human_GRCh38	100	mapq60_all_truth paired cells sum to denominator	523688	523688	PASS
+Human_GRCh38	100	truth count equals FASTQ count	523688	523688	PASS
+Human_GRCh38	100	truth query names unique	523688	523688	PASS
+Human_GRCh38	100	fixed repeat subset shared by methods	302232	302232	PASS
+Human_GRCh38	100	bootstrap deterministic seed 42	identical replay	identical replay	PASS
+Human_GRCh38	150	Original Minimap2 mapped + unmapped = total	522254	522254	PASS
+Human_GRCh38	150	Original Minimap2 correct + incorrect + unmapped = total	522254	522254	PASS
+Human_GRCh38	150	Original Minimap2 repeat correct <= repeat total	299614	<= 320208	PASS
+Human_GRCh38	150	KSSD-Array mapped + unmapped = total	522254	522254	PASS
+Human_GRCh38	150	KSSD-Array correct + incorrect + unmapped = total	522254	522254	PASS
+Human_GRCh38	150	KSSD-Array repeat correct <= repeat total	299578	<= 320208	PASS
+Human_GRCh38	150	all_read_correctness paired cells sum to denominator	522254	522254	PASS
+Human_GRCh38	150	primary_mapped_status paired cells sum to denominator	522254	522254	PASS
+Human_GRCh38	150	repeat_origin_correctness paired cells sum to denominator	320208	320208	PASS
+Human_GRCh38	150	mapq60_all_truth paired cells sum to denominator	522254	522254	PASS
+Human_GRCh38	150	truth count equals FASTQ count	522254	522254	PASS
+Human_GRCh38	150	truth query names unique	522254	522254	PASS
+Human_GRCh38	150	fixed repeat subset shared by methods	320208	320208	PASS
+Human_GRCh38	150	bootstrap deterministic seed 42	identical replay	identical replay	PASS
+Zea_mays	100	Original Minimap2 mapped + unmapped = total	511569	511569	PASS
+Zea_mays	100	Original Minimap2 correct + incorrect + unmapped = total	511569	511569	PASS
+Zea_mays	100	Original Minimap2 repeat correct <= repeat total	308422	<= 446511	PASS
+Zea_mays	100	KSSD-Array mapped + unmapped = total	511569	511569	PASS
+Zea_mays	100	KSSD-Array correct + incorrect + unmapped = total	511569	511569	PASS
+Zea_mays	100	KSSD-Array repeat correct <= repeat total	308571	<= 446511	PASS
+Zea_mays	100	all_read_correctness paired cells sum to denominator	511569	511569	PASS
+Zea_mays	100	primary_mapped_status paired cells sum to denominator	511569	511569	PASS
+Zea_mays	100	repeat_origin_correctness paired cells sum to denominator	446511	446511	PASS
+Zea_mays	100	mapq60_all_truth paired cells sum to denominator	511569	511569	PASS
+Zea_mays	100	truth count equals FASTQ count	511569	511569	PASS
+Zea_mays	100	truth query names unique	511569	511569	PASS
+Zea_mays	100	fixed repeat subset shared by methods	446511	446511	PASS
+Zea_mays	100	bootstrap deterministic seed 42	identical replay	identical replay	PASS
+Zea_mays	150	Original Minimap2 mapped + unmapped = total	512303	512303	PASS
+Zea_mays	150	Original Minimap2 correct + incorrect + unmapped = total	512303	512303	PASS
+Zea_mays	150	Original Minimap2 repeat correct <= repeat total	363314	<= 450469	PASS
+Zea_mays	150	KSSD-Array mapped + unmapped = total	512303	512303	PASS
+Zea_mays	150	KSSD-Array correct + incorrect + unmapped = total	512303	512303	PASS
+Zea_mays	150	KSSD-Array repeat correct <= repeat total	363132	<= 450469	PASS
+Zea_mays	150	all_read_correctness paired cells sum to denominator	512303	512303	PASS
+Zea_mays	150	primary_mapped_status paired cells sum to denominator	512303	512303	PASS
+Zea_mays	150	repeat_origin_correctness paired cells sum to denominator	450469	450469	PASS
+Zea_mays	150	mapq60_all_truth paired cells sum to denominator	512303	512303	PASS
+Zea_mays	150	truth count equals FASTQ count	512303	512303	PASS
+Zea_mays	150	truth query names unique	512303	512303	PASS
+Zea_mays	150	fixed repeat subset shared by methods	450469	450469	PASS
+Zea_mays	150	bootstrap deterministic seed 42	identical replay	identical replay	PASS
+all	all	historical displayed deltas reproduced before correction	12	12	PASS
+all	all	all corrected proportions bounded [0,1]	bounded	bounded	PASS
+all	all	all mapped primary queries present in truth	0	0	PASS
+all	all	duplicate mapped primary queries	0	0	PASS
+all	all	required exact McNemar p-values valid	12	12	PASS
+all	all	synthetic fixture unit tests	7	7	PASS

@@ -12,6 +12,7 @@ from pathlib import Path
 import shlex
 import subprocess
 import sys
+import tempfile
 
 
 SCRIPT_DIR = Path(__file__).resolve().parent
@@ -19,8 +20,9 @@ REPO_ROOT = SCRIPT_DIR.parents[2]
 INTEGRATION_DIR = SCRIPT_DIR.parent
 DEFAULT_CONFIG = REPO_ROOT / "reproducibility/minimap2/alignment_consistency/config.json"
 SUMMARIZER = SCRIPT_DIR / "summarize_alignment_consistency.py"
-FIXTURE_REFERENCE = INTEGRATION_DIR / "fixtures/reference.fa"
-FIXTURE_QUERY = INTEGRATION_DIR / "fixtures/query.fa"
+FIXTURE_GENERATOR = REPO_ROOT / "tests/fixture_generators/generate_test_fixtures.sh"
+FIXTURE_REFERENCE_RELATIVE = Path("reproducibility/minimap2/fixtures/reference.fa")
+FIXTURE_QUERY_RELATIVE = Path("reproducibility/minimap2/fixtures/query.fa")
 METHODS = ("Original Minimap2", "KSSD-Array")
 SHA256_CACHE: dict[Path, str] = {}
 RAW_FIELDS = (
@@ -267,14 +269,15 @@ def prepare_formal_indexes(output: Path, phase5b: Path,
     return paths
 
 
-def prepare_fixture_indexes(output: Path, executables: dict[str, Path]) -> dict[tuple[str, str], Path]:
+def prepare_fixture_indexes(output: Path, executables: dict[str, Path],
+                            fixture_reference: Path) -> dict[tuple[str, str], Path]:
     paths = {}
     for method in METHODS:
         token = "original" if method == "Original Minimap2" else "kssd-array"
         index = output / "indexes" / ("Fixture." + token + ".mmi")
         completed = run([
             str(executables[method]), "-t", "1", "-d", str(index),
-            str(FIXTURE_REFERENCE),
+            str(fixture_reference),
         ])
         if completed.stderr:
             (output / "logs" / ("Fixture-" + token + "-index.stderr")).write_text(
@@ -637,15 +640,16 @@ def run_formal(output: Path, config: dict[str, object], datasets: list[dict[str,
 
 
 def run_preflight(output: Path, config: dict[str, object], executables: dict[str, Path],
-                  indexes: dict[tuple[str, str], Path]) -> None:
+                  indexes: dict[tuple[str, str], Path],
+                  fixture_reference: Path, fixture_query: Path) -> None:
     raw_rows = []
-    total_reads = count_fasta(FIXTURE_QUERY)
+    total_reads = count_fasta(fixture_query)
     for method in METHODS:
         token = "original" if method == "Original Minimap2" else "kssd-array"
         bam = output / "alignments" / ("Fixture-" + token + ".bam")
         log = output / "logs" / ("Fixture-" + token + ".stderr")
         command, sort_command, exit_status = align(
-            indexes[("Fixture", method)], executables[method], FIXTURE_QUERY,
+            indexes[("Fixture", method)], executables[method], fixture_query,
             bam, log, [str(item) for item in config["alignment_arguments"]],
         )
         metrics = evaluate_bam(bam, None, 100, total_reads)
@@ -656,9 +660,9 @@ def run_preflight(output: Path, config: dict[str, object], executables: dict[str
             "dataset_key": "Fixture", "dataset": "Phase 5A fixture",
             "accession": "synthetic-fixture", "version": "phase5a",
             "read_length": 100, "method": method,
-            "reference_path": FIXTURE_REFERENCE,
-            "reference_sha256": sha256_file(FIXTURE_REFERENCE),
-            "reads_path": FIXTURE_QUERY, "reads_sha256": sha256_file(FIXTURE_QUERY),
+            "reference_path": fixture_reference,
+            "reference_sha256": sha256_file(fixture_reference),
+            "reads_path": fixture_query, "reads_sha256": sha256_file(fixture_query),
             "index_path": indexes[("Fixture", method)],
             "index_size_bytes": indexes[("Fixture", method)].stat().st_size,
             "index_sha256": sha256_file(indexes[("Fixture", method)]),
@@ -736,6 +740,21 @@ def main() -> int:
         raise FileExistsError("output directory already exists: " + str(output))
     for directory in (output, output / "logs", output / "alignments", output / "indexes"):
         directory.mkdir(parents=True, exist_ok=True)
+    fixture_workspace = None
+    fixture_reference = None
+    fixture_query = None
+    if args.preflight:
+        fixture_workspace = tempfile.TemporaryDirectory(
+            prefix="kssd-alignment-generated-fixtures-")
+        generated_root = Path(fixture_workspace.name)
+        generated = run([
+            str(FIXTURE_GENERATOR), "--output-dir", str(generated_root),
+            "--seed", "42",
+        ])
+        (output / "logs" / "generate-fixtures.log").write_text(
+            generated.stdout + generated.stderr, encoding="utf-8")
+        fixture_reference = generated_root / FIXTURE_REFERENCE_RELATIVE
+        fixture_query = generated_root / FIXTURE_QUERY_RELATIVE
     config = json.loads(args.config.read_text(encoding="utf-8"))
     if int(config["threads"]) != 1 or list(config["alignment_arguments"]) != ["-ax", "sr", "-t", "1"]:
         raise RuntimeError("the pinned protocol requires '-ax sr -t 1'")
@@ -743,10 +762,13 @@ def main() -> int:
     executables = executable_paths(phase5b, config, not args.preflight)
     if args.preflight:
         datasets: list[dict[str, object]] = []
-        indexes = prepare_fixture_indexes(output, executables)
+        assert fixture_reference is not None and fixture_query is not None
+        indexes = prepare_fixture_indexes(output, executables, fixture_reference)
         write_run_manifest(output, "preflight", config, datasets)
         build_manifest(output, config, phase5b, executables, indexes)
-        run_preflight(output, config, executables, indexes)
+        run_preflight(
+            output, config, executables, indexes,
+            fixture_reference, fixture_query)
     else:
         datasets = resolve_formal_inputs(config, args)
         indexes = prepare_formal_indexes(output, phase5b, datasets, executables)

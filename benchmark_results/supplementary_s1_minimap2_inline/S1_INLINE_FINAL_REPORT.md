@@ -2,7 +2,8 @@
 
 Generated: `2026-07-31T23:43:28+08:00`
 
-This is the completed three-dataset comparison of Original Minimap2 and the optimized public runtime-inline KSSD-Array path. The former generic external-call results are not included.
+This is the completed three-dataset comparison of Original Minimap2 and the
+optimized public runtime-inline KSSD-Array path.
 
 Protocol: one discarded warm-up per method/dataset; five sequential paired repeats; Original first on odd repeats and KSSD first on even repeats; one thread pinned to the configured CPU; warm cache; no performance-based early stopping.
 

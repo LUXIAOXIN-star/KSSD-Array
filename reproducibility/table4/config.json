@@ -11,7 +11,8 @@
     "datasets": ["Synthetic_300M", "Human_GRCh38"]
   },
   "smoke": {
-    "dataset": "reproducibility/table4/fixtures/table4_smoke.fa",
+    "dataset": "source-generated:reproducibility/table4/fixtures/table4_smoke.fa",
+    "generator": "tests/fixture_generators/generate_test_fixtures.sh",
     "k": 21,
     "w": 21,
     "repeats": 1,

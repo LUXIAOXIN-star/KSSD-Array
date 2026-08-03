@@ -10,3 +10,12 @@ in the authoritative directory are intentionally not publication artifacts.
 
 Local machine paths in text metadata and path-only CSV fields are represented
 by `$KSSD_RELEASE_HOST`; numerical results are unchanged.
+
+[`Figure2_final.png`](Figure2_final.png) and
+[`Figure2_final.pdf`](Figure2_final.pdf) were regenerated on 2026-08-04 from
+the exact hash-verified historical manuscript plotting code, adapted only for
+the accepted final summary schema, paths, output names, and approved labels.
+They preserve the historical 3000 × 1530 layout and plot all 150 accepted
+means exactly. See
+[`plot_figure2_final_exact_old_style.R`](plot_figure2_final_exact_old_style.R).
+The raw and summary numerical data are unchanged.

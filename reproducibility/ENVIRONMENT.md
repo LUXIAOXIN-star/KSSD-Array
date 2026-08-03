@@ -7,8 +7,13 @@ versions from the machine on which the repository is later inspected.
 ## Manuscript and repository identity
 
 - Manuscript version: `KSSD-Array_Wiley_Manuscript_V5`
-- KSSD-Array commit: `0e0a64b3f97595c6ae2395f740f18d177324c41d`
-- Release: `v1.0.0-paper`
+- Historical environment baseline commit:
+  `0e0a64b3f97595c6ae2395f740f18d177324c41d`
+- Historical release: `v1.0.0-paper`
+
+This identity is retained only to describe the historical environment. Current
+accepted result/source bindings are authoritative in
+`../benchmark_results/source_binding.tsv`.
 
 ## Benchmark host
 
@@ -56,7 +61,9 @@ command for each run.
 
 ## Result and artifact scope
 
-Only small deterministic fixtures are committed. Formal raw benchmark CSVs,
-large reference datasets, generated binaries, logs, manifests, and manuscript
-figures are not included. Formal workflows require caller-provided inputs and
-an explicit output directory outside the repository.
+Only small deterministic fixtures are committed with workflow source. Compact
+accepted CSVs, figures, reports, and manifests are included under
+`benchmark_results/`. Large reference datasets, generated binaries, full
+logs, indexes, alignments, and per-read diagnostics remain external. Formal
+workflows require caller-provided inputs and an explicit output directory
+outside the repository.

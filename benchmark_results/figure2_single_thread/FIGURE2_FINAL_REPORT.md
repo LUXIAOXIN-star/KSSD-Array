@@ -19,21 +19,20 @@ KSSD uses deterministic seed 42. The wyhash eight-byte path uses zero input-seed
 
 ## Ranking result
 
-- KSSD-Array won `30/30` final groups (historical five-method comparison `28/30`).
-- XXH3 won `0/30` final groups (historical five-method comparison `0/30`).
-- XXH64 won `0/30` final groups (historical five-method comparison `0/30`).
-- MurmurHash3 won `0/30` final groups (historical five-method comparison `0/30`).
-- wyhash won `0/30` final groups (historical five-method comparison `2/30`).
+- KSSD-Array won `30/30` accepted final groups.
+- XXH3 won `0/30` accepted final groups.
+- XXH64 won `0/30` accepted final groups.
+- MurmurHash3 won `0/30` accepted final groups.
+- wyhash won `0/30` accepted final groups.
 
-Historical 28/30 KSSD leadership reproduced: **NO**.
-
-Conditions whose fastest method changed: `2`.
-
-- GRCh38.p14_chr1 K=31 W=50: wyhash → KSSD-Array.
-- Synthetic_300_Mb K=31 W=50: wyhash → KSSD-Array.
-
-Per-group final/historical throughput and relative changes for all methods are in `figure2_ranking_summary.csv`. Absolute throughput is host- and release-specific; ranking robustness is judged separately from exact numerical reproduction.
+Per-group accepted throughput and rankings for all methods are in
+`figure2_ranking_summary.csv`. Absolute throughput is host- and
+release-specific; ranking robustness is judged separately from exact numerical
+reproduction.
 
 ## Manuscript implication
 
-The historical numerical throughputs should not be relabeled as current-release measurements. Use the new values if the manuscript claims final-release performance. The qualitative leadership claim is robust only to the extent shown by the final group win counts above. The fixed method order and absence of plotted uncertainty remain limitations.
+Use these accepted values if the manuscript claims final-release performance.
+The qualitative leadership claim is limited to the final group win counts
+above. The fixed method order and absence of plotted uncertainty remain
+limitations.

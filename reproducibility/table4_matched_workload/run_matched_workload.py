@@ -1333,13 +1333,11 @@ def assessment_text(repo_root, workflow_dir, pilot_dir, pilot_status,
         lines.extend("- {}".format(reason) for reason in stop_reasons)
     lines.extend([
         "",
-        "## Comparison with historical Table 4",
+        "## Protocol boundary",
         "",
-        "The historical approximately 2.9-fold result measured method-native "
-        "workloads: pre-materialized forward-strand KSSD inputs versus timed "
-        "rolling canonical ntHash. The matched result must therefore be "
-        "reported separately and must not be presented as a direct "
-        "recalculation of the historical table.",
+        "Method-native and matched-workload protocols use different timing "
+        "boundaries. This report presents only the matched-workload ratios and "
+        "does not estimate a method-native comparison.",
         "",
         "Whether KSSD-Array remains faster after rolling encoding and strand "
         "handling are included is determined above by the paired pilot and, "

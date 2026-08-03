@@ -1,0 +1,25 @@
+##ART_Illumina	read_length	10
+@CM	art_illumina fixture
+@SQ	ref1	1000
+##Header End
+>ref1	q_plus	100	+
+ACGTACGTAC
+ACGTACGTAC
+>ref1	q_minus	200	-
+ACGTACGTAC
+ACGTACGTAC
+>ref1	q_unmapped	300	+
+ACGTACGTAC
+ACGTACGTAC
+>ref1	q_wrong_strand	400	+
+ACGTACGTAC
+ACGTACGTAC
+>ref1	q_wrong_ref	500	+
+ACGTACGTAC
+ACGTACGTAC
+>ref1	q_wrong_pos	600	+
+ACGTACGTAC
+ACGTACGTAC
+>ref1	q_duplicate	700	+
+ACGTACGTAC
+ACGTACGTAC

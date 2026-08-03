@@ -1,0 +1,12 @@
+test_duplicate_primary_detection (test_s2_core.CorrectedS2CoreTest) ... ok
+test_historical_reverse_rule_is_not_art_genomic_conversion (test_s2_core.CorrectedS2CoreTest) ... ok
+test_paired_statistics_are_deterministic (test_s2_core.CorrectedS2CoreTest) ... ok
+test_query_name_normalization (test_s2_core.CorrectedS2CoreTest) ... ok
+test_repeat_overlap_uses_truth_interval (test_s2_core.CorrectedS2CoreTest) ... ok
+test_sam_flags_correctness_and_all_read_denominator (test_s2_core.CorrectedS2CoreTest) ... ok
+test_truth_coordinate_conversion_and_fastq_names (test_s2_core.CorrectedS2CoreTest) ... ok
+
+----------------------------------------------------------------------
+Ran 7 tests in 0.262s
+
+OK

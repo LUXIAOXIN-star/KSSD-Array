@@ -1,0 +1,4 @@
+@HD	VN:1.6	SO:unsorted
+@SQ	SN:ref1	LN:1000
+q_duplicate	0	ref1	701	20	10M	*	0	0	ACGTACGTAC	IIIIIIIIII
+q_duplicate	0	ref1	702	20	10M	*	0	0	ACGTACGTAC	IIIIIIIIII

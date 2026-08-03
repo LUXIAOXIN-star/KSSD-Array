@@ -55,7 +55,8 @@ Commands:
   figure4-preflight                 Run the small Figure 4 preflight.
   minimap2-smoke                    Verify the patched Minimap2 fixture.
   minimap2-indexing-preflight       Run indexing preflight fixtures.
-  minimap2-alignment-preflight      Run alignment preflight fixtures.
+  s2-corrected-tests                Run corrected S2 truth-origin fixtures.
+  minimap2-alignment-preflight      Run superseded S2 compatibility preflight.
   all-smoke                         Run every command above.
 
 Formal commands accept the underlying runner arguments and never run from
@@ -66,7 +67,7 @@ formal commands require --output-dir plus the documented environment inputs.
 Environment:
   NTHASH_ROOT             Installed ntHash 2.4.0 prefix for Table 4.
   MINIMAP2_SOURCE_DIR     Clean pinned Minimap2 source tree.
-  PHASE5B_OUTPUT          Accepted indexing result directory for alignment.
+  PHASE5B_OUTPUT          Historical compatibility input; not used by corrected S2.
 EOF
 }
 
@@ -112,6 +113,10 @@ case "${command_name}" in
             MINIMAP2_SOURCE_DIR="${MINIMAP2_SOURCE_DIR}" \
             MINIMAP2_INDEXING_PREFLIGHT_DIR="${output_dir}"
         ;;
+    s2-corrected-tests)
+        run env PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+            -s reproducibility/minimap2/alignment_consistency_truth_origin/tests -v
+        ;;
     minimap2-alignment-preflight)
         require_env PHASE5B_OUTPUT
         output_dir="${MINIMAP2_ALIGNMENT_PREFLIGHT_DIR:-$(temporary_output)}"
@@ -127,7 +132,7 @@ case "${command_name}" in
         run "$0" figure4-preflight
         run "$0" minimap2-smoke
         run "$0" minimap2-indexing-preflight
-        run "$0" minimap2-alignment-preflight
+        run "$0" s2-corrected-tests
         ;;
     figure2-formal)
         require_option --output-dir "$@"
