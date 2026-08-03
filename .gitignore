@@ -12,6 +12,8 @@ Testing/
 *.dylib
 *.dll
 compile_commands.json
+__pycache__/
+*.py[cod]
 *.bam
 *.bai
 *.cram
@@ -35,3 +37,8 @@ exhaustive_9mer.csv
 reproducibility/data/external/*
 !reproducibility/data/external/.gitkeep
 /third_party/ntHash/
+
+# Curated, compact publication artifacts are intentionally tracked even when
+# their file extensions match generated-output patterns above.
+!/benchmark_results/
+!/benchmark_results/**
