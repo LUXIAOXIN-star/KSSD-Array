@@ -467,6 +467,7 @@ def atomic_text(path: Path, value: str) -> None:
 def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
             order_position: int, executable: Path, executable_hash: str,
             config: dict[str, object], measured: bool,
+            enforce_environment_gate: bool,
             attempt: int = 1) -> dict[str, object]:
     method_token = "original" if method == "Original Minimap2" else "kssd-array"
     phase = "rep{}".format(repeat) if measured else "warmup"
@@ -480,6 +481,7 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
            (index, stdout_path, stderr_path, snapshot_path)):
         return measure(output, dataset, method, repeat, order_position,
                        executable, executable_hash, config, measured,
+                       enforce_environment_gate,
                        attempt + 1)
     swap_gate_before = swap_counters()
     time.sleep(1)
@@ -488,13 +490,16 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
     gate_swap = tuple(after - before for before, after in
                       zip(swap_gate_before, swap_gate_after))
     gate_reasons = []
-    if load > float(config["maximum_load_average_1m"]):
+    if (enforce_environment_gate and
+            load > float(config["maximum_load_average_1m"])):
         gate_reasons.append("one-minute load exceeds configured threshold")
-    if gate_swap != (0, 0):
+    if enforce_environment_gate and gate_swap != (0, 0):
         gate_reasons.append("active swap traffic before run")
-    if memory < int(config["minimum_available_memory_bytes"]):
+    if (enforce_environment_gate and
+            memory < int(config["minimum_available_memory_bytes"])):
         gate_reasons.append("available memory below configured threshold")
-    if disk < int(config["minimum_output_free_bytes"]):
+    if (enforce_environment_gate and
+            disk < int(config["minimum_output_free_bytes"])):
         gate_reasons.append("free output space below configured threshold")
     if gate_reasons:
         atomic_text(snapshot_path, snapshot_path.read_text(encoding="utf-8") +
@@ -507,6 +512,7 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
         time.sleep(int(config["environment_retry_seconds"]))
         return measure(output, dataset, method, repeat, order_position,
                        executable, executable_hash, config, measured,
+                       enforce_environment_gate,
                        attempt + 1)
     core = [
         "taskset", "-c", str(config["selected_cpu"]), str(executable),
@@ -613,7 +619,7 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
         "swap_out_delta": swap_delta[1],
         "selected_cpu": config["selected_cpu"],
     }
-    if measured and swap_delta != (0, 0):
+    if enforce_environment_gate and measured and swap_delta != (0, 0):
         invalid_path = output / "INVALID_MEASURED_ATTEMPTS.tsv"
         invalid_rows = []
         if invalid_path.is_file():
@@ -645,6 +651,7 @@ def measure(output: Path, dataset: dict[str, object], method: str, repeat: int,
         time.sleep(int(config["environment_retry_seconds"]))
         return measure(output, dataset, method, repeat, order_position,
                        executable, executable_hash, config, measured,
+                       enforce_environment_gate,
                        attempt + 1)
     print("DONE {} index={} sha256={} removed=YES".format(
         stem, index_size, index_hash), flush=True)
@@ -967,7 +974,7 @@ def main() -> int:
         for position, method in enumerate(METHODS, start=1):
             rows.append(measure(
                 output, dataset, method, 1, position, executables[method],
-                executable_hashes[method], config, True))
+                executable_hashes[method], config, True, False))
             write_csv(raw_path, rows)
     else:
         repeats = int(config["repeats"])
@@ -999,7 +1006,7 @@ def main() -> int:
                     warmups.append(measure(
                         output, dataset, method, 0, position,
                         executables[method], executable_hashes[method], config,
-                        False))
+                        False, True))
             for repeat in range(1, repeats + 1):
                 order = list(run_order[repeat - 1])
                 if set(order) != set(METHODS):
@@ -1011,7 +1018,7 @@ def main() -> int:
                     rows.append(measure(
                         output, dataset, method, repeat, position,
                         executables[method], executable_hashes[method],
-                        config, True,
+                        config, True, True,
                     ))
                     completed_keys.add(key)
                     write_csv(raw_path, rows)

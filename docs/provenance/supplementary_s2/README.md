@@ -17,10 +17,11 @@ summarizer are preserved in this directory. This distinction matters:
   `reproducibility/minimap2/alignment_consistency/config.json`.
 - `historical_summarize_alignment_consistency.py` is byte-identical to the
   public summarizer.
-- The public runner changes repository-relative locations and permits a fresh
-  pinned-version executable during fixture preflight. Formal mode still checks
-  the configured executable hashes and uses the same alignment commands,
-  BAM filters, correctness calculation, repeat selection, diagnostics, and
+- The public runner changes repository-relative locations and permits freshly
+  built pinned-version executables and the current public static library during
+  fixture preflight. Formal mode still checks the configured historical
+  executable and library hashes and uses the same alignment commands, BAM
+  filters, correctness calculation, repeat selection, diagnostics, and
   summarizer. Thus the Table S2 formal metric implementation is unchanged.
 - The final public Minimap2 patch is the validated header-inline implementation,
   not the historical external-call patch. The accepted S2 numbers are therefore
@@ -40,4 +41,3 @@ creating this snapshot.
 | `historical_run_alignment_consistency.py` | `8e5053d11339010d3072ecfc4c1af66be02b8eaac4c825de63d0b291fc3c7b07` |
 | `historical_summarize_alignment_consistency.py` | `dab4b962655a817c47a2d6fd0d639a1011715020722a2de9856de865be45c298` |
 | `minimap2_f1f7834.patch` | `89610194db47197c3eeb4ddee4c38c9233f00251246dd9210b597616791ba572` |
-

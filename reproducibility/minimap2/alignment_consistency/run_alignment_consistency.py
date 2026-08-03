@@ -215,9 +215,13 @@ def executable_paths(phase5b: Path, config: dict[str, object],
                 method + " executable version mismatch: " + version
             )
     library = REPO_ROOT / "build/libkssd_array.a"
-    verify_file(
-        library, None, str(config["public_library_sha256"]), "public KSSD library"
-    )
+    if verify_pinned_hashes:
+        verify_file(
+            library, None, str(config["public_library_sha256"]),
+            "public KSSD library"
+        )
+    elif not library.is_file():
+        raise RuntimeError("public KSSD library is missing: " + str(library))
     return paths
 
 
