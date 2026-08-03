@@ -1,0 +1,2917 @@
+{
+  "result_status": "formal_measurement",
+  "os": "Linux-5.15.0-139-generic-x86_64-with-glibc2.29",
+  "cpu": "Intel(R) Xeon(R) Silver 4216 CPU @ 2.10GHz",
+  "system_load_snapshot": {
+    "captured_utc": "2026-07-31T11:32:37.695381+00:00",
+    "logical_cpus": 32,
+    "load_average_1_5_15": [
+      2.26,
+      2.06,
+      1.83
+    ],
+    "proc_loadavg": "2.26 2.06 1.83 1/1746 1008"
+  },
+  "datasets": [
+    {
+      "label": "Synthetic_300_Mb",
+      "path": "$KSSD_RELEASE_HOST/AEEE.fasta",
+      "size_bytes": 300000057,
+      "sha256": "a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962",
+      "fasta_record_count": 1
+    },
+    {
+      "label": "GRCh38.p14_chr1",
+      "path": "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+      "size_bytes": 3339739109,
+      "sha256": "df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0",
+      "fasta_record_count": 705
+    }
+  ],
+  "k": 21,
+  "w_values": [
+    10,
+    20,
+    50
+  ],
+  "thread_values": [
+    1,
+    2,
+    4,
+    8,
+    16
+  ],
+  "repeats": 5,
+  "seed": 42,
+  "methods": [
+    "KSSD-Array",
+    "XXH3",
+    "XXH64",
+    "MurmurHash3",
+    "wyhash"
+  ],
+  "openmp": {
+    "schedule": "manual static contiguous window partition",
+    "OMP_NUM_THREADS": "set separately to each requested thread count",
+    "OMP_DYNAMIC": "FALSE",
+    "OMP_PROC_BIND": "TRUE",
+    "OMP_PLACES": "cores",
+    "OMP_SCHEDULE": "<unset>"
+  },
+  "fasta_semantics": "first record; non-ACGT symbols skipped without reset",
+  "tie_handling": "strict less-than retains the leftmost minimum",
+  "adjacent_window_deduplication": false,
+  "parity": {
+    "result": "PASS",
+    "minimum_samples": 1024
+  },
+  "thread_consistency": {
+    "result": "PASS",
+    "checks": [
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 10,
+        "method": "KSSD-Array",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 10,
+        "method": "MurmurHash3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 10,
+        "method": "XXH3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 10,
+        "method": "XXH64",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 10,
+        "method": "wyhash",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 20,
+        "method": "KSSD-Array",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 20,
+        "method": "MurmurHash3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 20,
+        "method": "XXH3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 20,
+        "method": "XXH64",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 20,
+        "method": "wyhash",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 50,
+        "method": "KSSD-Array",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 50,
+        "method": "MurmurHash3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 50,
+        "method": "XXH3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 50,
+        "method": "XXH64",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "GRCh38.p14_chr1",
+        "k": 21,
+        "w": 50,
+        "method": "wyhash",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 10,
+        "method": "KSSD-Array",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 10,
+        "method": "MurmurHash3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 10,
+        "method": "XXH3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 10,
+        "method": "XXH64",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 10,
+        "method": "wyhash",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 20,
+        "method": "KSSD-Array",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 20,
+        "method": "MurmurHash3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 20,
+        "method": "XXH3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 20,
+        "method": "XXH64",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 20,
+        "method": "wyhash",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 50,
+        "method": "KSSD-Array",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 50,
+        "method": "MurmurHash3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 50,
+        "method": "XXH3",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 50,
+        "method": "XXH64",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      },
+      {
+        "dataset": "Synthetic_300_Mb",
+        "k": 21,
+        "w": 50,
+        "method": "wyhash",
+        "thread_counts": [
+          1,
+          2,
+          4,
+          8,
+          16
+        ],
+        "result": "PASS"
+      }
+    ]
+  },
+  "figure2_figure3_equivalence": {
+    "result": "not_run_for_formal_mode",
+    "command": null,
+    "details": null,
+    "output_directory": null
+  },
+  "executed_commands": [
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "1",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "2",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "3",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "4",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/AEEE.fasta",
+        "5",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "1"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "1",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "2"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "2",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "4"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "4",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "8"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "8",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "1",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "2",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "3",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "4",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    },
+    {
+      "command": [
+        "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50",
+        "$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+        "5",
+        "42",
+        "16"
+      ],
+      "omp_environment": {
+        "OMP_NUM_THREADS": "16",
+        "OMP_DYNAMIC": "FALSE",
+        "OMP_PROC_BIND": "TRUE",
+        "OMP_PLACES": "cores",
+        "OMP_SCHEDULE": "<unset>"
+      }
+    }
+  ],
+  "plot_command": [
+    "Rscript",
+    "reproducibility/figure3/plot_figure3_multithread.R",
+    "--summary",
+    "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/figure3_multithread_summary.csv",
+    "--output-dir",
+    "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final"
+  ],
+  "outputs": {
+    "raw_csv": "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/figure3_multithread_raw.csv",
+    "summary_csv": "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/figure3_multithread_summary.csv",
+    "logs": "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/logs",
+    "bin": "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin",
+    "review_png": "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/figure3_multithread_k21.png",
+    "review_pdf": "$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/figure3_multithread_k21.pdf"
+  }
+}

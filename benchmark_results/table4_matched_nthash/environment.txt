@@ -1,0 +1,136 @@
+PREFLIGHT_TIME=2026-07-31T16:27:30+08:00
+HOSTNAME=dell-PowerEdge-T440
+PLATFORM=Linux-5.15.0-139-generic-x86_64-with-glibc2.29
+REPOSITORY_COMMIT=8922a3031a7ad327cbcac6f1e80748dff654537b
+NTHASH_VERSION=2.4.0
+NTHASH_COMMIT=c26bd4572a19de81e30d55042dbd33c1fd21d4b6
+NTHASH_HEADER_SHA256=7ce43aded7fae6446578994ce91d0e65df889916e6ce556ce90945493f5b2099
+TASKSET_CPU=15
+CPU_GOVERNOR=ondemand
+PHYSICAL_CORES=16
+LOAD_AVERAGE=0.51 0.25 0.15
+ACTIVE_SWAPPING=NO
+SEVERE_LOAD=NO
+COMPETING_PROCESS_ON_CPU=NO
+CC_VERSION=cc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+CXX_VERSION=c++ (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+
+[KSSD_SOURCE_SHA256]
+3ae49f9ef0ba3f1f87b8076f173b7904fc2d7910539b8362849984b5e2b5c68c  $KSSD_ARRAY_ROOT/include/kssd_array.h
+b64c3a14b9df415dcc73eebde920c113518fec46b26862b848491b4ca3cde5f4  $KSSD_ARRAY_ROOT/include/kssd_array_fast.h
+1668ad1a9e9a64b39cab6288cecc6cb433d96fb2154ac2e70e59e1c62517e4dc  $KSSD_ARRAY_ROOT/src/kssd_array.c
+7c2f7b42d17630d64d09bff88626a34c5e730cffa0531e370e9216dc432f9192  $KSSD_ARRAY_ROOT/src/permutation.c
+
+[RELEVANT_ENVIRONMENT]
+(none set)
+
+[SELECTED_CPU_HIGH_USAGE_PROCESSES]
+(none)
+
+[UNAME]
+Linux dell-PowerEdge-T440 5.15.0-139-generic #149~20.04.1-Ubuntu SMP Wed Apr 16 08:29:56 UTC 2025 x86_64 x86_64 x86_64 GNU/Linux
+
+[LSCPU]
+Architecture:                                x86_64
+CPU op-mode(s):                        32-bit, 64-bit
+Byte Order:                              Little Endian
+Address sizes:                        46 bits physical, 48 bits virtual
+CPU:                                  32
+On-line CPU(s) list:                       0-31
+Thread(s) per core:                      2
+Core(s) per socket:                        16
+Socket(s):                                  1
+NUMA node(s):                           1
+Vendor ID:                             GenuineIntel
+CPU family:                            6
+Model:                                85
+Model name:                            Intel(R) Xeon(R) Silver 4216 CPU @ 2.10GHz
+Stepping:                                7
+CPU MHz:                             800.000
+CPU max MHz:                        3200.0000
+CPU min MHz:                        800.0000
+BogoMIPS:                            4200.00
+Virtualization:                              VT-x
+L1d cache:                            512 KiB
+L1i cache:                            512 KiB
+L2 cache:                             16 MiB
+L3 cache:                             22 MiB
+NUMA node0 CPU(s):                      0-31
+Vulnerability Gather data sampling:   Mitigation; Microcode
+Vulnerability Itlb multihit:          KVM: Mitigation: VMX disabled
+Vulnerability L1tf:                   Not affected
+Vulnerability Mds:                    Not affected
+Vulnerability Meltdown:               Not affected
+Vulnerability Mmio stale data:        Mitigation; Clear CPU buffers; SMT vulnerable
+Vulnerability Reg file data sampling: Not affected
+Vulnerability Retbleed:               Mitigation; Enhanced IBRS
+Vulnerability Spec rstack overflow:   Not affected
+Vulnerability Spec store bypass:      Mitigation; Speculative Store Bypass disabled via prctl and seccomp
+Vulnerability Spectre v1:             Mitigation; usercopy/swapgs barriers and __user pointer sanitization
+Vulnerability Spectre v2:             Mitigation; Enhanced / Automatic IBRS; IBPB conditional; RSB filling; PBRSB-eIBRS SW sequence; BHI SW loop, KVM SW loop
+Vulnerability Srbds:                  Not affected
+Vulnerability Tsx async abort:        Mitigation; TSX disabled
+Flags:                                fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch cpuid_fault epb cat_l3 cdp_l3 invpcid_single intel_ppin ssbd mba ibrs ibpb stibp ibrs_enhanced tpr_shadow vnmi flexpriority ept vpid ept_ad fsgsbase tsc_adjust bmi1 avx2 smep bmi2 erms invpcid cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflushopt clwb intel_pt avx512cd avx512bw avx512vl xsaveopt xsavec xgetbv1 xsaves cqm_llc cqm_occup_llc cqm_mbm_total cqm_mbm_local dtherm ida arat pln pts pku ospke avx512_vnni md_clear flush_l1d arch_capabilities
+
+[LSCPU_EXTENDED]
+CPU NODE SOCKET CORE ONLINE    MAXMHZ   MINMHZ
+  0    0      0    0     yes 3200.0000 800.0000
+  1    0      0    1     yes 3200.0000 800.0000
+  2    0      0    2     yes 3200.0000 800.0000
+  3    0      0    3     yes 3200.0000 800.0000
+  4    0      0    4     yes 3200.0000 800.0000
+  5    0      0    5     yes 3200.0000 800.0000
+  6    0      0    6     yes 3200.0000 800.0000
+  7    0      0    7     yes 3200.0000 800.0000
+  8    0      0    8     yes 3200.0000 800.0000
+  9    0      0    9     yes 3200.0000 800.0000
+ 10    0      0   10     yes 3200.0000 800.0000
+ 11    0      0   11     yes 3200.0000 800.0000
+ 12    0      0   12     yes 3200.0000 800.0000
+ 13    0      0   13     yes 3200.0000 800.0000
+ 14    0      0   14     yes 3200.0000 800.0000
+ 15    0      0   15     yes 3200.0000 800.0000
+ 16    0      0    0     yes 3200.0000 800.0000
+ 17    0      0    1     yes 3200.0000 800.0000
+ 18    0      0    2     yes 3200.0000 800.0000
+ 19    0      0    3     yes 3200.0000 800.0000
+ 20    0      0    4     yes 3200.0000 800.0000
+ 21    0      0    5     yes 3200.0000 800.0000
+ 22    0      0    6     yes 3200.0000 800.0000
+ 23    0      0    7     yes 3200.0000 800.0000
+ 24    0      0    8     yes 3200.0000 800.0000
+ 25    0      0    9     yes 3200.0000 800.0000
+ 26    0      0   10     yes 3200.0000 800.0000
+ 27    0      0   11     yes 3200.0000 800.0000
+ 28    0      0   12     yes 3200.0000 800.0000
+ 29    0      0   13     yes 3200.0000 800.0000
+ 30    0      0   14     yes 3200.0000 800.0000
+ 31    0      0   15     yes 3200.0000 800.0000
+
+[FREE_BYTES]
+              Total         Used        Free      Shared    Buff/cache    Available
+Memory: 66887536640  7677906944 11390263296    16252928 47819366400 58448056320
+Swap:  2147479552  1724428288   423051264
+
+[SWAP_USAGE]
+NAME      TYPE       SIZE       USED PRIO
+/swapfile file 2147479552 1724428288   -2
+
+[VMSTAT_1S_6]
+procs -----------memory---------- ---swap-- -----io---- -system-- ------cpu-----
+ r  b Swap Free Buffer Cache   si   so    bi    bo   in   cs us sy id wa st
+ 0  0 1684012 11122780 2998448 43700152    0    0   276   700    1    0 47  1 44  8  0
+ 0  0 1684012 11123100 2998448 43700256    0    0     0   716 1005 1421  0  0 100  0  0
+ 0  0 1684012 11125172 2998448 43700384    0    0     0     0 1412 2528  0  0 100  0  0
+ 1  0 1684012 11123172 2998464 43700368    0    0     0   296  920 2087  0  0 100  0  0
+ 0  0 1684012 11114676 2998472 43700448    0    0     0   392 2129 4049  1  1 99  0  0
+ 0  0 1684012 11116492 2998472 43700452    0    0     0     0 1450 2360  0  0 100  0  0
+
+[STRICT_SHARED_PREFLIGHT]
+STATUS=PASS
+TIME=2026-07-31T16:27:25+08:00
+LOAD=[0.55, 0.26, 0.15]
+ACTIVE_SWAPPING=NO
+AVAILABLE_MEMORY_BYTES=58447106048
+CPU=15
+GOVERNOR=ondemand

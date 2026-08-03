@@ -1,0 +1,3 @@
+dataset,dataset_label,k_start,k_end,k_values,per_k_speedup_definition,geometric_mean_per_k_speedup,median_per_k_speedup,k_values_kssd_faster,k_values_nthash_faster,k_values_tied,minimum_per_k_speedup,maximum_per_k_speedup
+Human_GRCh38,GRCh38.p14 chr1,4,32,29,median of five paired throughput ratios,1.099250676168,1.078389690359,25,4,0,0.972971329011,1.271228497563
+Synthetic_300M,Synthetic 300 Mb,4,32,29,median of five paired throughput ratios,1.126204247659,1.102914146465,27,2,0,0.992560357169,1.312014871695

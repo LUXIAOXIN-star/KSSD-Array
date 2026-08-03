@@ -1,0 +1,4 @@
+dataset_key	dataset	absolute_path	size_bytes	sha256	sequence_count	total_bases
+Arabidopsis	Arabidopsis thaliana	$KSSD_RELEASE_HOST/seq/Arabidopsis/GCF_000001735.4_TAIR10.1_genomic.fna.gz	37482399	a182f3c71662973dc636cacd7722588c9bbe3c8ea6ce62b1bae7dac940545d47	7	119668634
+Human_GRCh38	Human GRCh38	$KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna	3339739109	df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0	705	3298430636
+Zea_mays	Zea mays	$KSSD_RELEASE_HOST/seq/Zea_mays/Zm-B73-REFERENCE-NAM-5.0.fa	2209359010	52f0663221e46f562eb0923c6dfa1bb43537abb7f13e0f637b5def2571de2c11	685	2182075994

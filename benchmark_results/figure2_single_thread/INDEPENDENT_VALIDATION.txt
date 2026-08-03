@@ -1,0 +1,23 @@
+FIGURE2_INDEPENDENT_VALIDATION=PASS
+Validation time: 2026-07-31
+
+Checks:
+- figure2_raw.csv: 750 rows; 750 unique dataset/K/W/repeat/method keys
+- figure2_summary.csv: 150 rows; means and sample standard deviations independently recomputed
+- figure2_ranking_summary.csv: 30 dataset/K/W groups independently recomputed
+- run logs: 150; all five method markers present in every log
+- per-run method parity fields: PASS
+- runtime-to-throughput arithmetic: PASS
+- input_sha256.tsv hashes and sizes: PASS
+- all files frozen in output_sha256.tsv: hashes and sizes PASS
+
+Final fastest-method counts:
+- KSSD-Array: 30
+- XXH3: 0
+- XXH64: 0
+- MurmurHash3: 0
+- wyhash: 0
+
+Fastest-method changes relative to the historical five-method data:
+- GRCh38.p14_chr1, K=31, W=50: wyhash -> KSSD-Array
+- Synthetic_300_Mb, K=31, W=50: wyhash -> KSSD-Array

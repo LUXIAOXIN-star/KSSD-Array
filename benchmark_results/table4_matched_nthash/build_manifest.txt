@@ -1,0 +1,54 @@
+BUILD_TIME=2026-07-31T16:27:16+08:00
+REPOSITORY=$KSSD_RELEASE_HOST/KSSD-Array-public-final
+REPOSITORY_COMMIT=8922a3031a7ad327cbcac6f1e80748dff654537b
+BENCHMARK_SOURCE=$KSSD_RELEASE_HOST/KSSD-Array-public-final/reproducibility/table4_matched_workload/benchmark_matched_workload.cpp
+BENCHMARK_SOURCE_SHA256=0faa988e98168681248477f858ec3d21ef57eb68445aa29b74d175710b9e8234
+NTHASH_SOURCE=$KSSD_RELEASE_HOST/ntHash
+NTHASH_VERSION=2.4.0
+NTHASH_COMMIT=c26bd4572a19de81e30d55042dbd33c1fd21d4b6
+NTHASH_CANONICAL_RULE=forward_hash + reverse_hash modulo 2^64
+KSSD_CANONICAL_RULE=min(forward_two_bit,reverse_complement_two_bit)
+PERFORMANCE_CPP_FLAGS=-O3 -march=native -std=c++17 -DNDEBUG
+PERFORMANCE_C_FLAGS=-O3 -march=native -std=c11 -DNDEBUG
+LTO=disabled
+KSSD_ARCHIVE=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/kssd/libkssd_array.a
+KSSD_ARCHIVE_SHA256=59114ba3960b50f55786ee21aaa3d8349293275e0be90c035f02289398372c18
+NTHASH_ARCHIVE=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/nthash/libnthash.a
+NTHASH_ARCHIVE_SHA256=12bb33c7101efd85c1447e2d55d495a5bfa6fab80107e4145aa46b572fa61bae
+NTHASH_EQUIVALENT_OPTIMIZATION=YES
+SANITIZERS=address,undefined
+ASAN_LEAK_DETECTION=disabled because LeakSanitizer is unavailable under the execution environment's ptrace supervision; AddressSanitizer and UndefinedBehaviorSanitizer remain enabled with halt_on_error
+
+[EXECUTABLES]
+performance K=4 W=4 80d6ae59e67bfd0f0ecfa0863bf7a866ccebd768df19f38f1694b8cd01d4246d $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k4_w4
+sanitizer K=4 W=4 acfaa5a529827cc5e2e0174140233220c49cb3cbd8c8d16e064c459047b256c6 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/sanitizer/bin/matched_k4_w4
+performance K=21 W=21 8c8fcc6e4d0736249c0811a281f81bdbf86cede4b256152c1803302b6712707d $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k21_w21
+sanitizer K=21 W=21 9ddd69c8b258452402d9e3735b2096da5354ee33bf78fb75ff26a4b46e8e89f4 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/sanitizer/bin/matched_k21_w21
+performance K=32 W=32 e2047faedb008e9ae1ea56e2655c31c8da122d968ac85021274835d932a5fc51 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k32_w32
+sanitizer K=32 W=32 3989817746e852a264c807737f8fea9c787275a71a00d33eb057bec9bf89e467 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/sanitizer/bin/matched_k32_w32
+performance K=5 W=5 29d7fba8feda21979eb98e82ff034b626772df4e57195dd9cafb60550a584fdd $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k5_w5
+performance K=6 W=6 bcc8710fcfe28443b5a84812cd166c264e4c0441316033cad9f85aa7df4d3c85 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k6_w6
+performance K=7 W=7 1298d36584cb042a80694f9b2c7981e74c308a53bd3b7783a32f3bff892fe77b $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k7_w7
+performance K=8 W=8 c59289e108e978dbb4264eda2dd063d0fac7df7ecd793d53da4c0e1c976932bd $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k8_w8
+performance K=9 W=9 00a6cdc9896bb1abcdff19630a0aa0595f7834c543b92775fea2371ec1cba691 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k9_w9
+performance K=10 W=10 49cba89bc01d40ab7ef43df6d89b36ae1d1788e2e7eb76120ae2eafd3fed19cb $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k10_w10
+performance K=11 W=11 c46ea1a9a7355df5d57c363408c6d54d0fb90290ad4d2145483fd33b7570e2af $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k11_w11
+performance K=12 W=12 3cc3909012557fca0c00aefbca3a0bc14621e7b354a54bd1dbf2a3846a488134 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k12_w12
+performance K=13 W=13 08f3a2cae74b93b623fb3b8aab31b140bb0452f2d38d379a406213388fe51d2f $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k13_w13
+performance K=14 W=14 fbd9950197212c44beb115d611afa20d8076961f29d53e04d4bc8a0bc2038844 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k14_w14
+performance K=15 W=15 86693b4536af7287e6b8bf255ad39ad18e420c710ee1f823649d9cb28d3e632a $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k15_w15
+performance K=16 W=16 c707c25cef2d006a6379bf27f67d66c7d0a6584facdcb56c80758251f6af931f $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k16_w16
+performance K=17 W=17 c2a6dc29df528be10b53e3b1a3fdff8412d5ee71641fbd70a4bb4500ed42323c $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k17_w17
+performance K=18 W=18 80652964a7b16ef3f32126d17e75bd639ed8a1c0806b966113118cdef08fe2d3 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k18_w18
+performance K=19 W=19 3405b08c0054fe955635d644410a81561ed99018e42f0881be562290af6b073a $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k19_w19
+performance K=20 W=20 a57cdddffd4c7c448711b474c1eebe730bd2f877c575da33fb2cbf4741db6eb9 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k20_w20
+performance K=22 W=22 0269d2464d86bc5b1d97e5fe1d92070f662c9fcd542294e49b2fc79504c43185 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k22_w22
+performance K=23 W=23 b26745916aa4b9340ca79821a77e2fe8827711519670f767ba62956b424fa847 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k23_w23
+performance K=24 W=24 4e55ba0d1a72a2c9e16b4f56e2fce211695067274c8bef43962f70a2a5ef8349 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k24_w24
+performance K=25 W=25 f0920dc39a5d7981ac03e782983bc81853a2fc248bb544ca688afda4c96a44f6 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k25_w25
+performance K=26 W=26 42b772d90a3c682bf411dc179da6ecdc9472bb2290a046a03a97e0eb344c1be1 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k26_w26
+performance K=27 W=27 412e4103b91271b28637b7dd941f281341ea23cb6f65b642abd96962fcd981ef $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k27_w27
+performance K=28 W=28 20137c438ffc1219bbac9505d5a8ef3b3785b922899f03c51ed22993330ef4e2 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k28_w28
+performance K=29 W=29 cff3948d68103b2b8a4187a8befbbe45d15a58dc3b5383527bad988616b7893e $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k29_w29
+performance K=30 W=30 70359c67262e1722cdb54627663dc2e7136028baaebb629cb3b2cf9b6c3a3323 $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k30_w30
+performance K=31 W=31 b4918e65b22c7472fb00e1a4e2fb54ca689ec3479365879864428e1270d2912a $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/01_table4_matched_full/build/performance/bin/matched_k31_w31

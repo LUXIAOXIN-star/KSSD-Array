@@ -1,0 +1,4 @@
+absolute_path	size_bytes	sha256
+$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w10	40064	ff8672b277cac2ef285226069a928f884c6bda09dbb322e987fd15f0a7bb38a4
+$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w20	35968	de0fec24c7dfea9a01b2c96215cdb38ab18b6c79d29a3b38804e11bb5c27d908
+$KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final/bin/benchmark_k21_w50	35968	f333eddbee8cab3371175f6568902655c63d604ff05c3bc1ddb86ea0f5dc05de
