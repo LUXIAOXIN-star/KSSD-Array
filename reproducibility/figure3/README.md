@@ -51,7 +51,21 @@ the rolling encoding. Dataset paths resolve in this order: explicit
 The current Figure 3 configuration uses `k=21`, `w=10,20,50`, thread counts
 `1,2,4,8,16`, three repeats, and the Synthetic 300M and Human GRCh38 datasets.
 The repeat count of three was recovered from the historical runner and complete
-raw grid. A later formal command is:
+raw grid.
+
+Generate the shared Synthetic 300M input and verify it before a formal run:
+
+```sh
+python3 reproducibility/data_generation/synthetic_300M/generate_synthetic_300M.py \
+  --output /data/AEEE.fasta
+printf '%s  %s\n' \
+  a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962 \
+  /data/AEEE.fasta | sha256sum --check --strict
+```
+
+The generator and its use by Figure 2, Figure 3, and Table 4 are documented in
+[`../data_generation/README.md`](../data_generation/README.md). A later formal
+command is:
 
 ```sh
 python3 reproducibility/figure3/run_figure3_multithread.py \

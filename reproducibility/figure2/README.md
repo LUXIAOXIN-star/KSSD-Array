@@ -60,6 +60,25 @@ methods. The expected raw and summary data-row counts are both five. The smoke
 test validates build/link behavior, counts, method coverage, parity, output
 format, and plotting. It does not validate performance rankings.
 
+## Formal input preparation
+
+The Synthetic 300M input is shared with Figure 3 and the matched-workload
+ntHash comparison. Generate the exact accepted `AEEE.fasta` once and verify its
+identity as documented in
+[`../data_generation/synthetic_300M/`](../data_generation/synthetic_300M/README.md):
+
+```sh
+python3 reproducibility/data_generation/synthetic_300M/generate_synthetic_300M.py \
+  --output /data/AEEE.fasta
+printf '%s  %s\n' \
+  a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962 \
+  /data/AEEE.fasta | sha256sum --check --strict
+```
+
+Input preparation is also summarized in
+[`../data_generation/README.md`](../data_generation/README.md). The full
+generator is never run by CI.
+
 ## Later formal run
 
 The documented formal configuration uses two caller-supplied datasets,
@@ -67,7 +86,7 @@ The documented formal configuration uses two caller-supplied datasets,
 
 ```sh
 python3 reproducibility/figure2/run_figure2_single_thread.py \
-  --datasets /data/synthetic.fa /data/grch38.fa \
+  --datasets /data/AEEE.fasta /data/GCF_000001405.40_GRCh38.p14_genomic.fna \
   --dataset-names Synthetic_300M Human_GRCh38 \
   --k-values 16 19 21 24 31 \
   --w-values 10 20 50 \

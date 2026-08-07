@@ -11,6 +11,7 @@ are deliberately not stored in Git.
 
 | Paper item | Workflow |
 | --- | --- |
+| Input generation and provenance | [`data_generation/`](data_generation/) |
 | Table 2 exhaustive validation | [`table2/`](table2/) |
 | Figure 2 single-threaded minimizer benchmark | [`figure2/`](figure2/) |
 | Figure 3 multithreaded benchmark | [`figure3/`](figure3/) |
@@ -68,7 +69,10 @@ accepted CSVs, figures, reports, and manifests are published under
 SAM/BAM/PAF files, per-read diagnostics, and large logs are not distributed.
 Dataset identities and resolution rules are in
 [`../docs/datasets.md`](../docs/datasets.md) and
-[`data/datasets.json`](data/datasets.json).
+[`data/datasets.json`](data/datasets.json). Deterministic generation and
+derivation recipes are under [`data_generation/`](data_generation/): the
+Synthetic 300 Mb generator, Supplementary S2 simulation/truth workflow, and
+Human/Zea repeat-annotation conversions.
 
 Formal commands require explicit input and output locations. Generated output
 must be outside the source tree. The indexing workflow uses one unique
@@ -197,5 +201,8 @@ PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
 
 The complete external-data commands and stop conditions are documented in
 [`minimap2/alignment_consistency_truth_origin/README.md`](minimap2/alignment_consistency_truth_origin/README.md).
+Input simulation, truth, repeat-annotation, and optional alignment-regeneration
+provenance is documented in
+[`data_generation/supplementary_s2/`](data_generation/supplementary_s2/).
 The historical evaluator remains available only for compatibility/provenance;
 its table is superseded.

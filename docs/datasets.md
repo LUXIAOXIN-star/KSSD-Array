@@ -50,16 +50,24 @@ window ranges in the two-thread smoke condition.
 
 ## Formal references
 
-| Dataset | Accession/version | SHA-256 |
+| Dataset | Accession/version and source | Accepted SHA-256 |
 |---|---|---|
-| Arabidopsis thaliana | GCF_000001735.4, TAIR10.1 | `a182f3c71662973dc636cacd7722588c9bbe3c8ea6ce62b1bae7dac940545d47` |
-| Human | GCF_000001405.40, GRCh38.p14 | `df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0` |
-| Zea mays | Zm-B73-REFERENCE-NAM-5.0, B73 RefGen_v5 | `52f0663221e46f562eb0923c6dfa1bb43537abb7f13e0f637b5def2571de2c11` |
+| Arabidopsis thaliana | [NCBI RefSeq GCF_000001735.4, TAIR10.1](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001735.4/) | `a182f3c71662973dc636cacd7722588c9bbe3c8ea6ce62b1bae7dac940545d47` |
+| Human | [NCBI RefSeq GCF_000001405.40, GRCh38.p14](https://www.ncbi.nlm.nih.gov/datasets/genome/GCF_000001405.40/) | `df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0` |
+| Zea mays | [MaizeGDB Zm-B73-REFERENCE-NAM-5.0, B73 RefGen_v5](https://download.maizegdb.org/Zm-B73-REFERENCE-NAM-5.0/) | `52f0663221e46f562eb0923c6dfa1bb43537abb7f13e0f637b5def2571de2c11` |
 
-The historical 300,000,000-base synthetic FASTA has SHA-256
-`a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962`.
-Its deterministic generator was not recovered, so its generation provenance
-is unresolved and the file is not redistributed.
+## Synthetic 300 Mb benchmark input
+
+The synthetic input is one FASTA record containing exactly 300,000,000 bases.
+The `AEEE.fasta` used by Figure 2, Figure 3, and the matched-workload ntHash
+comparison is reconstructed by
+[`reproducibility/data_generation/synthetic_300M/`](../reproducibility/data_generation/synthetic_300M/README.md).
+The publication generator fixes seed `1781167332`, explicitly reproduces the
+historical glibc stream and `A,T,C,G` mapping, retains the legacy header needed
+for exact identity, and verifies the final 300,000,057-byte file against
+SHA-256 `a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962`.
+The generator reproduces the accepted benchmark identity. The generated FASTA
+is synthetic, remains external, and is not committed.
 
 ## Supplementary indexing references
 
@@ -68,18 +76,42 @@ GRCh38, and Zea mays identities listed above. Supply them using repeated
 `--dataset KEY=PATH` arguments, beneath `KSSD_DATA_DIR` at the configured
 relative paths, or beneath `reproducibility/data/external/`.
 
-## Supplementary Table S2 reads
+## Supplementary S2 simulated reads
 
-The four accepted single-end read hashes are listed in
-`reproducibility/minimap2/alignment_consistency_truth_origin/config.json`:
-Human 100/150 bp and Zea mays 100/150 bp. ART_Illumina 2.5.8 used its HS25
-empirical profile and seed 42.
-Coverage factors were 0.0167, 0.025, 0.0235, and 0.0353, respectively. The
-configuration also records read counts, truth tables, repeat BED hashes, and
-the complete simulation commands.
+The complete input recipe is under
+[`reproducibility/data_generation/supplementary_s2/`](../reproducibility/data_generation/supplementary_s2/README.md).
+The four accepted single-end read sets are Human 100/150 bp and Zea mays
+100/150 bp. ART_Illumina Q 2.5.8 used its HS25 empirical profile and seed 42;
+coverage factors were 0.0167, 0.025, 0.0235, and 0.0353, respectively. The
+recipe checks reference, executable, FASTQ, and ART ALN identities. ART ALN is
+the authoritative strand-aware truth, while the reduced truth TSVs are
+historical compatibility views.
 
-The repository does not store those reads, indexes, SAM/BAM/PAF outputs,
-repeat BEDs, or full per-read diagnostics. It does publish the compact
+The corrected primary denominator is all ART truth reads, including reads
+without a mapped primary assignment. Repeat membership is determined from the
+truth-origin interval and is therefore method-independent.
+
+The repository does not store those reads, ART ALNs, indexes, SAM/BAM/PAF outputs,
+or full per-read diagnostics. It does publish the compact
 corrected tables and reports under
 `benchmark_results/supplementary_s2_mapping/`. Validate every external input
 against its configured SHA-256 before a corrected analysis.
+
+## Repeat annotations
+
+Exact repeat-source identities and coordinate-conversion records are under
+[`reproducibility/data_generation/repeat_annotations/`](../reproducibility/data_generation/repeat_annotations/README.md).
+
+The Human annotation was derived from the UCSC hg38 `rmsk` table. The recovered
+six-column source BED and accepted GRCh38.p14 RefSeq-name BED are verified by
+row count, byte size, and SHA-256. The workflow retains the 25 assembled
+chromosomes, maps their UCSC names to RefSeq accessions, and reproduces the
+accepted converted identity. The exact historical UCSC export command and
+record ordering were not preserved and are not claimed.
+
+The Zea annotation uses the MaizeGDB B73 RefGen_v5
+`Zm-B73-REFERENCE-NAM-5.0.TE.gff3.gz` source. Its compressed and uncompressed
+checksums are recorded. The workflow converts GFF3 1-based inclusive intervals
+to BED 0-based half-open intervals and verifies the accepted BED SHA-256.
+Repeat sources and generated BED files remain external rather than stored in
+Git.

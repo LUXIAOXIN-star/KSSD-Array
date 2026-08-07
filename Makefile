@@ -49,7 +49,7 @@ SAN_TESTS := build/sanitize/tests/test_kssd_array \
 	figure3-smoke table4-build table4-smoke figure4-build figure4-preflight \
 	figure4-formal minimap2-verify-build minimap2-smoke \
 	minimap2-indexing-preflight minimap2-indexing-formal \
-	fixture-generator-test s2-corrected-tests minimap2-alignment-preflight minimap2-alignment-formal install clean \
+	fixture-generator-test synthetic-generator-test s2-corrected-tests minimap2-alignment-preflight minimap2-alignment-formal install clean \
 	help all-smoke reproducibility-smoke check check-public-tree check-secrets check-large-files \
 	check-docs check-dependencies check-public-history
 
@@ -163,6 +163,10 @@ fixture-generator-test:
 	PYTHONDONTWRITEBYTECODE=1 python3 -m unittest \
 		tests.fixture_generators.test_generate_test_fixtures -v
 
+synthetic-generator-test:
+	PYTHONDONTWRITEBYTECODE=1 python3 -m unittest discover \
+		-s reproducibility/data_generation/synthetic_300M -p 'test_*.py' -v
+
 minimap2-alignment-preflight: $(STATIC_LIB)
 	@test -n "$(PHASE5B_OUTPUT)" || \
 		{ echo "PHASE5B_OUTPUT is required" >&2; exit 1; }
@@ -205,7 +209,7 @@ check-docs:
 check-dependencies:
 	python3 tools/check_dependencies.py
 
-check: test table2-validation fixture-generator-test check-public-tree check-public-history \
+check: test table2-validation fixture-generator-test synthetic-generator-test check-public-tree check-public-history \
 	check-secrets check-large-files check-docs
 
 install: $(STATIC_LIB)

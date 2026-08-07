@@ -54,7 +54,20 @@ defaults to a new system temporary directory outside the repository.
 
 ## Later formal run
 
-Provide the full datasets explicitly:
+Generate the same accepted Synthetic 300M input used by Figures 2 and 3, then
+verify it before providing the full datasets:
+
+```sh
+python3 reproducibility/data_generation/synthetic_300M/generate_synthetic_300M.py \
+  --output /data/AEEE.fasta
+printf '%s  %s\n' \
+  a7eca29bdfa06ff373048fffa7a90139afc98acfa938a8ec0a98459608045962 \
+  /data/AEEE.fasta | sha256sum --check --strict
+```
+
+Shared input preparation is documented in
+[`../data_generation/README.md`](../data_generation/README.md). The formal
+benchmark command is:
 
 ```sh
 python3 reproducibility/table4/run_table4_nthash.py \

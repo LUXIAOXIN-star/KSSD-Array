@@ -30,7 +30,7 @@ jobs:
       - name: Public repository checks
         run: make check-public-tree check-public-history check-secrets check-large-files check-docs
       - name: Core build and tests
-        run: make clean && make && make test && make table2-validation
+        run: make clean && make && make test && make table2-validation && make synthetic-generator-test
       - name: Check Python scientific dependencies
         run: |
           python3 -c "import numpy, pandas, scipy; print('Python scientific dependencies: PASS')"
