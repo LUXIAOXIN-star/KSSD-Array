@@ -121,7 +121,7 @@ make figure2-smoke
 reproducibility/reproduce_manuscript.sh figure2-formal \
   --datasets /path/to/a.fa /path/to/b.fa \
   --dataset-names Synthetic_300M Human_GRCh38 \
-  --k-values 16 19 21 24 31 --w-values 10 20 50 --repeats 3 \
+  --k-values 16 19 21 24 31 --w-values 10 20 50 --repeats 5 \
   --output-dir /external/results/figure2
 ```
 
@@ -137,7 +137,7 @@ make table4-smoke
 reproducibility/reproduce_manuscript.sh table4-formal \
   --datasets /path/to/a.fa /path/to/b.fa \
   --dataset-names Synthetic_300M Human_GRCh38 \
-  --k-start 4 --k-end 32 --repeats 3 \
+  --k-start 4 --k-end 32 --repeats 5 \
   --output-dir /external/results/table4
 ```
 
@@ -150,7 +150,7 @@ make figure3-smoke
 reproducibility/reproduce_manuscript.sh figure3-formal \
   --datasets /path/to/a.fa /path/to/b.fa \
   --dataset-names Synthetic_300M Human_GRCh38 \
-  --w-values 10 20 50 --threads 1 2 4 8 16 --repeats 3 \
+  --w-values 10 20 50 --threads 1 2 4 8 16 --repeats 5 \
   --output-dir /external/results/figure3
 ```
 
