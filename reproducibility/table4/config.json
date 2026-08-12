@@ -7,7 +7,7 @@
     "k_start": 4,
     "k_end": 32,
     "w_rule": "w = k",
-    "repeats": 3,
+    "repeats": 5,
     "datasets": ["Synthetic_300M", "Human_GRCh38"]
   },
   "smoke": {
