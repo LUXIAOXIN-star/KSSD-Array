@@ -71,7 +71,7 @@ command is:
 python3 reproducibility/figure3/run_figure3_multithread.py \
   --datasets /data/AEEE.fasta /data/GCF_000001405.40_GRCh38.p14_genomic.fna \
   --dataset-names Synthetic_300M Human_GRCh38 \
-  --k 21 --w-values 10 20 50 --threads 1 2 4 8 16 --repeats 3 \
+  --k 21 --w-values 10 20 50 --threads 1 2 4 8 16 --repeats 5 \
   --output-dir /results/figure3-multithread
 ```
 
