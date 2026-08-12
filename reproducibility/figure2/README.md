@@ -90,7 +90,7 @@ python3 reproducibility/figure2/run_figure2_single_thread.py \
   --dataset-names Synthetic_300M Human_GRCh38 \
   --k-values 16 19 21 24 31 \
   --w-values 10 20 50 \
-  --repeats 3 \
+  --repeats 5 \
   --seed 42 \
   --output-dir /results/figure2-single-thread
 ```
