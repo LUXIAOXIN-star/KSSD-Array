@@ -73,7 +73,7 @@ benchmark command is:
 python3 reproducibility/table4/run_table4_nthash.py \
   --datasets /data/AEEE.fasta /data/GCF_000001405.40_GRCh38.p14_genomic.fna \
   --dataset-names Synthetic_300M Human_GRCh38 \
-  --k-start 4 --k-end 32 --repeats 3 \
+  --k-start 4 --k-end 32 --repeats 5 \
   --nthash-prefix /dependencies/nthash-install \
   --output-dir /results/table4-nthash
 ```
