@@ -5,7 +5,7 @@
     "datasets": ["Synthetic_300M", "Human_GRCh38"],
     "k_values": [16, 19, 21, 24, 31],
     "w_values": [10, 20, 50],
-    "repeats": 3,
+    "repeats": 5,
     "methods": ["KSSD-Array", "XXH3", "XXH64", "MurmurHash3", "wyhash"]
   },
   "smoke": {
