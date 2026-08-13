@@ -82,7 +82,7 @@ generator is never run by CI.
 ## Later formal run
 
 The documented formal configuration uses two caller-supplied datasets,
-`k=16,19,21,24,31`, `w=10,20,50`, and three repeats:
+`k=16,19,21,24,31`, `w=10,20,50`, and five repeats:
 
 ```sh
 python3 reproducibility/figure2/run_figure2_single_thread.py \
