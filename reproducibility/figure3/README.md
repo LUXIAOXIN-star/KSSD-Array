@@ -48,10 +48,7 @@ FASTA record is measured, and non-ACGT symbols are skipped without resetting
 the rolling encoding. Dataset paths resolve in this order: explicit
 `--datasets`, `KSSD_DATA_DIR`, then `reproducibility/data/external`.
 
-The current Figure 3 configuration uses `k=21`, `w=10,20,50`, thread counts
-`1,2,4,8,16`, three repeats, and the Synthetic 300M and Human GRCh38 datasets.
-The repeat count of three was recovered from the historical runner and complete
-raw grid.
+The current Figure 3 formal configuration uses k=21, w=10,20,50, thread counts 1,2,4,8,16, five repeats, and the Synthetic 300M and Human GRCh38 datasets.
 
 Generate the shared Synthetic 300M input and verify it before a formal run:
 
