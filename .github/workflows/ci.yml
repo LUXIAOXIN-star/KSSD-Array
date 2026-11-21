@@ -1,0 +1,25 @@
+name: lightweight-ci
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  core:
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v5
+      - name: Make build, example, and tests
+        run: |
+          make
+          make examples
+          ./build/examples/minimal_api
+          make test
+      - name: CMake tests and examples
+        run: |
+          cmake -S . -B build-ci -DKSSD_ARRAY_BUILD_TESTS=ON -DKSSD_ARRAY_BUILD_EXAMPLES=ON
+          cmake --build build-ci --parallel 2
+          ctest --test-dir build-ci --output-on-failure

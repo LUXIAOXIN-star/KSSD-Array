@@ -1,0 +1,17 @@
+{
+  "schema_version": 1,
+  "k": [19, 21, 31],
+  "strict_w": [9, 19, 49],
+  "weak_w": [10, 20, 50],
+  "kssd_seed": 42,
+  "nthash": "NtHasher<true,7>, upstream default seed constants, u32 forward+reverse modulo 2^32",
+  "coordinates": "zero-based k-mer start, u32",
+  "dedup": "adjacent equal positions only",
+  "strict_tie": "leftmost when TG majority in k+w-1 bases, otherwise rightmost",
+  "weak_tie": "leftmost",
+  "score_storage_A_B": "u64 with lossless widening of ntHash u32",
+  "current_data": "synthetic_1mb.dna only (1000000 bases), plus small correctness fixtures",
+  "default_max_bases": 1000000,
+  "timing_default": false,
+  "threads_per_run": 1
+}

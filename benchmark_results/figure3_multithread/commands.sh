@@ -1,0 +1,2 @@
+#!/bin/sh
+OMP_DYNAMIC=FALSE OMP_PROC_BIND=TRUE OMP_PLACES=cores taskset -c 0-15 python3 $KSSD_RELEASE_HOST/KSSD-Array-public-final/reproducibility/figure3/run_figure3_multithread.py --datasets $KSSD_RELEASE_HOST/AEEE.fasta $KSSD_RELEASE_HOST/seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna --dataset-names Synthetic_300_Mb GRCh38.p14_chr1 --k 21 --w-values 10 20 50 --threads 1 2 4 8 16 --repeats 5 --seed 42 --output-dir $KSSD_RELEASE_HOST/KSSD-Array-formal-results/final-validation-20260731-162115/03_figure3_final

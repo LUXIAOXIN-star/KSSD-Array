@@ -1,0 +1,19 @@
+FIGURE3_INDEPENDENT_VALIDATION=PASS
+Validation time: 2026-07-31
+
+Checks:
+- figure3_raw.csv: 750 rows and 750 unique dataset/K/W/thread/repeat/method keys
+- figure3_summary.csv: 150 rows; means and sample standard deviations independently recomputed
+- figure3_scaling_summary.csv: 150 rows; one-thread speedups and parallel efficiencies independently recomputed
+- figure3_thread_validation.csv: 750 rows; exact one-to-one correspondence with raw keys
+- requested threads equal observed threads in all 750 method-level records
+- per-method checksums and count invariants are stable across repeats and thread counts
+- 150 run logs each contain five method results and the required OpenMP environment
+- public raw output and final alias differ only in result-status labeling
+- input, executable, and frozen-output sizes and SHA-256 values pass
+
+Ranking:
+- KSSD-Array is fastest in 30/30 final groups
+- KSSD-Array was fastest in 30/30 historical preliminary groups
+- fastest-method changes: 0
+- full five-method ordering changes: 30

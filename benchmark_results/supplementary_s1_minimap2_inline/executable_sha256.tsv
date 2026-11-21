@@ -1,0 +1,3 @@
+method	absolute_path	size_bytes	sha256	version
+Original Minimap2	$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-inline-final-20260731-214500/builds/original/source/minimap2	1563384	cd7000ee715d678a9649b80bd65345959610eb7697ec1dc8904dc22a11981d39	2.30-r1287
+KSSD-Array	$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-inline-final-20260731-214500/builds/integrated/source/minimap2	1576256	29da38889c244e97a902e476d1957172b9a0f726c5cb56285f6d49745b714b54	2.30-r1287+KSSD-Array

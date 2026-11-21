@@ -1,0 +1,10 @@
+prefix=@PREFIX@
+exec_prefix=${prefix}
+libdir=${prefix}/lib
+includedir=${prefix}/include
+
+Name: KSSD-Array
+Description: Segmented permutation-array mapping for encoded DNA k-mers
+Version: @VERSION@
+Libs: -L${libdir} -lkssd_array
+Cflags: -I${includedir}

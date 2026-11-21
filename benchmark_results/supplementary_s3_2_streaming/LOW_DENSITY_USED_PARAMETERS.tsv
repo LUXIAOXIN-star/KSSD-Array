@@ -1,0 +1,34 @@
+slot	k	w	method	duplicate_of	canonical	order_type	k0	trained_w	t	r	order_sha256	status	seed
+P01	19	5	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P01	19	5	GreedyMini		forward_only	extension / prefix order	15	5			0b5add7cd1a41d06c1ae5a3422966a309f56fca678804df0488bc8fe31b67775	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P01	19	5	mod-minimizer		forward_only	mod-minimizer			4	4		SUPPORTED	3141592;wyhash
+P02	19	10	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P02	19	10	GreedyMini		forward_only	extension / prefix order	15	10			1613f475dcc013132a6e8e6749d30e1f50d713535a6ed7378233625cfa4d6383	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P02	19	10	mod-minimizer		forward_only	mod-minimizer			9	4		SUPPORTED	3141592;wyhash
+P03	19	20	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P03	19	20	GreedyMini		forward_only	extension / prefix order	12	20			6d18a02946d4e0fa9a5c86e14bf8967ba291bd55e2a4955c2e7d305e18221d71	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P03	19	20	mod-minimizer		forward_only	random-minimizer fallback			19	4		SUPPORTED_BUT_NONSTANDARD	3141592;wyhash
+P04	21	5	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P04	21	5	GreedyMini		forward_only	extension / prefix order	15	5			0b5add7cd1a41d06c1ae5a3422966a309f56fca678804df0488bc8fe31b67775	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P04	21	5	mod-minimizer		forward_only	mod-minimizer			6	4		SUPPORTED	3141592;wyhash
+P05	21	10	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P05	21	10	GreedyMini		forward_only	extension / prefix order	15	10			1613f475dcc013132a6e8e6749d30e1f50d713535a6ed7378233625cfa4d6383	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P05	21	10	mod-minimizer		forward_only	mod-minimizer			11	4		SUPPORTED	3141592;wyhash
+P06	21	20	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P06	21	20	GreedyMini		forward_only	extension / prefix order	12	20			6d18a02946d4e0fa9a5c86e14bf8967ba291bd55e2a4955c2e7d305e18221d71	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P06	21	20	mod-minimizer		forward_only	random-minimizer fallback			21	4		SUPPORTED_BUT_NONSTANDARD	3141592;wyhash
+P07	31	5	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P07	31	5	GreedyMini		forward_only	extension / prefix order	15	5			0b5add7cd1a41d06c1ae5a3422966a309f56fca678804df0488bc8fe31b67775	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P07	31	5	mod-minimizer		forward_only	mod-minimizer			6	4		SUPPORTED	3141592;wyhash
+P08	31	10	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P08	31	10	GreedyMini		forward_only	extension / prefix order	15	10			1613f475dcc013132a6e8e6749d30e1f50d713535a6ed7378233625cfa4d6383	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P08	31	10	mod-minimizer		forward_only	mod-minimizer			11	4		SUPPORTED	3141592;wyhash
+P09	31	20	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P09	31	20	GreedyMini		forward_only	extension / prefix order	12	20			6d18a02946d4e0fa9a5c86e14bf8967ba291bd55e2a4955c2e7d305e18221d71	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P09	31	20	mod-minimizer		forward_only	mod-minimizer			11	4		SUPPORTED	3141592;wyhash
+P10	24	20	KSSD		forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P10	24	20	GreedyMini		forward_only	extension / prefix order	12	20			6d18a02946d4e0fa9a5c86e14bf8967ba291bd55e2a4955c2e7d305e18221d71	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P10	24	20	mod-minimizer		forward_only	mod-minimizer			4	4		SUPPORTED	3141592;wyhash
+P11	31	20	KSSD	P09	forward_only	segmented_permutation						SUPPORTED	42;SplitMix64
+P11	31	20	GreedyMini	P09	forward_only	extension / prefix order	12	20			6d18a02946d4e0fa9a5c86e14bf8967ba291bd55e2a4955c2e7d305e18221d71	SUPPORTED_BUT_NONSTANDARD	frozen upstream table
+P11	31	20	mod-minimizer	P09	forward_only	mod-minimizer			11	4		SUPPORTED	3141592;wyhash

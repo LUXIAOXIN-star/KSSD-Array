@@ -1,0 +1,95 @@
+{
+  "protocol": "Minimap2 Supplementary Table S2 alignment consistency",
+  "upstream_version": "2.30-r1287",
+  "upstream_commit": "79c9cc186b95f50bd899f69b48eba995ced810c6",
+  "original_executable_sha256": "e992db9d442204ff6bdc532f8e8dfe8e05a95daf01d403928ee9f2048101f9c0",
+  "integrated_executable_sha256": "3a8f83b868bdae1b0109cf49182332f9d00c08b965de37ce847c75d31f34cf16",
+  "public_library_sha256": "5ff542ca0d83775d61fafbc149908374230cc0060a8f346dc8698c3b83448513",
+  "simulator": "ART_Illumina",
+  "simulator_version": "2.5.8",
+  "simulation_seed": 42,
+  "paired_or_single": "single-end",
+  "quality_error_model": "built-in HS25 empirical profile",
+  "threads": 1,
+  "alignment_arguments": ["-ax", "sr", "-t", "1"],
+  "samtools_primary_filter": 2308,
+  "correct_position_tolerance_bp": 5,
+  "delta_scale": 100,
+  "markdown_decimal_places": 3,
+  "datasets": [
+    {
+      "key": "Human_GRCh38",
+      "manuscript_label": "Human",
+      "accession": "GCF_000001405.40",
+      "version": "GRCh38.p14",
+      "reference_relative_path": "seq/human/GCF_000001405.40_GRCh38.p14_genomic.fna",
+      "reference_size_bytes": 3339739109,
+      "reference_sha256": "df6e4918316e05a9cc1fd29c352841d3678b607d7a436819cd43371b52c814c0",
+      "repeat_bed_relative_path": "seq/human/hg38_repeats_refseq.bed",
+      "repeat_bed_sha256": "74a5a4b8887b7ad061ad81feca8546df8a3668651d0c0e7e187e9b08f403d1a2",
+      "original_index_size_bytes": 7682339709,
+      "original_index_sha256": "9937ec3ce6de62648ad3459aa1b403b77aa02211653a0880713bf84851e5de91",
+      "integrated_index_size_bytes": 7432760197,
+      "integrated_index_sha256": "34e4769552d1640604936a8db244fc1a3e7e4eae0f8a36a7c80bcf6a08d1e964",
+      "reads": [
+        {
+          "read_length": 100,
+          "relative_path": "seq/human/sim_se_100bp_500K.fq",
+          "size_bytes": 116966621,
+          "sha256": "7464f8a449d5f6c3fde97346e74445ad01fb6e6aff0fef82e274853d0f2ae548",
+          "read_count": 523688,
+          "truth_relative_path": "seq/human/sim_se_100bp_500K_truth_qpos.tsv",
+          "truth_sha256": "7a7d45bedc95d396deeb33ef271d63eed31fcd956497a9931a2f04806e6aa8dd",
+          "simulation_command": "art_illumina -ss HS25 -i GCF_000001405.40_GRCh38.p14_genomic.fna -l 100 -f 0.0167 -rs 42 -o sim_se_100bp_500K"
+        },
+        {
+          "read_length": 150,
+          "relative_path": "seq/human/sim_se_150bp_500K.fq",
+          "size_bytes": 168871174,
+          "sha256": "d21279c25f734f8ddcb7cad2f453ab0db8c018d77582e97d922255c8c56b089c",
+          "read_count": 522254,
+          "truth_relative_path": "seq/human/sim_se_150bp_500K_truth_qpos.tsv",
+          "truth_sha256": "362abd8bb5dd2a5478811958e40f9f99bb2e51ccd804fd6cac144d96aa20bae8",
+          "simulation_command": "art_illumina -ss HS25 -i GCF_000001405.40_GRCh38.p14_genomic.fna -l 150 -f 0.025 -rs 42 -o sim_se_150bp_500K"
+        }
+      ]
+    },
+    {
+      "key": "Zea_mays",
+      "manuscript_label": "Zea mays",
+      "accession": "Zm-B73-REFERENCE-NAM-5.0",
+      "version": "B73 RefGen_v5",
+      "reference_relative_path": "seq/Zea_mays/Zm-B73-REFERENCE-NAM-5.0.fa",
+      "reference_size_bytes": 2209359010,
+      "reference_sha256": "52f0663221e46f562eb0923c6dfa1bb43537abb7f13e0f637b5def2571de2c11",
+      "repeat_bed_relative_path": "seq/Zea_mays/maize_repeats_raw.bed",
+      "repeat_bed_sha256": "e402860999e6de118f3deada95de01bc96e80ffc4f505b5962abfca687fab0e9",
+      "original_index_size_bytes": 5059820643,
+      "original_index_sha256": "07ee9f6537c36357adfb1cdc758cfd29c29bf688e7b65d4dfa3170658ec27dc1",
+      "integrated_index_size_bytes": 4922046779,
+      "integrated_index_sha256": "b315a4a1929142f5beb0bbab7e50531aafcf14d7b676cb59fd5b815dd5ab42e5",
+      "reads": [
+        {
+          "read_length": 100,
+          "relative_path": "seq/Zea_mays/sim_zeamays_se_100bp_500K.fq",
+          "size_bytes": 110426369,
+          "sha256": "cb7600c3610f09bb529be32e0bdf20b57eb1111efb866e40790da50ed92ea10c",
+          "read_count": 511569,
+          "truth_relative_path": "seq/Zea_mays/sim_zeamay_se_100bp_500K_truth_qpos.tsv",
+          "truth_sha256": "4723ec0c7a088cf506fbadbe49cbea57e5ea11e3675a3f88d2be71539faa379d",
+          "simulation_command": "art_illumina -ss HS25 -i Zm-B73-REFERENCE-NAM-5.0.fa -l 100 -f 0.0235 -rs 42 -o sim_zeamays_se_100bp_500K"
+        },
+        {
+          "read_length": 150,
+          "relative_path": "seq/Zea_mays/sim_zeamays_se_150bp_500K.fq",
+          "size_bytes": 161815255,
+          "sha256": "a2a6ae1b7a2b574632bcc7f8fabb65807fce3705beae5e241845009c4d72f3f4",
+          "read_count": 512303,
+          "truth_relative_path": "seq/Zea_mays/sim_zeamay_se_150bp_500K_truth_qpos.tsv",
+          "truth_sha256": "6bec1b8b176c52a7daa5e88a8f109b2fadc4297fcc84c16a25a6c1244e833ee6",
+          "simulation_command": "art_illumina -ss HS25 -i Zm-B73-REFERENCE-NAM-5.0.fa -l 150 -f 0.0353 -rs 42 -o sim_zeamays_se_150bp_500K"
+        }
+      ]
+    }
+  ]
+}

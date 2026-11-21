@@ -1,0 +1,57 @@
+{
+  "reference": "phase3 historical build manifest; ntHash v2.4.0 c26bd4572a19de81e30d55042dbd33c1fd21d4b6",
+  "sources": [
+    {
+      "path": "frozen_worktree/include/kssd_array.h",
+      "sha256": "3ae49f9ef0ba3f1f87b8076f173b7904fc2d7910539b8362849984b5e2b5c68c"
+    },
+    {
+      "path": "frozen_worktree/include/kssd_array_fast.h",
+      "sha256": "b64c3a14b9df415dcc73eebde920c113518fec46b26862b848491b4ca3cde5f4"
+    },
+    {
+      "path": "frozen_worktree/reproducibility/reviewer_phase3/practical_nthash.cpp",
+      "sha256": "5dd2dbddeb5bc01020d86c2903cd180d16ef738408f62b4f1413c988db410031"
+    },
+    {
+      "path": "frozen_worktree/src/kssd_array.c",
+      "sha256": "ce897b959e7ecdad52987af46ada62c2634172472176c90d9c344e0cfa9a9491"
+    },
+    {
+      "path": "frozen_worktree/src/permutation.c",
+      "sha256": "7c2f7b42d17630d64d09bff88626a34c5e730cffa0531e370e9216dc432f9192"
+    },
+    {
+      "path": "third_party/nthash/include/nthash/nthash.hpp",
+      "sha256": "7ce43aded7fae6446578994ce91d0e65df889916e6ce556ce90945493f5b2099"
+    },
+    {
+      "path": "third_party/nthash/src/kmer.cpp",
+      "sha256": "91e792298faf49e1ec94152c0d12eaceb741aee0daea41a2c65b075ebe31b3ea"
+    },
+    {
+      "path": "third_party/nthash/src/seed.cpp",
+      "sha256": "cea5694353f359763e2738ecc3c47152c6f383a0c9f006560f08500b933d5a3e"
+    },
+    {
+      "path": "frozen_worktree/include/kssd_array_inline.h",
+      "sha256": "7830431d6ebbb99c4833458a3f2863ed6f11de86dbd74378d583690955c285bf"
+    },
+    {
+      "path": "frozen_worktree/src/permutation.h",
+      "sha256": "3c67601c47b0246c58e5961e0a1b2c1e1fc8f2ad08298ce7c31ddd102317ff5b"
+    },
+    {
+      "path": "frozen_worktree/LICENSE",
+      "sha256": "921fa88d80bf602683c3c699daf8e6575c1dbc4785817877956895b23aa2bebc"
+    },
+    {
+      "path": "third_party/nthash/src/internal.hpp",
+      "sha256": "9c0c454b10f2402143e6955eab1129dde6ed3311f77f2817acc2f11d7bd0e759"
+    },
+    {
+      "path": "third_party/nthash/LICENSE",
+      "sha256": "ed7d4d18d6eabc143cdbddfba352574eabfbeebc2cea96c7cb45f763cec4dbbd"
+    }
+  ]
+}

@@ -1,0 +1,3 @@
+# Corrected Supplementary Table S2 note
+
+Primary assignments exclude secondary and supplementary records; missing or unmapped primary assignments remain in the denominator. Correctness requires the truth reference, truth strand, and a position within ±5 bp of the ART-derived genomic start. MAPQ=60/all-truth divides by every truth read; MAPQ=60/mapped-primary divides by mapped primary reads. Human repeat annotation is available for the 25 assembled chromosomes; reads simulated from unannotated alternate/unlocalized scaffolds are reported and are not assigned to the repeat-origin subset. No alignments were rerun.

@@ -1,0 +1,9 @@
+# Corrected Supplementary Table S2 Methods text
+
+Existing single-end ART reads (seed 42) and accepted Original Minimap2 and KSSD-Array BAM files were re-evaluated without rerunning alignment. Secondary (0x100) and supplementary (0x800) records were excluded. For each truth read, a mapped primary record was the primary assignment; an unmapped primary record or absence of a mapped primary record was classified as unmapped, and multiple mapped primary records were treated as an error. Every simulated truth read remained in the global denominator.
+
+ART truth intervals were reconstructed from the retained `.aln` files. ART's zero-based alignment start is strand-relative; using the bundled official `aln2bed.pl` conversion, plus-strand intervals were `[p,p+span)` and minus-strand intervals were `[Lref-p-span,Lref-p)`, where `span` is the ungapped aligned-reference length. A primary assignment was correct when reference and strand matched truth and its one-based SAM position was within 5 bp of the reconstructed truth start. Unmapped reads counted as incorrect.
+
+Repeat-origin membership was assigned once from the simulated truth interval using at least one base of overlap with the pinned repeat BED. The same read IDs were used for both methods and each read was counted once. Global and repeat-origin mapping, incorrect-mapping, and unmapped rates used all truth reads in the corresponding fixed denominator. MAPQ=60 was reported both per all truth reads and per mapped primary records.
+
+Method differences were calculated at read level as 100 × (KSSD proportion − Original proportion). Ninety-five percent confidence intervals were obtained from 10,000 paired bootstrap resamples of truth reads with replacement (seed 42), separately for each dataset/read-length condition. Exact two-sided McNemar tests used the paired discordant counts for all-read correctness, primary-mapped status, and repeat-origin correctness.

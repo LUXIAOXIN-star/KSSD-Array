@@ -1,0 +1,2 @@
+probe	date	fixture	k	repeats	methods	perf_available	perf_errno	perf_cycles	perf_instructions	status
+Phase1_direct_perf_event_open	2026-08-19	Phase1_validation_fixture_182_valid_bases	21	1	15	0	13	0	0	EACCES_INVARIANT_TSC_RETAINED

@@ -1,0 +1,7 @@
+lto,dataset,conditions,geomean_mean_paired_throughput_ratio,min_condition_mean_ratio,max_condition_mean_ratio,conditions_KSSD_faster,conditions_ntHash_faster,definition
+off,GRCh38.p14_chr1,20,1.1228905396243747,1.0650641060816,1.2268409913236,20,0,geomean across equally weighted condition-level arithmetic means of5paired ratios; no overall CI in original protocol
+off,Synthetic_300_Mb,20,1.1357827377964806,1.0788248570724,1.237574410461,20,0,geomean across equally weighted condition-level arithmetic means of5paired ratios; no overall CI in original protocol
+off,ALL_DATASETS,40,1.1293182418345769,1.0650641060816,1.237574410461,40,0,geomean across equally weighted condition-level arithmetic means of5paired ratios; no overall CI in original protocol
+on,GRCh38.p14_chr1,20,1.0628383749267762,1.0192230453072,1.1553883232418,20,0,geomean across equally weighted condition-level arithmetic means of5paired ratios; no overall CI in original protocol
+on,Synthetic_300_Mb,20,1.0757467629944237,1.0324754946976,1.1672743008588,20,0,geomean across equally weighted condition-level arithmetic means of5paired ratios; no overall CI in original protocol
+on,ALL_DATASETS,40,1.0692730901943306,1.0192230453072,1.1672743008588,40,0,geomean across equally weighted condition-level arithmetic means of5paired ratios; no overall CI in original protocol

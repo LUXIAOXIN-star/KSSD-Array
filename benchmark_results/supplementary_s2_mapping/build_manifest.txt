@@ -1,0 +1,15 @@
+SOURCE_REPOSITORY=$KSSD_RELEASE_HOST/KSSD-Array-s2-corrected-development
+SOURCE_HEAD=bf1af64f0e591151cb52de6b15f4b361b61bd96e
+SOURCE_BRANCH=feature/s2-all-read-truth-origin
+WORKFLOW_SOURCE=$KSSD_RELEASE_HOST/KSSD-Array-s2-corrected-development/reproducibility/minimap2/alignment_consistency_truth_origin
+PYTHON=/usr/bin/python3
+PYTHON_VERSION=3.8.10
+SAMTOOLS_VERSION=samtools 1.10
+BEDTOOLS_VERSION=bedtools v2.27.1
+NUMPY_VERSION=1.17.4
+SCIPY_VERSION=1.3.3
+ORIGINAL_MINIMAP2_EXECUTABLE=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-20260728-v3/builds/original/source/minimap2
+ORIGINAL_MINIMAP2_SHA256=e992db9d442204ff6bdc532f8e8dfe8e05a95daf01d403928ee9f2048101f9c0
+KSSD_MINIMAP2_EXECUTABLE=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-20260728-v3/builds/integrated/source/minimap2
+KSSD_MINIMAP2_SHA256=3a8f83b868bdae1b0109cf49182332f9d00c08b965de37ce847c75d31f34cf16
+ALIGNMENTS_RERUN=NO

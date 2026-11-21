@@ -1,0 +1,52 @@
+UPSTREAM_VERSION=2.30-r1287
+UPSTREAM_COMMIT=79c9cc186b95f50bd899f69b48eba995ced810c6
+KSSD_REPOSITORY_COMMIT=8922a3031a7ad327cbcac6f1e80748dff654537b
+KSSD_REPOSITORY_STATUS_BEGIN
+ M CMakeLists.txt
+ M Makefile
+ M reproducibility/minimap2/indexing/config.json
+ M reproducibility/minimap2/indexing/plot_supplementary_figure_s1.py
+ M reproducibility/minimap2/indexing/run_supplementary_indexing.py
+ M reproducibility/minimap2/indexing/summarize_supplementary_indexing.py
+ M reproducibility/minimap2/patch/minimap2-v2.30-kssd-array.patch
+ M src/kssd_array.c
+?? INLINE_API_EQUIVALENCE_REPORT.md
+?? MINIMAP2_INLINE_ASSEMBLY_REPORT.md
+?? MINIMAP2_INLINE_OUTPUT_EQUIVALENCE.md
+?? ORIGINAL_WORKTREE_STATE.md
+?? include/kssd_array_inline.h
+?? reproducibility/minimap2/indexing/__pycache__/
+?? tests/test_inline_parity.c
+KSSD_REPOSITORY_STATUS_END
+PATCH_PATH=$KSSD_RELEASE_HOST/KSSD-Array-inline-development/reproducibility/minimap2/patch/minimap2-v2.30-kssd-array.patch
+PATCH_SHA256=84ef84315357c7754180ff2c2b4a006877146dfa22986131aebcb842529e49e2
+LIBKSSD_ARRAY_PATH=$KSSD_RELEASE_HOST/KSSD-Array-inline-development/build/libkssd_array.a
+LIBKSSD_ARRAY_SHA256=1954cdb574bd136ad101a620447a87d4e530b51e88f7d44b42921015d468c0f4
+INLINE_HEADER_SHA256=7830431d6ebbb99c4833458a3f2863ed6f11de86dbd74378d583690955c285bf
+KSSD_CORE_SHA256=ce897b959e7ecdad52987af46ada62c2634172472176c90d9c344e0cfa9a9491
+COMPILER_VERSION=cc (Ubuntu 9.4.0-1ubuntu1~20.04.2) 9.4.0
+BUILD_FLAGS=-g -Wall -O2 -Wc++-compat
+ORIGINAL_VERSION=2.30-r1287
+ORIGINAL_EXECUTABLE=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-inline-final-20260731-214500/builds/original/source/minimap2
+ORIGINAL_EXECUTABLE_SHA256=cd7000ee715d678a9649b80bd65345959610eb7697ec1dc8904dc22a11981d39
+ORIGINAL_BUILD_LOG=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-inline-final-20260731-214500/logs/build-original.log
+ORIGINAL_LDD_BEGIN
+linux-vdso.so.1 (0x00007fff27db9000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007f6364389000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007f636436d000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007f636434a000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007f6364158000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007f6364531000)
+ORIGINAL_LDD_END
+INTEGRATED_VERSION=2.30-r1287+KSSD-Array
+INTEGRATED_EXECUTABLE=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-inline-final-20260731-214500/builds/integrated/source/minimap2
+INTEGRATED_EXECUTABLE_SHA256=29da38889c244e97a902e476d1957172b9a0f726c5cb56285f6d49745b714b54
+INTEGRATED_BUILD_LOG=$KSSD_RELEASE_HOST/KSSD-Array-formal-results/minimap2-indexing-s1-inline-final-20260731-214500/logs/build-integrated.log
+INTEGRATED_LDD_BEGIN
+linux-vdso.so.1 (0x00007ffcb2997000)
+	libm.so.6 => /lib/x86_64-linux-gnu/libm.so.6 (0x00007ff716d7b000)
+	libz.so.1 => /lib/x86_64-linux-gnu/libz.so.1 (0x00007ff716d5f000)
+	libpthread.so.0 => /lib/x86_64-linux-gnu/libpthread.so.0 (0x00007ff716d3c000)
+	libc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x00007ff716b4a000)
+	/lib64/ld-linux-x86-64.so.2 (0x00007ff716f24000)
+INTEGRATED_LDD_END

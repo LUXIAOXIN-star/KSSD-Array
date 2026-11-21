@@ -1,0 +1,7 @@
+q_plus	ref1	100
+q_minus	ref1	200
+q_unmapped	ref1	300
+q_wrong_strand	ref1	400
+q_wrong_ref	ref1	500
+q_wrong_pos	ref1	600
+q_duplicate	ref1	700

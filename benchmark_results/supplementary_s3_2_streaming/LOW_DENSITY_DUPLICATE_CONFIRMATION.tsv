@@ -1,0 +1,7 @@
+dataset	method	original_slot	confirmation_slot	same_output	original_runtime_median_s	confirmation_runtime_median_s	confirmation_over_original	density_factor	note
+Synthetic_300Mb	KSSD	P09	P11	True	8.567681237	8.52781089	0.9953464250247992	1.999296659929666	not pooled; confirmation excluded from unique-parameter figures
+Synthetic_300Mb	GreedyMini	P09	P11	True	7.187877621	7.010825259	0.9753679220299012	1.605982370598237	not pooled; confirmation excluded from unique-parameter figures
+Synthetic_300Mb	mod-minimizer	P09	P11	True	13.463371276	13.479788982	1.001219434988714	1.5368872536887255	not pooled; confirmation excluded from unique-parameter figures
+GRCh38p14_chr1	KSSD	P09	P11	True	6.558692417	6.559443546	1.0001145241996794	2.0054460360044293	not pooled; confirmation excluded from unique-parameter figures
+GRCh38p14_chr1	GreedyMini	P09	P11	True	5.377235942	5.474847414	1.0181527225237756	1.6305084777531782	not pooled; confirmation excluded from unique-parameter figures
+GRCh38p14_chr1	mod-minimizer	P09	P11	True	10.104983961	10.108050952	1.000303512703418	1.5372048820755757	not pooled; confirmation excluded from unique-parameter figures
