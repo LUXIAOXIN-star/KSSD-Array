@@ -1,9 +1,9 @@
-# Multithreaded score-plus-window results
+# Historical Figure 3, now Supplementary Figure S1
 
-Supplementary Figure S1 uses the original measurements in figure3_raw.csv (750 rows) and figure3_summary.csv (150 groups): two inputs, k21, w10/20/50, five methods, threads1/2/4/8/16 and five repeats per condition.
+[Supplementary Figure S1](../supplementary_s1_multithreading/FigureS1_manuscript.png) shows multithreaded scoring and window selection. “Figure 3” in this directory and its [historical report](FIGURE3_FINAL_REPORT.md) refers to an earlier manuscript number. For runtime and sampling density, see [Figure 3 in the final manuscript](../figure3_runtime_density/README.md).
 
-The final manuscript image is [Supplementary Figure S1](../supplementary_s1_multithreading/FigureS1_manuscript.png). The retained [log2 throughput plotting script](../../reproducibility/figure3/plot_figure3_loglog_throughput.R) uses absolute million-windows/s throughput and mean±sample SD in the original units; its previously rendered PNG and PDF are not included in this package.
+The [raw measurements](figure3_raw.csv) contain 750 rows, and the [summary](figure3_summary.csv) contains 150 groups. The experiment used two inputs, `k = 21`, window sizes of 10, 20 and 50, five methods, and 1, 2, 4, 8 and 16 threads. Each condition was measured five times.
 
-The original score-plus-window program starts from preencoded k-mers. It is not current Figure2's score-only loop, a common-selector DNA pipeline or complete Minimap2 indexing. Archived GCC9.4/-O3/-march=native/C11/OpenMP and method-library identities belong to these measurements; do not substitute later inline xxHash/gxhash build settings.
+The program starts from preencoded k-mers and measures both scoring and window selection. The original measurements used GCC 9.4 with `-O3 -march=native`, C11 and OpenMP. The build and input manifests and saved commands document the method libraries and settings used.
 
-The earlier Figure3_final files are historical views of the same source data, not additional experiments. References to “Figure 3” in FIGURE3_FINAL_REPORT.md use the earlier manuscript numbering and refer to this multithread experiment, now Supplementary Figure S1; they do not describe the current main Figure 3. The historical report, commands, and source/build/input manifests retain the original provenance. The [workflow](../../reproducibility/figure3/README.md) supplies functional checks and explicit full-run requirements.
+The `Figure3_final` images are earlier plots of the same measurements. The [log-scale throughput script](../../reproducibility/figure3/plot_figure3_loglog_throughput.R) plots the mean and sample standard deviation in millions of windows per second. Its earlier PNG and PDF outputs are not distributed here. The [workflow](../../reproducibility/figure3/README.md) describes the functional checks and full-run requirements.
