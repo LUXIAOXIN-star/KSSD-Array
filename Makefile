@@ -68,8 +68,9 @@ all: $(STATIC_LIB)
 
 shared: $(SHARED_LIB)
 
-test: $(TESTS)
+test: $(TESTS) build/examples/build_minimizers
 	@set -e; for test_binary in $(TESTS); do ./$$test_binary; done
+	sh tests/test_build_minimizers.sh build/examples/build_minimizers
 
 sanitize: $(SAN_TESTS)
 	@set -e; for test_binary in $(SAN_TESTS); do \

@@ -1,7 +1,7 @@
-prefix=${pcfiledir}/../..
+prefix=${pcfiledir}/@KSSD_ARRAY_PC_PREFIX_RELATIVE@
 exec_prefix=${prefix}
-libdir=${prefix}/@CMAKE_INSTALL_LIBDIR@
-includedir=${prefix}/@CMAKE_INSTALL_INCLUDEDIR@
+libdir=${pcfiledir}/..
+includedir=@KSSD_ARRAY_PC_INCLUDEDIR@
 
 Name: KSSD-Array
 Description: Segmented permutation-array mapping for encoded DNA k-mers

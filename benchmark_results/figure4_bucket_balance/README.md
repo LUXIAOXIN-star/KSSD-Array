@@ -11,4 +11,13 @@ is the manuscript-matching labeled image. [Figure4_manuscript.png](Figure4_manus
 is an alternative rendering with different axis and panel labels. The raw and
 summary tables remain the historical records described above.
 
-`output_sha256.tsv` is a historical snapshot, including the earlier README hash; it is retained unchanged and should not be used to verify the current README. `sha256.tsv` records the current identities of the principal saved data and images.
+[`output_sha256.tsv`](output_sha256.tsv) is a historical snapshot: its README
+hash describes an earlier version and does not verify this file. The parent
+[artifact manifest](../artifact_manifest.tsv) records the README version in
+commit `c4f77ada8a686fa238e4d6b4c9ffc44f43fdf8f7`, before later documentation
+updates. Both historical records remain unchanged.
+
+For current documentation checksums use
+[`CURRENT_DOCUMENTS.sha256`](../CURRENT_DOCUMENTS.sha256), following the
+[verification command](../README.md#file-identities). For the principal saved
+data and images, use the current [`sha256.tsv`](sha256.tsv).

@@ -111,6 +111,16 @@ write_basic_package_version_file(
     "${CMAKE_CURRENT_BINARY_DIR}/KSSDArrayConfigVersion.cmake"
     VERSION ${PROJECT_VERSION}
     COMPATIBILITY SameMajorVersion)
+# The .pc file may reside under a multi-component libdir (for example,
+# lib/x86_64-linux-gnu/pkgconfig).  Calculate its path back to the install
+# prefix instead of assuming that the libdir contains only one component.
+file(RELATIVE_PATH KSSD_ARRAY_PC_PREFIX_RELATIVE
+    "${CMAKE_INSTALL_FULL_LIBDIR}/pkgconfig" "${CMAKE_INSTALL_PREFIX}")
+if(IS_ABSOLUTE "${CMAKE_INSTALL_INCLUDEDIR}")
+    set(KSSD_ARRAY_PC_INCLUDEDIR "${CMAKE_INSTALL_INCLUDEDIR}")
+else()
+    set(KSSD_ARRAY_PC_INCLUDEDIR "\${prefix}/${CMAKE_INSTALL_INCLUDEDIR}")
+endif()
 configure_file(
     pkgconfig/kssd-array.pc.in
     "${CMAKE_CURRENT_BINARY_DIR}/kssd-array.pc"

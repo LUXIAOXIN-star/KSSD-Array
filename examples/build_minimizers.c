@@ -2,6 +2,8 @@
 #include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 #include <kssd_array.h>
 #define KSSD_ARRAY_FIXED_K 5
@@ -29,33 +31,61 @@ static int base_code(char base, uint64_t *code)
     }
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
-    static const char sequence[] = "ACGTACGTTGCAACGT";
+    const char *sequence = "ACGTACGTTGCAACGT";
     enum { K = KSSD_ARRAY_FIXED_K };
-    const size_t sequence_length = sizeof(sequence) - 1U;
-    const size_t kmer_count = sequence_length - K + 1U;
-    uint64_t mapped[sizeof(sequence) - K];
+    size_t sequence_length;
+    size_t kmer_count;
+    uint64_t *mapped;
     const uint64_t mask = (UINT64_C(1) << (2U * K)) - UINT64_C(1);
     kssd_array_t context = KSSD_ARRAY_CONTEXT_INIT;
     uint64_t rolling = UINT64_C(0);
     size_t valid_bases = 0U;
     size_t index;
 
+    if (argc > 2) {
+        fprintf(stderr, "usage: %s [DNA_SEQUENCE]\n", argv[0]);
+        return 1;
+    }
+    if (argc == 2) {
+        sequence = argv[1];
+    }
+    sequence_length = strlen(sequence);
+    for (index = 0U; index < sequence_length; ++index) {
+        uint64_t code = UINT64_C(0);
+        if (!base_code(sequence[index], &code)) {
+            fprintf(stderr, "invalid DNA base at offset %zu: expected A/C/G/T\n",
+                    index);
+            return 1;
+        }
+    }
+    if (sequence_length < K) {
+        fprintf(stderr, "sequence must contain at least %d bases\n", K);
+        return 1;
+    }
+    kmer_count = sequence_length - K + 1U;
+    if (kmer_count > SIZE_MAX / sizeof(*mapped)) {
+        fputs("sequence is too long\n", stderr);
+        return 1;
+    }
+    mapped = malloc(kmer_count * sizeof(*mapped));
+    if (mapped == NULL) {
+        fputs("score allocation failed\n", stderr);
+        return 1;
+    }
+
     if (kssd_array_init(&context, K, KSSD_ARRAY_DEFAULT_SEED) !=
         KSSD_ARRAY_OK) {
         fputs("context initialization failed\n", stderr);
+        free(mapped);
         return 1;
     }
 
     for (index = 0U; index < sequence_length; ++index) {
-        uint64_t code;
-        if (!base_code(sequence[index], &code)) {
-            /* Real callers should reset rolling state at an ambiguous base. */
-            rolling = UINT64_C(0);
-            valid_bases = 0U;
-            continue;
-        }
+        uint64_t code = UINT64_C(0);
+        /* The complete sequence was validated before scoring. */
+        (void)base_code(sequence[index], &code);
         rolling = ((rolling << 2U) | code) & mask;
         ++valid_bases;
         if (valid_bases >= K) {
@@ -80,5 +110,6 @@ int main(void)
     }
 
     kssd_array_destroy(&context);
+    free(mapped);
     return 0;
 }

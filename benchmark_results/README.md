@@ -4,6 +4,23 @@ Start with the [experiment and reproducibility guide](../docs/EXPERIMENTS.md) fo
 
 This directory contains compact experimental results, raw repetitions and their source bindings. Experiment code and full-run requirements are under [reproducibility](../reproducibility/README.md). Numerical data, captions and plots retain their actual input, version and timing definitions.
 
+## File identities
+
+The [artifact manifest](artifact_manifest.tsv) is a historical provenance record.
+Its `public_sha256` entries for this README and the Figure 4 README describe
+their versions in commit `c4f77ada8a686fa238e4d6b4c9ffc44f43fdf8f7`; later
+documentation updates do not change that record. For the current versions of
+these two documentation files, verify the separate checksum file from the
+repository root:
+
+```sh
+(cd benchmark_results && sha256sum -c CURRENT_DOCUMENTS.sha256)
+```
+
+This document checksum file covers only those two READMEs. For Figure 4 data
+and images, use the identities listed in
+[Figure 4's current data manifest](figure4_bucket_balance/sha256.tsv).
+
 ## Current manuscript materials
 
 | Manuscript item | Directory | Workload |
