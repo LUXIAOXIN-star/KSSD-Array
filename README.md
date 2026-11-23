@@ -13,10 +13,23 @@ small public C API, runtime-inline mapping, and fixed-k mapping interfaces.
 ## Quick navigation
 
 | Goal | Start here |
-| --- | --- |
-| Build the library and run the C example | [Installation and quick start](#installation) |
-| Find data for a figure or table | [Index by manuscript figure and table number](docs/manuscript_result_mapping.md) |
-| Reproduce a published result | [Experiment workflows and requirements](reproducibility/README.md) |
+|---|---|
+| Build and use KSSD-Array | [Quick start](#quick-start) |
+| Use the library in C | [`examples/minimal_api.c`](examples/minimal_api.c) |
+| View the public API | [`docs/api.md`](docs/api.md) |
+| Understand the algorithm | [`docs/algorithm.md`](docs/algorithm.md) |
+| View manuscript results | [`benchmark_results/README.md`](benchmark_results/README.md) |
+| Reproduce manuscript experiments | [`reproducibility/README.md`](reproducibility/README.md) |
+| Understand datasets | [`docs/datasets.md`](docs/datasets.md) |
+| Repository organization | [`docs/repository_map.md`](docs/repository_map.md) |
+| Validation evidence | [`docs/validation/README.md`](docs/validation/README.md) |
+
+Ordinary library users normally need only this README, `include/`, `examples/`,
+and [`docs/api.md`](docs/api.md). Paper readers should start from
+[`benchmark_results/`](benchmark_results/), while researchers reproducing the
+experiments should use [`reproducibility/`](reproducibility/). Release auditors
+can inspect [`docs/validation/`](docs/validation/) and
+[`docs/provenance/`](docs/provenance/).
 
 ## Installation
 
@@ -198,11 +211,58 @@ protocols. Results and their limitations are described in
 
 ## Paper reproducibility
 
-The [figure and table index](docs/manuscript_result_mapping.md) links each
-manuscript item to its saved results and available workflow. Each workflow
-lists its inputs, software and supported steps. For example, Figure 3 can be
-redrawn from the saved measurements. Rerunning its historical timing
-experiment requires additional inputs and software.
+Ordinary library users do not need these workflows. Paper readers should use
+the figures, tables, and data in [`benchmark_results/`](benchmark_results/),
+while researchers can start from [`reproducibility/README.md`](reproducibility/README.md).
+Input preparation and exact identities are described in [`docs/datasets.md`](docs/datasets.md).
+
+Main manuscript:
+
+- [Figure 1: algorithm example](benchmark_results/figure1_algorithm/README.md)
+- [Figure 2a: independent scoring](benchmark_results/figure2a_independent_scoring/README.md)
+- [Figure 2b: scoring and per-window selection](benchmark_results/figure2b_window_selection/README.md)
+- [Figure 3: runtime and sampling density](benchmark_results/figure3_runtime_density/README.md)
+- [Figure 4: bucket balance](benchmark_results/figure4_bucket_balance/README.md)
+- [Table 1: segmentation](benchmark_results/table1_segmentation/README.md)
+- [Table 2: ntHash](benchmark_results/table2_nthash/README.md)
+- [Table 3: Minimap2 indexing](benchmark_results/table3_minimap2_indexing/README.md)
+
+Supporting Information:
+
+- [S1: multithreading](benchmark_results/supplementary_s1_multithreading/README.md)
+- [S1.1: XOR and odd multiplication](benchmark_results/supplementary_s1_1_xor_odd/README.md)
+- [S1.2: gxhash64](benchmark_results/supplementary_s1_2_gxhash/README.md)
+- [S2: ntHash and LTO](benchmark_results/supplementary_s2_nthash/README.md)
+- [S3.1: runtime and density](benchmark_results/supplementary_s3_1_runtime_density/README.md)
+- [S3.2: streaming](benchmark_results/supplementary_s3_2_streaming/README.md)
+- [S3.3: external SIMD A/B/C](benchmark_results/supplementary_s3_3_external_simd/README.md)
+- [S3.4: repetitive-word selection](benchmark_results/supplementary_s3_4_repetitive_words/README.md)
+- [S3.5: Alu controlled reads](benchmark_results/supplementary_s3_5_alu/README.md)
+- [S4: Minimap2](benchmark_results/supplementary_s4_minimap2/README.md)
+
+Each experiment's README describes its inputs, timing boundary, dependencies,
+results and validation status. The experiments use different protocols and
+are not interchangeable; saved data or small-input checks are not a complete
+performance replay. The rolling minimizer example uses an unambiguous A/C/G/T
+string and is not a general sequence-file parser.
+
+All six small FASTA/FASTQ/BED smoke inputs are generated from the public C
+source under `tests/fixture_generators/` into temporary directories and checked
+against fixed SHA-256 values; generated sequence/BED files are not committed.
+Run `make fixture-generator-test` to validate clean and repeated generation plus
+the documented failure cases.
+The simulated-read truth-origin workflow includes provenance packaging; its
+README describes the required input files and Python/SciPy environment.
+
+Commands, scope, status, and environment metadata are documented in
+[`reproducibility/README.md`](reproducibility/README.md) and
+[`reproducibility/ENVIRONMENT.md`](reproducibility/ENVIRONMENT.md). These
+workflows are opt-in and are never built by an ordinary Make or CMake library
+build. Compact results are available under `benchmark_results/`; SHA-256
+inventories and build/run manifests record their identities. Large datasets,
+reads, alignments, per-read diagnostics, indexes, and dependency caches are
+external. Their identities and acquisition requirements are documented with
+each workflow.
 
 ## Release, citation, and license
 
@@ -211,6 +271,10 @@ experiment requires additional inputs and software.
 Software version: `1.1.0` (public runtime-inline API).
 
 Associated manuscript: KSSD-Array.
+
+This repository corresponds to the implementation and reproducibility
+workflows used for the manuscript. Workflow and result mappings are listed in
+[`docs/manuscript_result_mapping.md`](docs/manuscript_result_mapping.md).
 
 ### Citation and license
 
