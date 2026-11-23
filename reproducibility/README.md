@@ -70,8 +70,8 @@ The independent scoring panel can be redrawn from the saved measurements with
 [`figure2a_independent_scoring/plot_figure2_independent_scoring.py`](figure2a_independent_scoring/plot_figure2_independent_scoring.py); the window-rescan and multithreaded
 workflows are under [`figure2/`](figure2/) and [`figure3/`](figure3/),
 respectively. These historical directory names predate the current manuscript
-numbering. The final Figure 3 source data and script are under
-[`benchmark_results/figure3_runtime_density/`](../benchmark_results/figure3_runtime_density/).
+numbering. The [Figure 3 saved-data redraw instructions](figure3_runtime_density/README.md)
+use the checked data in [`benchmark_results/figure3_runtime_density/`](../benchmark_results/figure3_runtime_density/).
 The final Figure 4 script is [`figure4/plot_figure4_manuscript_labels.py`](figure4/plot_figure4_manuscript_labels.py).
 See each script's documented arguments and dependencies. A saved-data redraw is
 not a new performance run; write output to a new location.

@@ -22,11 +22,14 @@ k=21, w=20 with fixed method/configuration rules.
 
 ## Software dependencies
 
-Recorded fixed configuration and source; full reference inputs remain external. See [dependencies](../../docs/dependencies.md).
+Saved reference-derived per-record counts and aggregate statistics are
+available; the standalone counting program is not distributed. Full reference
+inputs remain external. See [dependencies](../../docs/dependencies.md).
 
 ## Compiler and build options
 
-Historical source/build identities must be checked before use.
+The historical counting program and its complete build environment are not
+provided in this directory.
 
 ## Build command
 
@@ -34,7 +37,7 @@ A complete isolated build entry is not verified.
 
 ## Execution command
 
-No verified full runner is supplied.
+No standalone counting program or verified full runner is supplied.
 
 ## Output description
 

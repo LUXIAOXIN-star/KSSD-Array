@@ -26,6 +26,7 @@ This directory contains compact experimental results, raw repetitions and their 
 | Table S8 | [supplementary_s3_4_repetitive_words](supplementary_s3_4_repetitive_words/README.md) | Repetitive-word selection |
 | Table S9 | [supplementary_s3_5_alu](supplementary_s3_5_alu/README.md) | Controlled Alu read placement |
 | Tables S10–S12 | [supplementary_s4_minimap2](supplementary_s4_minimap2/README.md) | Indexing, accuracy and Human multithreading |
+| Additional diagnostic, no SI table number | [c_segment_scan](c_segment_scan/README.md) | C=4–8 structural sensitivity |
 
 Begin with each result directory’s README, then its manuscript figure or table and its summary data. Raw observations and source/identity records provide the detailed evidence. Some files are explicitly marked as derived path-redacted copies. The Figure 3 and gxhash raw tables with tokenized paths, and the Human multithread indexing formal and warmup tables, are derived metadata views of the saved records rather than byte-identical originals. Table S8 provides the available historical statistical summaries.
 

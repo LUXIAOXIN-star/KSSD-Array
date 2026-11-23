@@ -1,4 +1,8 @@
-# Segment-cap sensitivity (Supplementary S10)
+# Additional Segment-Cap Diagnostic Data
+
+These records document the structural sensitivity analysis for C=4–8. They
+are additional diagnostic data and are not assigned a Supplementary
+Information table number; Supplementary Table S10 concerns Minimap2 indexing.
 
 The frozen Phase3 data contain 250 mapping runs (50 groups, five repeats), 750 common-window runs (150 groups, five repeats), and 250 initialization measurements (25 groups, ten repeats). C ranges from4 through8 and k is16/19/21/24/31. Full per-condition mean/sampleSD and all original repetitions are retained.
 

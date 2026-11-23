@@ -33,14 +33,22 @@ can inspect [`docs/validation/`](docs/validation/) and
 
 ## Installation
 
-The core library requires a C11 compiler and either Make or CMake. Ordinary
-library builds do not require the optional manuscript benchmark dependencies.
-Use the local build below to get started, or use the CMake installation section
-to install the library and package metadata under a selected prefix.
+The core library requires a C11-compatible compiler and either Make or CMake.
+Ordinary library builds do not require the optional benchmark dependencies.
+Clone the repository and enter its directory:
+
+```sh
+git clone https://github.com/LUXIAOXIN-star/KSSD-Array.git
+cd KSSD-Array
+```
+
+Use the local Make build below to get started. To install the library and its
+package metadata under a selected prefix, use the CMake installation section.
 
 ## Quick start
 
-From the release directory, run:
+From the repository directory, build the static library, build and run the
+example, and run the unit tests:
 
 ```sh
 make
@@ -51,7 +59,8 @@ make examples
 make test
 ```
 
-`make` builds only `build/libkssd_array.a`. The runnable example validates a
+`make` builds only `build/libkssd_array.a`; it does not install the library.
+The runnable example validates a
 DNA string, encodes A/C/G/T with two bits per base, initializes a deterministic
 context, maps the k-mer, and prints the output domain.
 
@@ -93,12 +102,13 @@ ctest --test-dir build-test --output-on-failure
 With CMake/CTest 3.16, run `ctest --output-on-failure` from inside
 `build-test/`; newer CTest versions support the `--test-dir` form above.
 
-Install to a selected prefix:
+Install to a selected prefix (replace `$HOME/.local` with your chosen path):
 
 ```sh
-cmake -S . -B build-install
+KSSD_PREFIX="$HOME/.local"
+cmake -S . -B build-install -DCMAKE_INSTALL_PREFIX="$KSSD_PREFIX"
 cmake --build build-install
-cmake --install build-install --prefix /desired/prefix
+cmake --install build-install
 ```
 
 An installed CMake consumer can use:

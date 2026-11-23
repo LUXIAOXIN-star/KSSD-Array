@@ -102,11 +102,13 @@ The [segment-cap source and build guide](../reproducibility/supplementary_s2_nth
 and [saved C-scan results](../benchmark_results/c_segment_scan/) compare C=4–8
 at k=16,19,21,24,31 on the two full inputs. The score-only, common-window and
 initialization records are separate; window settings are w=10,20,50. The
-recorded build uses GCC 9.4, `-O3 -march=native`, and fixed KSSD permutation
+25 structural configurations are additional diagnostic data and are not
+assigned a Supplementary Information table number. Table S10 instead covers
+Minimap2 indexing. The recorded build uses GCC 9.4, `-O3 -march=native`, and fixed KSSD permutation
 seed 42. Run ordering, stage boundaries, repetitions and exact compiler
 commands are specified in the frozen package. Geometric means across input or
-window conditions are not replicate mean±SD. The build/replay adapter's help
-and static interfaces have been checked; no fresh complete campaign is claimed.
+window conditions are not replicate mean±SD. A complete portable C-scan runner
+is not included, and no fresh complete campaign is claimed.
 
 ## gxhash64 — Supplementary Table S2
 
@@ -205,18 +207,20 @@ required for a full reproduction.
 
 ## Repetitive-word selection — Supplementary Table S8
 
-The [fixed-configuration source and saved records](../benchmark_results/supplementary_s3_4_repetitive_words/README.md)
+The [saved records](../benchmark_results/supplementary_s3_4_repetitive_words/README.md)
 cover yeast S288C R64 and Arabidopsis TAIR10.1, k=21, w=20 and a high-copy
 threshold greater than 50. Frequency counting uses every reference FASTA
 record, including organelles; the reported mixed-window denominators use
-nuclear records only. The [reproduction notes](../reproducibility/supplementary_s3_4_repetitive_words/README.md) identify the historical workflow and external reference requirements. Per-record counts and denominators are retained in the result directory; they are not timing repeats.
+nuclear records only. The [reproduction notes](../reproducibility/supplementary_s3_4_repetitive_words/README.md) identify the historical workflow and external reference requirements. Per-record counts and denominators are retained in the result directory; they are not timing repeats. The standalone counting program is not distributed.
 
 ## Controlled Alu placement — Supplementary Table S9
 
 The [controlled placement results](../benchmark_results/supplementary_s3_5_alu/README.md)
 and the [historical mapper](../reproducibility/supplementary_s3_5_alu/read_mapper_four.cpp) preserve
 KSSD, XOR, Bare42 and Bare64 on 3,349 AluSx and 2,929 AluJb 150-bp unmutated
-reads from UCSC hg38 chr21/22, with k=21/w=20. Candidates require two distinct
+reads from UCSC hg38 chr21/22, with k=21/w=20 and no substitutions. Table S9
+uses the `unfiltered` frequency policy; `copycap1000` is a separate control.
+Candidates require two distinct
 seed words and full-read Hamming checks. The exact source locus is excluded
 from alternative candidate counts, whereas off-target seed pairs use a source
 interval rule. The original 2026-10 Xeon timing comprises eight technical

@@ -11,11 +11,12 @@ import json
 import math
 import os
 from pathlib import Path
-import shutil
 import sys
+import tempfile
 
 ROOT = Path(__file__).resolve().parent
-os.environ.setdefault('MPLCONFIGDIR', str(ROOT / 'audit' / 'mplconfig'))
+_mpl_config = tempfile.TemporaryDirectory(prefix='kssd-figure3-mpl-')
+os.environ.setdefault('MPLCONFIGDIR', _mpl_config.name)
 sys.dont_write_bytecode = True
 import matplotlib
 matplotlib.use('Agg')
@@ -35,30 +36,30 @@ def sha(path):
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument('--out', type=Path, default=ROOT,
-                        help='An output directory inside this version; existing figures are never replaced')
+    parser.add_argument('--data', type=Path, required=True, help='Published figure3_data.csv')
+    parser.add_argument('--manifest', type=Path, required=True, help='Published sha256.tsv')
+    parser.add_argument('--out', type=Path, required=True, help='Output directory; existing files are never replaced')
     args = parser.parse_args()
     out = args.out.resolve()
-    try:
-        out.relative_to(ROOT)
-    except ValueError:
-        raise SystemExit('Output must be inside this version directory')
-    for ext in ['png', 'svg', 'pdf']:
-        assert not (out / ('Figure3_runtime_density.' + ext)).exists(), 'Refusing overwrite'
-    source = ROOT / 'figure3_data.csv'
-    identity = json.loads((ROOT / 'audit/SOURCE_IDENTITY.json').read_text())
-    assert sha(source) == identity['source_data_sha256']
-    assert sha(Path(identity['source_data'])) == sha(source)
+    outputs = [out / ('Figure3_runtime_density.' + ext) for ext in ['png', 'svg', 'pdf']]
+    outputs.append(out / 'Figure3_redraw_validation.json')
+    for output in outputs:
+        if output.exists():
+            raise SystemExit('Refusing to overwrite: ' + str(output))
+    source = args.data.resolve()
+    with args.manifest.open(newline='') as handle:
+        manifest_rows = list(csv.DictReader(handle, delimiter='\t'))
+    entries = [r for r in manifest_rows if r.get('relative_path') == 'figure3_data.csv']
+    if len(entries) != 1 or sha(source) != entries[0].get('sha256'):
+        raise SystemExit('figure3_data.csv SHA-256 does not match the supplied manifest')
     with source.open(newline='') as handle:
         rows = list(csv.DictReader(handle))
-    assert len(rows) == 12
-    assert set((r['input'], int(r['k']), r['method']) for r in rows) == {
-        (dataset, k, method) for dataset, k, _ in PANELS for method in METHODS}
+    if len(rows) != 12 or set((r['input'], int(r['k']), r['method']) for r in rows) != {
+        (dataset, k, method) for dataset, k, _ in PANELS for method in METHODS}:
+        raise SystemExit('Expected one observation per dataset, k, and method (12 total)')
+    if any(int(r['w']) != 20 or int(r['independent_processes']) != 5 for r in rows):
+        raise SystemExit('Unexpected window size or number of processes')
     out.mkdir(parents=True, exist_ok=True)
-    if out != ROOT:
-        assert not (out / 'figure3_data.csv').exists()
-        shutil.copy2(str(source), str(out / 'figure3_data.csv'))
-    (out / 'audit').mkdir(exist_ok=True)
     plt.rcParams.update({
         'font.family': 'DejaVu Sans', 'font.size': 10,
         'mathtext.fontset': 'dejavusans', 'axes.titlesize': 11.5,
@@ -141,16 +142,15 @@ def main():
     for ext in ['png', 'svg', 'pdf']:
         fig.savefig(str(out / ('Figure3_runtime_density.' + ext)), format=ext,
                     dpi=600, transparent=False)
-    validation = dict(status='PASS', data_sha256=sha(source), data_byte_identical_to_previous=True,
-                      points=12, reference_image_received=True,
-                      canvas_inches=[7.56, 5.46], reference_display_pixels=[756,546],
+    validation = dict(status='PASS', data_sha256=sha(source), manifest=str(args.manifest.resolve()),
+                      points=12, canvas_inches=[7.56, 5.46], reference_display_pixels=[756,546],
                       PNG_pixels=[4536,3276], dpi=600,
                       visual_style_only_from_reference=True, scientific_values_only_from_saved_CSV=True,
                       errorbar_layering='white marker first, true xerr and caps above marker',
                       added_threshold_or_baseline_lines=False, vertical_errors=False,
                       caption_created=False, per_point=records,
                       source_script_sha256=sha(Path(__file__)), output=str(out))
-    (out / 'audit/PLOT_VALIDATION.json').write_text(json.dumps(validation, indent=2)+'\n')
+    (out / 'Figure3_redraw_validation.json').write_text(json.dumps(validation, indent=2)+'\n')
     plt.close(fig)
     print(json.dumps(dict(status='PASS', output=str(out), points=12,
                          SD_rescaled=False, data_sha256=sha(source)), indent=2))

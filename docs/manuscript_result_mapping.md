@@ -27,6 +27,11 @@ Figure 2a and Figure 2b use different timed work. Figure 3 uses materialized sco
 
 The historical `reproducibility/table2/` is an exhaustive 9-mer implementation check, not current Table 2 and not a general proof of bijectivity. Check each experiment README for input preprocessing, dependencies, timing boundaries, the availability of original measurements, and whether a portable entrypoint has actually been validated.
 
+The [C=4–8 segment-cap diagnostic](../benchmark_results/c_segment_scan/README.md)
+is additional material and is not assigned a Supplementary Information table
+number. The associated [source and limitations](../reproducibility/supplementary_s2_nthash/c_parameter_scan/README.md)
+are documented separately; Table S10 is the Minimap2 indexing table.
+
 ## Primary files
 
 The following links identify a primary recorded result and a primary source or
