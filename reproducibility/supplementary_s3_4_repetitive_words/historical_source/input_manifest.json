@@ -1,0 +1,260 @@
+[
+  {
+    "label": "yeast",
+    "file": "GCF_000146045.2_R64_genomic.fna.gz",
+    "gzip_sha256": "1ec41f951b35f2752d5065edeafe6972455609d4383fb36dae12519a60b27a73",
+    "fasta_sha256": "fe42735d3e6242f8c40b457a232940e34ef15eb4502717e54a34ed118face4c1",
+    "decompressed_bytes": 12310392,
+    "records": [
+      {
+        "accession": "NC_001133.9",
+        "header": "NC_001133.9 Saccharomyces cerevisiae S288C chromosome I, complete sequence",
+        "length": 230218,
+        "acgt": 230218,
+        "ambiguous": 0,
+        "gc_fraction": 0.39270170012770506,
+        "group": "nuclear",
+        "sequence_sha256": "3c5c06b2ccb802798265a543cc6511d954a0a64a522c3f6af05be0553d6f0a62"
+      },
+      {
+        "accession": "NC_001134.8",
+        "header": "NC_001134.8 Saccharomyces cerevisiae S288C chromosome II, complete sequence",
+        "length": 813184,
+        "acgt": 813184,
+        "ambiguous": 0,
+        "gc_fraction": 0.38341015071619705,
+        "group": "nuclear",
+        "sequence_sha256": "1d3d69f9e8e924f34f23ec3daa32641f8ad637f36f21a3f0b0f350f981f3773f"
+      },
+      {
+        "accession": "NC_001135.5",
+        "header": "NC_001135.5 Saccharomyces cerevisiae S288C chromosome III, complete sequence",
+        "length": 316620,
+        "acgt": 316620,
+        "ambiguous": 0,
+        "gc_fraction": 0.3853231002463521,
+        "group": "nuclear",
+        "sequence_sha256": "f2ac8762cff58a4a1375a05dcb70e783609efc19d49b64da95ecb5214ee52b3d"
+      },
+      {
+        "accession": "NC_001136.10",
+        "header": "NC_001136.10 Saccharomyces cerevisiae S288C chromosome IV, complete sequence",
+        "length": 1531933,
+        "acgt": 1531933,
+        "ambiguous": 0,
+        "gc_fraction": 0.37906422800474954,
+        "group": "nuclear",
+        "sequence_sha256": "a1362645406e70c61aa2bb4a880d3af83bdb4b7892598eda3350eb091e719855"
+      },
+      {
+        "accession": "NC_001137.3",
+        "header": "NC_001137.3 Saccharomyces cerevisiae S288C chromosome V, complete sequence",
+        "length": 576874,
+        "acgt": 576874,
+        "ambiguous": 0,
+        "gc_fraction": 0.3850736902685855,
+        "group": "nuclear",
+        "sequence_sha256": "27693c6f4e821d2a631e4a4988e6e0e3ccf4a6a4b2d2791fb841de7a3206075b"
+      },
+      {
+        "accession": "NC_001138.5",
+        "header": "NC_001138.5 Saccharomyces cerevisiae S288C chromosome VI, complete sequence",
+        "length": 270161,
+        "acgt": 270161,
+        "ambiguous": 0,
+        "gc_fraction": 0.38728758036874306,
+        "group": "nuclear",
+        "sequence_sha256": "473b26e8befabff7978a5019567e0c136e50fa5107680d1303cbe10d2155ac3a"
+      },
+      {
+        "accession": "NC_001139.9",
+        "header": "NC_001139.9 Saccharomyces cerevisiae S288C chromosome VII, complete sequence",
+        "length": 1090940,
+        "acgt": 1090940,
+        "ambiguous": 0,
+        "gc_fraction": 0.38061396593763175,
+        "group": "nuclear",
+        "sequence_sha256": "f43c30ed46c6906024f510bdf24781b44d1ec3472c5a82cda1ad5b62b5e91094"
+      },
+      {
+        "accession": "NC_001140.6",
+        "header": "NC_001140.6 Saccharomyces cerevisiae S288C chromosome VIII, complete sequence",
+        "length": 562643,
+        "acgt": 562643,
+        "ambiguous": 0,
+        "gc_fraction": 0.38495102578366747,
+        "group": "nuclear",
+        "sequence_sha256": "c859093aeeb0fa8a9a9d74718182684d87e4c9709dc11f223c74c54763d240fe"
+      },
+      {
+        "accession": "NC_001141.2",
+        "header": "NC_001141.2 Saccharomyces cerevisiae S288C chromosome IX, complete sequence",
+        "length": 439888,
+        "acgt": 439888,
+        "ambiguous": 0,
+        "gc_fraction": 0.3890217509911614,
+        "group": "nuclear",
+        "sequence_sha256": "e738aaa8eee8e7b0c187ea1c96e3dccd0d661a67865388051ab445460e99971e"
+      },
+      {
+        "accession": "NC_001142.9",
+        "header": "NC_001142.9 Saccharomyces cerevisiae S288C chromosome X, complete sequence",
+        "length": 745751,
+        "acgt": 745751,
+        "ambiguous": 0,
+        "gc_fraction": 0.3837326399830506,
+        "group": "nuclear",
+        "sequence_sha256": "7e775dfee24430c4eff2dcc22656636b08bab4d356fa9199be59754cd864b6ab"
+      },
+      {
+        "accession": "NC_001143.9",
+        "header": "NC_001143.9 Saccharomyces cerevisiae S288C chromosome XI, complete sequence",
+        "length": 666816,
+        "acgt": 666816,
+        "ambiguous": 0,
+        "gc_fraction": 0.38069422449371343,
+        "group": "nuclear",
+        "sequence_sha256": "7cc5d693ff025732b105bdc629a79cc052f41dabaf6d4ce6c75de8f9d82ec274"
+      },
+      {
+        "accession": "NC_001144.5",
+        "header": "NC_001144.5 Saccharomyces cerevisiae S288C chromosome XII, complete sequence",
+        "length": 1078177,
+        "acgt": 1078177,
+        "ambiguous": 0,
+        "gc_fraction": 0.3847633551819414,
+        "group": "nuclear",
+        "sequence_sha256": "768a47c6d9057fa70275f978c561e1e3bdf45e8c7e9b88f3313d2d0ac37c3de5"
+      },
+      {
+        "accession": "NC_001145.3",
+        "header": "NC_001145.3 Saccharomyces cerevisiae S288C chromosome XIII, complete sequence",
+        "length": 924431,
+        "acgt": 924431,
+        "ambiguous": 0,
+        "gc_fraction": 0.3820360848997924,
+        "group": "nuclear",
+        "sequence_sha256": "2d9d9c272baccee2ad7e52e395dd9b85efca3fb87072cc541b8a8e4f3af3d47c"
+      },
+      {
+        "accession": "NC_001146.8",
+        "header": "NC_001146.8 Saccharomyces cerevisiae S288C chromosome XIV, complete sequence",
+        "length": 784333,
+        "acgt": 784333,
+        "ambiguous": 0,
+        "gc_fraction": 0.386379254729815,
+        "group": "nuclear",
+        "sequence_sha256": "c3bbca6b880946bd2172a6e797fe9d3830eb1494b6f63ef4637c4993cc56c789"
+      },
+      {
+        "accession": "NC_001147.6",
+        "header": "NC_001147.6 Saccharomyces cerevisiae S288C chromosome XV, complete sequence",
+        "length": 1091291,
+        "acgt": 1091291,
+        "ambiguous": 0,
+        "gc_fraction": 0.38160215744471454,
+        "group": "nuclear",
+        "sequence_sha256": "e0d3976e52b8051431f89b97d31cfba937cdb37286f93ed5689b10949fea0c7b"
+      },
+      {
+        "accession": "NC_001148.4",
+        "header": "NC_001148.4 Saccharomyces cerevisiae S288C chromosome XVI, complete sequence",
+        "length": 948066,
+        "acgt": 948066,
+        "ambiguous": 0,
+        "gc_fraction": 0.380644385517464,
+        "group": "nuclear",
+        "sequence_sha256": "d764a0e87af8d43b2dbec78d69423f4008f266bdfa5003c8b6d2ba77f8872918"
+      },
+      {
+        "accession": "NC_001224.1",
+        "header": "NC_001224.1 Saccharomyces cerevisiae S288c mitochondrion, complete genome",
+        "length": 85779,
+        "acgt": 85779,
+        "ambiguous": 0,
+        "gc_fraction": 0.17109082642604834,
+        "group": "mitochondrion",
+        "sequence_sha256": "91d5192f1bd21aa9a00259b21a43c450de1926e87fb1847ab1533f437e1b488e"
+      }
+    ]
+  },
+  {
+    "label": "arabidopsis",
+    "file": "GCF_000001735.4_TAIR10.1_genomic.fna.gz",
+    "gzip_sha256": "a182f3c71662973dc636cacd7722588c9bbe3c8ea6ce62b1bae7dac940545d47",
+    "fasta_sha256": "de99316d1d5597e9a5d40d943ff919c17d59b77116354a5d388b183b6f21075f",
+    "decompressed_bytes": 121164952,
+    "records": [
+      {
+        "accession": "NC_003070.9",
+        "header": "NC_003070.9 Arabidopsis thaliana chromosome 1 sequence",
+        "length": 30427671,
+        "acgt": 30263312,
+        "ambiguous": 164359,
+        "gc_fraction": 0.3587355210824248,
+        "group": "nuclear",
+        "sequence_sha256": "b56dbd97d95a45c19b71a79827aa56b5affa824e8b5ee376b884ba4b667853c1"
+      },
+      {
+        "accession": "NC_003071.7",
+        "header": "NC_003071.7 Arabidopsis thaliana chromosome 2, partial sequence",
+        "length": 19698289,
+        "acgt": 19695728,
+        "ambiguous": 2561,
+        "gc_fraction": 0.35864320425221147,
+        "group": "nuclear",
+        "sequence_sha256": "a4ec9275f842252994426794d59cd738f82048c59b7869685ae937ace9f3e27f"
+      },
+      {
+        "accession": "NC_003074.8",
+        "header": "NC_003074.8 Arabidopsis thaliana chromosome 3, partial sequence",
+        "length": 23459830,
+        "acgt": 23453853,
+        "ambiguous": 5977,
+        "gc_fraction": 0.36331075324809103,
+        "group": "nuclear",
+        "sequence_sha256": "63965f51dbaa673c9015df426a2a2d1674de5ef705b18aec8d6e308d00489b34"
+      },
+      {
+        "accession": "NC_003075.7",
+        "header": "NC_003075.7 Arabidopsis thaliana chromosome 4, partial sequence",
+        "length": 18585056,
+        "acgt": 18582024,
+        "ambiguous": 3032,
+        "gc_fraction": 0.36204021693223515,
+        "group": "nuclear",
+        "sequence_sha256": "7cfc05f6a09987da0181eb1f9371dfeb82d7f28e16685e868b8599f6fa82782f"
+      },
+      {
+        "accession": "NC_003076.8",
+        "header": "NC_003076.8 Arabidopsis thaliana chromosome 5, partial sequence",
+        "length": 26975502,
+        "acgt": 26965224,
+        "ambiguous": 10278,
+        "gc_fraction": 0.35938926374207014,
+        "group": "nuclear",
+        "sequence_sha256": "e366cffe6d22de2d6cb5115d6e2f4a6bf03033ab9e4f99921d4e4f4115f715b6"
+      },
+      {
+        "accession": "NC_037304.1",
+        "header": "NC_037304.1 Arabidopsis thaliana ecotype Col-0 mitochondrion, complete genome",
+        "length": 367808,
+        "acgt": 367808,
+        "ambiguous": 0,
+        "gc_fraction": 0.4479211980163564,
+        "group": "mitochondrion",
+        "sequence_sha256": "222e8615359d07017e3ce6d4d3d429007f55adf15b53959101d94fb538517007"
+      },
+      {
+        "accession": "NC_000932.1",
+        "header": "NC_000932.1 Arabidopsis thaliana chloroplast, complete genome",
+        "length": 154478,
+        "acgt": 154478,
+        "ambiguous": 0,
+        "gc_fraction": 0.3629384119421536,
+        "group": "chloroplast",
+        "sequence_sha256": "56e0a1bea23c5caf180a4df1488142de09c6146031a82d3c2555bdc52ac31640"
+      }
+    ]
+  }
+]

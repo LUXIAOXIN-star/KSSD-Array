@@ -211,7 +211,7 @@ The [saved records](../benchmark_results/supplementary_s3_4_repetitive_words/REA
 cover yeast S288C R64 and Arabidopsis TAIR10.1, k=21, w=20 and a high-copy
 threshold greater than 50. Frequency counting uses every reference FASTA
 record, including organelles; the reported mixed-window denominators use
-nuclear records only. The [reproduction notes](../reproducibility/supplementary_s3_4_repetitive_words/README.md) identify the historical workflow and external reference requirements. Per-record counts and denominators are retained in the result directory; they are not timing repeats. The standalone counting program is not distributed.
+nuclear records only. The [reproduction workflow](../reproducibility/supplementary_s3_4_repetitive_words/README.md) provides the historical counting source and a primary-condition runner using exact external references. Per-record counts and denominators are retained in the result directory; they are not timing repeats.
 
 ## Controlled Alu placement — Supplementary Table S9
 

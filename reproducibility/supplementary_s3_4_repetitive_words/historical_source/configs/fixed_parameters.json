@@ -1,0 +1,11 @@
+{
+  "generation_seed": 42,
+  "salt": "13679457532755275413",
+  "multiplier_odd": "2949826092126892291",
+  "offset": "5139283748462763858",
+  "salt_hex": "0xbdd732262feb6e95",
+  "multiplier_hex": "0x28efe333b266f103",
+  "offset_hex": "0x47526757130f9f52",
+  "k21_salt_hex": "0x2262feb6e95",
+  "k21_multiplier_hex": "0x333b266f103"
+}

@@ -1,0 +1,62 @@
+{
+  "created_utc": "2026-09-30T07:53:02.658792+00:00",
+  "purpose": "Single frozen hash configuration comparison; not min-wise-family probability estimation.",
+  "commit": "ccdff2711e648911f4fefee00581b836b7bb1c81",
+  "selection_of_configuration": "Repository default seed 42; not selected by screening results. Legacy seed has occurred in earlier experiments. This is not an externally preregistered study.",
+  "k": 21,
+  "primary_w": 20,
+  "sensitivity_w": [
+    10,
+    50
+  ],
+  "configuration_seed": 42,
+  "rng": "production SplitMix64",
+  "canonicalization": "min(forward,reverse complement)",
+  "tie_rule": "leftmost",
+  "fasta_handling": "Reset at non-ACGT and every record boundary; uppercase/lowercase equivalent; circular wraparound excluded.",
+  "frequency_scope": "all records of each uploaded assembly including organelles, independently counted before selection",
+  "reported_strata": [
+    "nuclear",
+    "organellar",
+    "all"
+  ],
+  "thresholds": [
+    1,
+    10,
+    50,
+    100
+  ],
+  "principal_display_threshold": 50,
+  "assessment_window": "equal to sampling w; compare methods only within same w",
+  "methods_primary": [
+    "kssd_repo",
+    "xor",
+    "mul",
+    "mul64",
+    "affine",
+    "affine64",
+    "salted_mul",
+    "salted_mul64",
+    "mix64",
+    "minimap_hash",
+    "identity"
+  ],
+  "methods_sensitivity": [
+    "kssd_repo",
+    "xor",
+    "mul",
+    "mul64",
+    "salted_mul64"
+  ],
+  "new_code": "frozen table serialization/loading and fixed-parameter wrapper; production generation and score code unchanged",
+  "input_files": [
+    "GCF_000146045.2_R64_genomic.fna.gz",
+    "GCF_000001735.4_TAIR10.1_genomic.fna.gz"
+  ],
+  "not_claimed": [
+    "min-wise probability estimates from one fixed window",
+    "new production hash code",
+    "optimized runtime benchmark",
+    "alignment sensitivity or false-positive rate"
+  ]
+}
